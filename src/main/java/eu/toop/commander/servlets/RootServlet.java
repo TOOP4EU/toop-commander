@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author yerlibilgin
  */
 public class RootServlet extends HttpServlet {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ToDpServlet.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(RootServlet.class);
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
