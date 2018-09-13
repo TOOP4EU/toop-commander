@@ -1,6 +1,7 @@
 # toop-commander
 
-A simple java command line app that creates a dp and dc endpoint for receiving messages from the connector. It also provides means for sending toop requests from command line. 
+A simple java command line app (with auto complete) that creates a dp and dc endpoint for receiving messages from the connector. It also provides means for sending toop requests from command line. 
+
 # Workflow
 
 To compile the entire project, run "mvn verify".
@@ -26,26 +27,44 @@ type `help` for description of possible commands.
 **Commands:**
 ```
 1. help                     print help message
-2. send-dc-request   file   Send the request  file to the configured connectors /from-dc endpoint
-3. send-dp-response  file   Send the response file to the configured connectors /from-dp endpoint
-4. quit                     exit toop-commander
+2. cat                      print contents of a file
+3. send-dc-request   file   Send the request  file to the configured connectors /from-dc endpoint
+4. send-dp-response  file   Send the response file to the configured connectors /from-dp endpoint
+5. quit                     exit toop-commander
 ```
+
+all the commands can be auto completed with `tab`. Also the commands `cat`, `send-d..` support file name completion with tab.
 
 ## Sending dc request to the toop-connector
 
-In the command line interface type `send-dc-request FILE_NAME` , where `FILE_NAME` points to an absolute or relative roop request xml file.
+In the command line interface type `send-dc-request FILE_NAME` , where `FILE_NAME` points to an absolute or relative roop request xml or asic file.
 
 example:
 ```
-toop-commander> send-dc-request request_last.xml
+toop-commander> send-dc-request request/TOOPRequest
+toop-commander> send-dc-request request/request_last.asic
 ```
 
-## Sending dp responce to the toop-connector
+if the file is an asic, toop-commander will send it directly. For an xml file, it will try to unmarshall the xml to a `eu.toop.commons.dataexchange.TDETOOPRequestType` and create an asic with the provided keys and then send the asic to the connector. 
 
-In the command line interface type `send-dp-response FILE_NAME` , where `FILE_NAME` points to an absolute or relative roop request xml file.
+## Sending dp response to the toop-connector
+
+In the command line interface type `send-dp-response FILE_NAME` , where `FILE_NAME` points to an absolute or relative roop request xml or asic file.
 
 example:
 ```
-toop-commander> send-dp-response response_last.xml
+toop-commander> send-dp-response response/TOOPResponse
+toop-commander> send-dp-response response/response_last.asic
 ```
+
+#Configuration
+When you run toop-commander, you need to provide a key store and `toop-commander.conf` file. These files are already in the repository. You can use them as an example and then modify them.
+
+`toop-commander.conf` is a `HOCON` configuration file. (See https://github.com/lightbend/config/blob/master/HOCON.md) 
+
+The configuration keys in the `toop-commander.conf` are all commented and you shouldn't have a problem understaing it.
+
+
+
+
 

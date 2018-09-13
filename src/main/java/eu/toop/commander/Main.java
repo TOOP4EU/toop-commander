@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,34 +72,15 @@ public class Main {
 
     Completers.FileNameCompleter fileCompleter = new Completers.FileNameCompleter();
 
-    FileOutputStream jlineLog = new FileOutputStream("output.txt");
-
     Completer completer = new ArgumentCompleter(
-        new StringsCompleter("help", "send-dc-request", "send-dp-response", "quit"),
+        new StringsCompleter("help", "send-dc-request", "send-dp-response", "quit", "cat"),
         (reader, line, candidates) -> {
-
-          try {
-            jlineLog.write(("[LINE: " + line.line() + "]\n").getBytes());
-            jlineLog.write(("[WORD: " + line.word() + "]\n").getBytes());
-            jlineLog.write(("[WORDINDEX: " + line.wordIndex() + "]\n").getBytes());
-            jlineLog.write(("[CURSOR: " + line.cursor() + "]\n").getBytes());
-            jlineLog.write(("[WORDCURSOR: " + line.wordCursor() + "]\n").getBytes());
-
-            for(String words : line.words()){
-              jlineLog.write(("\t\tWORD: [" + words + "]\n").getBytes());
-            }
-            jlineLog.write(("-----------\n").getBytes());
-            jlineLog.flush();
-          } catch (IOException e) { }
-
-
           if (line.wordIndex() != 1)
             return;
 
           String command = line.words().get(0);
-          if (command.equals("send-dc-request") || command.equals("send-dp-request"))
+          if (command.equals("send-dc-request") || command.equals("send-dp-response") || command.equals("cat"))
             fileCompleter.complete(reader, line, candidates);
-
         });
 
     Parser parser = null;
@@ -131,6 +113,15 @@ public class Main {
               case "help":
                 printHelpMessage();
                 break;
+
+              case "cat": {
+                if (commands.size() != 2)
+                  throw new IllegalArgumentException("Invalid command");
+
+                String file = commands.get(1);
+                printFile(file);
+              }
+              break;
 
               case "send-dc-request": {
                 if (commands.size() != 2)
@@ -177,6 +168,24 @@ public class Main {
 
   }
 
+  /**
+   * <code>cat</code> the file
+   *
+   * @param file
+   */
+  private static void printFile(String file) {
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+
+      String line;
+
+      while ((line = br.readLine()) != null) {
+        System.out.println(line); //don't use logger for this. no need
+      }
+    } catch (Exception ex) {
+      LOGGER.error(ex.getClass().getSimpleName() + ": " + ex.getMessage());
+    }
+  }
+
   private static void quit(Server server) throws Exception {
     LOGGER.info("Stopping the server");
     server.stop();
@@ -188,6 +197,7 @@ public class Main {
   private static void printHelpMessage() {
     LOGGER.debug("Commands:");
     LOGGER.debug("  help                     print help message");
+    LOGGER.debug("  cat                      print contents of a file");
     LOGGER.debug("  send-dc-request   file   Send the request  file to the configured connectors /from-dc endpoint");
     LOGGER.debug("  send-dp-response  file   Send the response file to the configured connectors /from-dp endpoint");
     LOGGER.debug("  quit                     exit toop-commander");

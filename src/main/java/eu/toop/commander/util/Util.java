@@ -1,9 +1,6 @@
 package eu.toop.commander.util;
 
-import com.helger.commons.io.stream.StreamHelper;
-
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Util {
   public static byte[] sha256(byte[] data) {
@@ -14,5 +11,24 @@ public class Util {
     }
 
 
+  }
+
+  /**
+   * Check if the first bytes of <code>src</code> match <code>probe</code>
+   *
+   * @param src
+   * @param probe
+   * @return
+   */
+  public static boolean matchHeader(byte[] src, byte[] probe) {
+    if (src == null || probe == null || src.length < probe.length)
+      return false;
+
+    for (int i = 0; i < probe.length; ++i) {
+      if (src[i] != probe[i])
+        return false;
+    }
+
+    return true;
   }
 }
