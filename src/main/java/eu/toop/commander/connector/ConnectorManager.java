@@ -14,9 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
+import java.io.*;
+import java.nio.file.Files;
 
 public class ConnectorManager {
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
@@ -27,15 +26,71 @@ public class ConnectorManager {
       CommanderConfig.getKeyAlias(),
       CommanderConfig.getKeyPassword());
 
+  public static final String CONNECTOR_FROM_DCURL = CommanderConfig.getConnectorFromDCURL();
+  public static final String CONNECTOR_FROM_DPURL = CommanderConfig.getConnectorFromDPURL();
+
 
   public static void sendDCRequest(String file) {
     LOGGER.info("Send DC request ");
-    new ToopRequestMarshaller().sendMessage(file, CommanderConfig.getConnectorFromDCURL());
+    new ToopRequestMarshaller().sendMessage(file, CONNECTOR_FROM_DCURL);
   }
 
   public static void sendDPResponse(String file) {
     LOGGER.info("Send DP response ");
-    new ToopResponseMarshaller().sendMessage(file, CommanderConfig.getConnectorFromDPURL());
+    new ToopResponseMarshaller().sendMessage(file, CONNECTOR_FROM_DPURL);
+  }
+
+
+  //Create a DP response from scratch and send it
+  public static void sendDPResponse(String identifier, String country, String metadataFile) {
+    LOGGER.info("Send DP Response Identifier: " + identifier + " Country: " + country + " metadata file: " + metadataFile);
+
+    TDETOOPResponseType tdetoopResponseType = ToopMessageCreator.createDPResponse(identifier, country, metadataFile);
+
+    //log the last request to file
+    try {
+      Files.write(new File("last_response.xml").toPath(), ToopMessageCreator.serializeResponse(tdetoopResponseType));
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try {
+      LOGGER.debug("Create asic");
+      ToopMessageBuilder.createResponseMessage(tdetoopResponseType, baos, signatureHelper);
+      LOGGER.debug("Send the response to " + CONNECTOR_FROM_DPURL);
+      HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, baos.toByteArray());
+    } catch (IOException e) {
+      throw new IllegalStateException(e.getMessage(), e);
+    }
+  }
+
+
+  //Create a DC request from scratch and send it
+  public static void sendDCRequest(String identifier, String country, String metadataFile) {
+    LOGGER.info("Send DC Request Identifier: " + identifier + " Country: " + country + " metadata file: " + metadataFile);
+
+
+    TDETOOPRequestType tdetoopRequestType = ToopMessageCreator.createDCRequest(identifier, country, metadataFile);
+
+    //log the last request to file
+    try {
+      Files.write(new File("last_request.xml").toPath(), ToopMessageCreator.serializeRequest(tdetoopRequestType));
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try {
+      LOGGER.debug("Create asic");
+      ToopMessageBuilder.createRequestMessage(tdetoopRequestType, baos, signatureHelper);
+      LOGGER.debug("Send the request to " + CONNECTOR_FROM_DCURL);
+      byte[] aDataToSend = baos.toByteArray();
+      HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DCURL, aDataToSend);
+    } catch (IOException e) {
+      throw new IllegalStateException(e.getMessage(), e);
+    }
+
   }
 
 
@@ -58,7 +113,7 @@ public class ConnectorManager {
         } else {
           byte[] asic = convertToAsic(allBytes);
 
-          HttpClientInvoker.httpClientCallNoResponse(CommanderConfig.getConnectorFromDPURL(), asic);
+          HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, asic);
         }
       } catch (Exception ex) {
         LOGGER.error(ex.getMessage(), ex);

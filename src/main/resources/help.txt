@@ -1,0 +1,29 @@
+Commands:
+  help                         print help message
+
+  cat                          print contents of a file
+
+  send-dc-request   -f <request file>
+                               Send the request  file (asic or xml) to the configured connectors /from-dc endpoint
+
+  send-dp-response  -f <response file>
+                               Send the response file (asic or xml) to the configured connectors /from-dp endpoint
+
+  send-dc-request -new -i <Data Subject Identifier> -c <Data Subject Country> -m <metadata file>
+                               Create a new toop request message using the provided data and send it to the /from-dc endpoint
+                               if the options -i and -c are provided, then they override the DataSubjectIdentifier
+                               and DataSubjectCountry values in the metadata file.
+                               The option '-m' is optional and if it is absent, the default metadata.txt file
+                               is used.
+                               For the details of the metadata file, please read the README.
+
+  send-dp-response -new -i <Data Subject Identifier> -c <Data Subject Country> -m <metadata file>
+                               Create a new toop response message using the provided data and send it to the /from-dp endpoint
+                               if the options -i and -c are provided, then they override the DataSubjectIdentifier
+                               and DataSubjectCountry values in the metadata file.
+                               The option '-m' is optional and if it is absent, the default metadata.txt file
+                               is used.
+                               For the details of the metadata file, please read the README.
+
+
+  quit                         exit toop-commander
