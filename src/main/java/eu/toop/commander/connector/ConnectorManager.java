@@ -40,16 +40,12 @@ public class ConnectorManager {
     new ToopResponseMarshaller().sendMessage(file, CONNECTOR_FROM_DPURL);
   }
 
-
-  //Create a DP response from scratch and send it
-  public static void sendDPResponse(String identifier, String country, String metadataFile) {
-    LOGGER.info("Send DP Response Identifier: " + identifier + " Country: " + country + " metadata file: " + metadataFile);
-
-    TDETOOPResponseType tdetoopResponseType = ToopMessageCreator.createDPResponse(identifier, country, metadataFile);
+  public static void sendDPResponse(final TDETOOPResponseType tdeToopResponseType) {
+    LOGGER.info("Send DP response ");
 
     //log the last request to file
     try {
-      Files.write(new File("last_response.xml").toPath(), ToopMessageCreator.serializeResponse(tdetoopResponseType));
+      Files.write(new File("logs/last_response.xml").toPath(), ToopMessageCreator.serializeResponse(tdeToopResponseType));
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
@@ -57,12 +53,22 @@ public class ConnectorManager {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       LOGGER.debug("Create asic");
-      ToopMessageBuilder.createResponseMessage(tdetoopResponseType, baos, signatureHelper);
+      ToopMessageBuilder.createResponseMessage(tdeToopResponseType, baos, signatureHelper);
       LOGGER.debug("Send the response to " + CONNECTOR_FROM_DPURL);
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, baos.toByteArray());
     } catch (IOException e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
+  }
+
+
+  //Create a DP response from scratch and send it
+  public static void sendDPResponse(String identifier, String country, String metadataFile) {
+    LOGGER.info("Send DP Response Identifier: " + identifier + " Country: " + country + " metadata file: " + metadataFile);
+
+    TDETOOPResponseType tdetoopResponseType = ToopMessageCreator.createDPResponse(identifier, country, metadataFile);
+
+    sendDPResponse(tdetoopResponseType);
   }
 
 
@@ -75,7 +81,7 @@ public class ConnectorManager {
 
     //log the last request to file
     try {
-      Files.write(new File("last_request.xml").toPath(), ToopMessageCreator.serializeRequest(tdetoopRequestType));
+      Files.write(new File("logs/last_request.xml").toPath(), ToopMessageCreator.serializeRequest(tdetoopRequestType));
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
