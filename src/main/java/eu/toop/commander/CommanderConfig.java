@@ -23,6 +23,12 @@ public class CommanderConfig {
   private static final String fromDCURL;
   private static final String fromDPURL;
 
+  private static final String dataProviderSchemeId;
+  private static final String dataProviderIdentifier;
+  private static final String dataProviderName;
+  private static final String dataProviderElectronicAddressIdentifier;
+  private static final String dataProviderCountryCode;
+
   static {
     ConfigParseOptions opt = ConfigParseOptions.defaults();
     opt.setSyntax(ConfigSyntax.CONF);
@@ -39,6 +45,12 @@ public class CommanderConfig {
 
     fromDCURL = conf.getString("toop-commander.connector.from-dc-url");
     fromDPURL = conf.getString("toop-commander.connector.from-dp-url");
+
+    dataProviderSchemeId = conf.getString("toop-commander.dataProvider.schemeId");
+    dataProviderIdentifier = conf.getString("toop-commander.dataProvider.identifier");
+    dataProviderName = conf.getString("toop-commander.dataProvider.name");
+    dataProviderElectronicAddressIdentifier = conf.getString("toop-commander.dataProvider.electronicAddressIdentifier");
+    dataProviderCountryCode = conf.getString("toop-commander.dataProvider.countryCode");
   }
 
 
@@ -76,5 +88,30 @@ public class CommanderConfig {
 
   public static String getKeyPassword() {
     return keyPassword;
+  }
+
+  public static String getDataProviderSchemeId () {
+
+    return dataProviderSchemeId;
+  }
+
+  public static String getDataProviderIdentifier () {
+
+    return dataProviderIdentifier;
+  }
+
+  public static String getDataProviderName () {
+
+    return dataProviderName;
+  }
+
+  public static String getDataProviderElectronicAddressIdentifier () {
+
+    return dataProviderElectronicAddressIdentifier;
+  }
+
+  public static String getDataProviderCountryCode () {
+
+    return dataProviderCountryCode;
   }
 }

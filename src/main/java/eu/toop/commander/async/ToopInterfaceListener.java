@@ -1,5 +1,6 @@
 package eu.toop.commander.async;
 
+import eu.toop.commander.CommanderConfig;
 import eu.toop.commander.connector.ConnectorManager;
 import eu.toop.commons.dataexchange.TDEAddressType;
 import eu.toop.commons.dataexchange.TDEDataProviderType;
@@ -32,11 +33,11 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
 
     // Required for response
     final TDEDataProviderType p = new TDEDataProviderType ();
-    p.setDPIdentifier (ToopXSDHelper.createIdentifier ("iso6523-actorid-upis", "9999:test-dp"));
-    p.setDPName (ToopXSDHelper.createText ("test-dp"));
-    p.setDPElectronicAddressIdentifier (ToopXSDHelper.createIdentifier ("test-dp@register.example.org"));
+    p.setDPIdentifier (ToopXSDHelper.createIdentifier (CommanderConfig.getDataProviderSchemeId (), CommanderConfig.getDataProviderIdentifier ()));
+    p.setDPName (ToopXSDHelper.createText (CommanderConfig.getDataProviderName ()));
+    p.setDPElectronicAddressIdentifier (ToopXSDHelper.createIdentifier (CommanderConfig.getDataProviderElectronicAddressIdentifier ()));
     final TDEAddressType pa = new TDEAddressType ();
-    pa.setCountryCode (ToopXSDHelper.createCode ("XX"));
+    pa.setCountryCode (ToopXSDHelper.createCode (CommanderConfig.getDataProviderCountryCode ()));
     p.setDPLegalAddress (pa);
     aResponse.setDataProvider (p);
 
