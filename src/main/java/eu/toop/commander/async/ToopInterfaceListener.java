@@ -24,5 +24,8 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
     LOGGER.debug("Received a Toop Request");
     LOGGER.debug(aRequest.toString());
 
+
+    //TODO: process request and create a response for it
+
   }
 }

@@ -15,8 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DCDPCommandProcessor {
-  private static final Logger LOGGER = LoggerFactory.getLogger(DCDPCommandProcessor.class);
+public class DCDPCommandHandler {
+  private static final Logger LOGGER = LoggerFactory.getLogger(DCDPCommandHandler.class);
 
   private static String helpMessage;
 

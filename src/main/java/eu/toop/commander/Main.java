@@ -8,12 +8,10 @@ import eu.toop.iface.servlet.ToDCServlet;
 import eu.toop.iface.servlet.ToDPServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
-import org.jline.builtins.Completers;
 import org.jline.reader.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,7 +70,7 @@ public class Main {
           if (commands != null && commands.size() > 0) {
             switch (commands.get(0)) {
               case "help":
-                DCDPCommandProcessor.printHelpMessage();
+                DCDPCommandHandler.printHelpMessage();
                 break;
 
               case "cat": {
@@ -80,7 +78,7 @@ public class Main {
                   String file = commands.get(i).trim();
                   if (!file.isEmpty()) {
                     System.out.println("Contents of " + file + ":\n");
-                    DCDPCommandProcessor.printFile(file);
+                    DCDPCommandHandler.printFile(file);
                   }
                 }
               }
@@ -89,19 +87,19 @@ public class Main {
 
               case "send-dc-request":
               case "send-dp-response":
-                DCDPCommandProcessor.processDCDPCommand(commands);
+                DCDPCommandHandler.processDCDPCommand(commands);
                 break;
 
               case "quit":
-                DCDPCommandProcessor.quit(server);
+                DCDPCommandHandler.quit(server);
                 break;
 
               default:
-                DCDPCommandProcessor.printHelpMessage();
+                DCDPCommandHandler.printHelpMessage();
                 break;
             }
           } else {
-            DCDPCommandProcessor.printHelpMessage();
+            DCDPCommandHandler.printHelpMessage();
           }
         } catch (Exception ex) {
           LOGGER.error(ex.getClass() + ": " + ex.getMessage());
@@ -110,7 +108,7 @@ public class Main {
         }
       }
     } catch (UserInterruptException ex) {
-      DCDPCommandProcessor.quit(server);
+      DCDPCommandHandler.quit(server);
     }
 
   }
