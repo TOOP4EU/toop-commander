@@ -1,13 +1,9 @@
 package eu.toop.commander.async;
 
-import eu.toop.commander.CommanderConfig;
-import eu.toop.commander.connector.ConnectorManager;
-import eu.toop.commander.connector.ToopMessageCreator;
-import eu.toop.commons.dataexchange.TDEAddressType;
-import eu.toop.commons.dataexchange.TDEDataProviderType;
+import eu.toop.commander.ConnectorManager;
+import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
-import eu.toop.commons.jaxb.ToopXSDHelper;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
 import org.slf4j.Logger;

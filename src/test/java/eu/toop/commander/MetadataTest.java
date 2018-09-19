@@ -1,7 +1,6 @@
-package eu.toop.commander.async;
+package eu.toop.commander;
 
 import com.typesafe.config.Config;
-import eu.toop.commander.connector.ToopMessageCreator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

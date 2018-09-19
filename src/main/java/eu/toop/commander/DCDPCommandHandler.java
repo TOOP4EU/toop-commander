@@ -2,7 +2,6 @@ package eu.toop.commander;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
-import eu.toop.commander.connector.ConnectorManager;
 import org.eclipse.jetty.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

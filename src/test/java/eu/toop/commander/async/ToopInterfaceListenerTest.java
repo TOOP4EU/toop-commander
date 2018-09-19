@@ -1,10 +1,8 @@
 package eu.toop.commander.async;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.typesafe.config.Config;
-import eu.toop.commander.connector.ToopMessageCreator;
+import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
@@ -35,7 +33,7 @@ public class ToopInterfaceListenerTest {
   static void initAll() throws Exception {
 
     server.setHandler(servletHandler);
-    servletHandler.addServletWithMapping(FromDPServlet.class, "/from-dp");
+    servletHandler.addServletWithMapping(FromDPServlet2.class, "/from-dp");
     server.start ();
   }
 
@@ -69,9 +67,9 @@ public class ToopInterfaceListenerTest {
    * A servlet that mocks the TOOP-Connector's '/from-dp'-endpoint
    */
   @WebServlet ("/from-dp")
-  public static class FromDPServlet extends HttpServlet {
+  public static class FromDPServlet2 extends HttpServlet {
 
-    private static final Logger s_aLogger = LoggerFactory.getLogger (eu.toop.commander.async.FromDPServlet.class);
+    private static final Logger s_aLogger = LoggerFactory.getLogger (FromDPServlet2.class);
 
     @Override
     protected void doPost (@Nonnull final HttpServletRequest aHttpServletRequest,

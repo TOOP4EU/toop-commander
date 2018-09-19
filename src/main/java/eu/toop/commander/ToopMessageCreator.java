@@ -1,4 +1,4 @@
-package eu.toop.commander.connector;
+package eu.toop.commander;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

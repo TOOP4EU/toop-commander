@@ -1,10 +1,6 @@
-package eu.toop.commander.async;
+package eu.toop.commander;
 
 import com.typesafe.config.Config;
-import com.typesafe.config.ConfigList;
-import com.typesafe.config.ConfigObject;
-import com.typesafe.config.ConfigValue;
-import eu.toop.commander.connector.ToopMessageCreator;
 import eu.toop.commons.dataexchange.TDEDataElementRequestType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
@@ -12,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +23,7 @@ public class ToopMessageCreatorTest {
   @Test
   void createDCRequestTest() {
 
-    final String metadataFile = "metadata.confs";
+    final String metadataFile = "metadata.conf";
 
     final TDETOOPRequestType aRequest = ToopMessageCreator.createDCRequest (null, null, metadataFile);
 

@@ -1,9 +1,8 @@
-package eu.toop.commander.connector;
+package eu.toop.commander;
 
 import com.helger.asic.SignatureHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.keystore.EKeyStoreType;
-import eu.toop.commander.CommanderConfig;
 import eu.toop.commander.util.Util;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;

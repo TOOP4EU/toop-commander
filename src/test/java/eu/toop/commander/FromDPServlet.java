@@ -1,4 +1,4 @@
-package eu.toop.commander.async;
+package eu.toop.commander;
 
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
