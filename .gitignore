@@ -21,7 +21,6 @@ logs
 *.log
 
 testData
-test
 
 .tchistory
 /.settings/
