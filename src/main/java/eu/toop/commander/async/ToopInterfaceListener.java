@@ -2,6 +2,7 @@ package eu.toop.commander.async;
 
 import eu.toop.commander.CommanderConfig;
 import eu.toop.commander.connector.ConnectorManager;
+import eu.toop.commander.connector.ToopMessageCreator;
 import eu.toop.commons.dataexchange.TDEAddressType;
 import eu.toop.commons.dataexchange.TDEDataProviderType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
@@ -27,19 +28,7 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
   public void onToopRequest(@Nonnull TDETOOPRequestType aRequest) throws IOException {
     LOGGER.debug("Received a Toop Request");
 
-    // Convert the TOOP Request to a TOOP Response
-    final TDETOOPResponseType aResponse = new TDETOOPResponseType ();
-    aRequest.cloneTo (aResponse);
-
-    // Required for response
-    final TDEDataProviderType p = new TDEDataProviderType ();
-    p.setDPIdentifier (ToopXSDHelper.createIdentifier (CommanderConfig.getDataProviderSchemeId (), CommanderConfig.getDataProviderIdentifier ()));
-    p.setDPName (ToopXSDHelper.createText (CommanderConfig.getDataProviderName ()));
-    p.setDPElectronicAddressIdentifier (ToopXSDHelper.createIdentifier (CommanderConfig.getDataProviderElectronicAddressIdentifier ()));
-    final TDEAddressType pa = new TDEAddressType ();
-    pa.setCountryCode (ToopXSDHelper.createCode (CommanderConfig.getDataProviderCountryCode ()));
-    p.setDPLegalAddress (pa);
-    aResponse.setDataProvider (p);
+    final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse (aRequest, "response-metadata.conf");
 
     ConnectorManager.sendDPResponse (aResponse);
   }

@@ -72,17 +72,22 @@ public class ToopMessageCreator {
         EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
   }
 
-  private static String createCountryCode(String country, Config conf) {
-    String destinationCountryCode = conf.getString("ToopMessage.DestinationCountryCode");
+  public static TDETOOPResponseType createDPResponse(TDETOOPRequestType tdeToopRequestType, String metadataFile) {
 
-    if (country != null) {
-      LOGGER.debug("Override default destination country with " + country);
-      destinationCountryCode = country;
-    }
-    return destinationCountryCode;
+    Config conf = parseMetadataFile(metadataFile);
+
+    // Convert the TOOP Request to a TOOP Response
+    final TDETOOPResponseType aResponse = new TDETOOPResponseType ();
+    tdeToopRequestType.cloneTo (aResponse);
+
+    final TDEDataProviderType dataProviderType = new TDEDataProviderType ();
+    fillDataProviderProperties (conf, dataProviderType);
+    aResponse.setDataProvider (dataProviderType);
+
+    return aResponse;
   }
 
-  private static Config parseMetadataFile(String metadataFile) {
+  public static Config parseMetadataFile(String metadataFile) {
     ConfigParseOptions opt = ConfigParseOptions.defaults();
     opt.setSyntax(ConfigSyntax.CONF);
     if (metadataFile == null)
@@ -95,6 +100,16 @@ public class ToopMessageCreator {
       throw new IllegalArgumentException("file " + metadataFile + " not found");
 
     return ConfigFactory.parseFile(file).resolve();
+  }
+
+  private static String createCountryCode(String country, Config conf) {
+    String destinationCountryCode = conf.getString("ToopMessage.DestinationCountryCode");
+
+    if (country != null) {
+      LOGGER.debug("Override default destination country with " + country);
+      destinationCountryCode = country;
+    }
+    return destinationCountryCode;
   }
 
   private static IdentifierType createParticipantId(Config conf) {
@@ -198,6 +213,21 @@ public class ToopMessageCreator {
 
     legalEntity.setLegalEntityLegalAddress(aAddress);
     dataRequestSubjectType.setLegalEntity(legalEntity);
+  }
+
+  private static void fillDataProviderProperties(Config conf, final TDEDataProviderType dataProviderType) {
+    final String schemeId = conf.getString("ToopMessage.DataProvider.schemeId");
+    final String identifier = conf.getString("ToopMessage.DataProvider.identifier");
+    final String name = conf.getString("ToopMessage.DataProvider.name");
+    final String electronicAddressIdentifier = conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier");
+    final String countryCode = conf.getString("ToopMessage.DataProvider.countryCode");
+
+    dataProviderType.setDPIdentifier (ToopXSDHelper.createIdentifier (schemeId, identifier));
+    dataProviderType.setDPName (ToopXSDHelper.createText (name));
+    dataProviderType.setDPElectronicAddressIdentifier (ToopXSDHelper.createIdentifier (electronicAddressIdentifier));
+    final TDEAddressType pa = new TDEAddressType ();
+    pa.setCountryCode (ToopXSDHelper.createCode (countryCode));
+    dataProviderType.setDPLegalAddress (pa);
   }
 
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
