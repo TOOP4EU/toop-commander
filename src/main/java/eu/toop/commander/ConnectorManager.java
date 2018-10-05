@@ -7,6 +7,7 @@ import eu.toop.commander.util.Util;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.jaxb.ToopReader;
 import eu.toop.iface.util.HttpClientInvoker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,11 +134,9 @@ public class ConnectorManager {
     @Override
     protected byte[] convertToAsic(byte[] allBytes) throws Exception {
       //assume that it is xml, and error if not an exception will be logged
-      JAXBContext jaxbContext = JAXBContext.newInstance(TDETOOPResponseType.class);
-      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      TDETOOPResponseType tdetoopResponseType = (TDETOOPResponseType) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(allBytes));
+      TDETOOPResponseType tdetoopResponseType = ToopReader.response().read(allBytes);
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      ToopMessageBuilder.createResponseMessage(tdetoopResponseType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessage(tdetoopResponseType, baos, signatureHelper);
       return baos.toByteArray();
     }
   }
@@ -147,12 +146,11 @@ public class ConnectorManager {
     @Override
     protected byte[] convertToAsic(byte[] allBytes) throws Exception {
       //assume that it is xml, and error if not an exception will be logged
-      JAXBContext jaxbContext = JAXBContext.newInstance(TDETOOPRequestType.class);
-      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      TDETOOPRequestType tdeToopRequestType = (TDETOOPRequestType) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(allBytes));
+      TDETOOPRequestType tdeToopRequestType = ToopReader.request().read(allBytes);
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       ToopMessageBuilder.createRequestMessage(tdeToopRequestType, baos, signatureHelper);
       return baos.toByteArray();
+
     }
   }
 
