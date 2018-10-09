@@ -2,6 +2,7 @@ package eu.toop.commander.async;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import eu.toop.commander.CommanderConfig;
 import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ToopInterfaceListenerTest {
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ToopInterfaceListenerTest.class);
-  private final static Server server = new Server(8081);
+  private final static Server server = new Server(CommanderConfig.getConnectorPort ());
   private final static ServletHandler servletHandler = new ServletHandler();
   private static TDETOOPResponseType aResponseMsg; // Populated by the nested class FromDPServlet upon incoming request
 

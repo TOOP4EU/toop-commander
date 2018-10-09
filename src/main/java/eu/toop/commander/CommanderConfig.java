@@ -20,8 +20,11 @@ public class CommanderConfig {
   private static final String keystorePassword;
   private static final String keyAlias;
   private static final String keyPassword;
+  private static final String connectorHost;
+  private static final int connectorPort;
   private static final String fromDCURL;
   private static final String fromDPURL;
+
 
   static {
     ConfigParseOptions opt = ConfigParseOptions.defaults();
@@ -37,6 +40,8 @@ public class CommanderConfig {
     keyAlias = conf.getString("toop-commander.security.keyAlias");
     keyPassword = conf.getString("toop-commander.security.keyPassword");
 
+    connectorHost = conf.getString("toop-commander.connector.connectorHost");
+    connectorPort = conf.getInt ("toop-commander.connector.connectorPort");
     fromDCURL = conf.getString("toop-commander.connector.from-dc-url");
     fromDPURL = conf.getString("toop-commander.connector.from-dp-url");
   }
@@ -56,6 +61,16 @@ public class CommanderConfig {
 
   public static String getKeyAlias() {
     return keyAlias;
+  }
+
+  public static String getConnectorHost () {
+
+    return connectorHost;
+  }
+
+  public static int getConnectorPort () {
+
+    return connectorPort;
   }
 
   public static String getConnectorFromDCURL() {
