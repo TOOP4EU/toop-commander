@@ -119,7 +119,7 @@ public class ConnectorManager {
         } else {
           byte[] asic = convertToAsic(allBytes);
 
-          HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, asic);
+          HttpClientInvoker.httpClientCallNoResponse(url, asic);
         }
       } catch (Exception ex) {
         LOGGER.error(ex.getMessage(), ex);
