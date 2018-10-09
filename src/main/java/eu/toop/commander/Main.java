@@ -102,7 +102,7 @@ public class Main {
             DCDPCommandHandler.printHelpMessage();
           }
         } catch (Exception ex) {
-          LOGGER.error(ex.getClass() + ": " + ex.getMessage());
+          LOGGER.error(ex.getMessage(), ex);
         } finally {
           Thread.sleep(100);
         }

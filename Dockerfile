@@ -1,12 +1,20 @@
 FROM toop/tomcat-jdk-image:1
 
-ADD target/toop-commander-1.0.0.jar toop-keystore.jks toop-commander.conf /toop-commander/
-ADD target/lib toop-keystore.jks /toop-commander/lib/
-ADD request /toop-commander/request
-ADD response /toop-commander/response
 
-
+RUN mkdir /toop-commander
 
 WORKDIR /toop-commander
+
+ADD target/toop-commander-1.0.0.jar \
+    toop-keystore.jks \
+    toop-commander.conf \
+    metadata.conf \
+    README.md \
+    response-metadata.conf \
+    ./
+ADD target/lib ./lib/ 
+ADD request ./samplerequest
+ADD response ./sampleresponse
+
 #run connector setup
 CMD ["java", "-jar", "toop-commander-1.0.0.jar"]

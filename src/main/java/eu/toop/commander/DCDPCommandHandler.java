@@ -51,9 +51,9 @@ public class DCDPCommandHandler {
 
 
       if (isDCRequest) {
-        ConnectorManager.sendDPResponse(identifier, country, metadataFile);
-      } else {
         ConnectorManager.sendDCRequest(identifier, country, metadataFile);
+      } else {
+        ConnectorManager.sendDPResponse(identifier, country, metadataFile);
       }
     }
 
