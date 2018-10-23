@@ -1,21 +1,26 @@
 package eu.toop.commander;
 
-import com.helger.asic.SignatureHelper;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.security.keystore.EKeyStoreType;
-import eu.toop.commander.util.Util;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
-import eu.toop.commons.exchange.ToopMessageBuilder;
-import eu.toop.commons.jaxb.ToopReader;
-import eu.toop.iface.util.HttpClientInvoker;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import java.io.*;
-import java.nio.file.Files;
+import com.helger.asic.SignatureHelper;
+import com.helger.commons.io.stream.StreamHelper;
+import com.helger.security.keystore.EKeyStoreType;
+
+import eu.toop.commander.util.Util;
+import eu.toop.commons.dataexchange.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.error.ToopErrorException;
+import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.jaxb.ToopReader;
+import eu.toop.iface.util.HttpClientInvoker;
 
 public class ConnectorManager {
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
@@ -53,10 +58,10 @@ public class ConnectorManager {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       LOGGER.debug("Create asic");
-      ToopMessageBuilder.createResponseMessage(tdeToopResponseType, baos, signatureHelper);
+      ToopMessageBuilder.createResponseMessageAsic(tdeToopResponseType, baos, signatureHelper);
       LOGGER.debug("Send the response to " + CONNECTOR_FROM_DPURL);
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, baos.toByteArray());
-    } catch (IOException e) {
+    } catch (ToopErrorException | IOException e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
   }
@@ -89,11 +94,11 @@ public class ConnectorManager {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       LOGGER.debug("Create asic");
-      ToopMessageBuilder.createRequestMessage(tdetoopRequestType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessageAsic(tdetoopRequestType, baos, signatureHelper);
       LOGGER.debug("Send the request to " + CONNECTOR_FROM_DCURL);
       byte[] aDataToSend = baos.toByteArray();
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DCURL, aDataToSend);
-    } catch (IOException e) {
+    } catch (ToopErrorException | IOException e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
 
@@ -136,7 +141,7 @@ public class ConnectorManager {
       //assume that it is xml, and error if not an exception will be logged
       TDETOOPResponseType tdetoopResponseType = ToopReader.response().read(allBytes);
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      ToopMessageBuilder.createRequestMessage(tdetoopResponseType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessageAsic(tdetoopResponseType, baos, signatureHelper);
       return baos.toByteArray();
     }
   }
@@ -148,7 +153,7 @@ public class ConnectorManager {
       //assume that it is xml, and error if not an exception will be logged
       TDETOOPRequestType tdeToopRequestType = ToopReader.request().read(allBytes);
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      ToopMessageBuilder.createRequestMessage(tdeToopRequestType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessageAsic(tdeToopRequestType, baos, signatureHelper);
       return baos.toByteArray();
 
     }
