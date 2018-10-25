@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import eu.toop.commander.ConnectorManager;
 import eu.toop.commander.ToopMessageCreator;
-import eu.toop.commons.dataexchange.TDETOOPErrorMessageType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.iface.IToopInterfaceDC;
@@ -22,11 +21,6 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
   public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) throws IOException {
     LOGGER.debug("Received a Toop Response");
     LOGGER.debug(aResponse.toString());
-  }
-
-  public void onToopErrorMessage (TDETOOPErrorMessageType aErrorMessage) throws IOException {
-    LOGGER.debug("Received an Error Message");
-    LOGGER.debug(aErrorMessage.toString());
   }
 
   @Override
