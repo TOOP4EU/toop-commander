@@ -1,11 +1,5 @@
 package eu.toop.commander;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.StreamHelper;
-import org.eclipse.jetty.server.Server;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -13,6 +7,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jetty.server.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelper;
 
 public class DCDPCommandHandler {
   private static final Logger LOGGER = LoggerFactory.getLogger(DCDPCommandHandler.class);
@@ -109,7 +110,7 @@ public class DCDPCommandHandler {
   /**
    * <code>cat</code> the file
    *
-   * @param file
+   * @param file filename to read and print
    */
   public static void printFile(String file) {
     try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {

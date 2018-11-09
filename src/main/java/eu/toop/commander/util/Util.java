@@ -16,9 +16,9 @@ public class Util {
   /**
    * Check if the first bytes of <code>src</code> match <code>probe</code>
    *
-   * @param src
-   * @param probe
-   * @return
+   * @param src byte array
+   * @param probe byte array
+   * @return <code>true</code> if they match, <code>false</code> if not.
    */
   public static boolean matchHeader(byte[] src, byte[] probe) {
     if (src == null || probe == null || src.length < probe.length)
