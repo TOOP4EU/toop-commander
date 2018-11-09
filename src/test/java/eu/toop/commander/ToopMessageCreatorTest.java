@@ -1,17 +1,20 @@
 package eu.toop.commander;
 
-import com.typesafe.config.Config;
-import eu.toop.commons.dataexchange.TDEDataElementRequestType;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.text.SimpleDateFormat;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.SimpleDateFormat;
+import com.typesafe.config.Config;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import eu.toop.commons.dataexchange.TDEDataElementRequestType;
+import eu.toop.commons.dataexchange.TDEDataProviderType;
+import eu.toop.commons.dataexchange.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.TDETOOPResponseType;
 
 /**
  * @author Anton Wiklund
@@ -129,16 +132,19 @@ public class ToopMessageCreatorTest {
 
     assertNotNull (aResponse);
     assertNotNull (aResponse.getDataProvider ());
-    assertNotNull (aResponse.getDataProvider ().getDPIdentifier ());
-    assertNotNull (aResponse.getDataProvider ().getDPName ());
-    assertNotNull (aResponse.getDataProvider ().getDPElectronicAddressIdentifier ());
-    assertNotNull (aResponse.getDataProvider ().getDPLegalAddress ());
-    assertNotNull (aResponse.getDataProvider ().getDPLegalAddress ().getCountryCode ());
+    assertEquals (1, aResponse.getDataProvider ().size ());
+    TDEDataProviderType aDP = aResponse.getDataProviderAtIndex (0);
+    assertNotNull (aDP);
+    assertNotNull (aDP.getDPIdentifier ());
+    assertNotNull (aDP.getDPName ());
+    assertNotNull (aDP.getDPElectronicAddressIdentifier ());
+    assertNotNull (aDP.getDPLegalAddress ());
+    assertNotNull (aDP.getDPLegalAddress ().getCountryCode ());
 
-    assertEquals (aResponse.getDataProvider ().getDPIdentifier ().getSchemeID (), conf.getString("ToopMessage.DataProvider.schemeId"));
-    assertEquals (aResponse.getDataProvider ().getDPIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.identifier"));
-    assertEquals (aResponse.getDataProvider ().getDPName ().getValue (), conf.getString("ToopMessage.DataProvider.name"));
-    assertEquals (aResponse.getDataProvider ().getDPElectronicAddressIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier"));
-    assertEquals (aResponse.getDataProvider ().getDPLegalAddress ().getCountryCode ().getValue (), conf.getString("ToopMessage.DataProvider.countryCode"));
+    assertEquals (aDP.getDPIdentifier ().getSchemeID (), conf.getString("ToopMessage.DataProvider.schemeId"));
+    assertEquals (aDP.getDPIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.identifier"));
+    assertEquals (aDP.getDPName ().getValue (), conf.getString("ToopMessage.DataProvider.name"));
+    assertEquals (aDP.getDPElectronicAddressIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier"));
+    assertEquals (aDP.getDPLegalAddress ().getCountryCode ().getValue (), conf.getString("ToopMessage.DataProvider.countryCode"));
   }
 }
