@@ -1,6 +1,5 @@
 package eu.toop.commander;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,8 +7,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -24,7 +21,6 @@ import com.typesafe.config.ConfigSyntax;
 import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
 import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
 import eu.toop.commons.concept.ConceptValue;
-import eu.toop.commons.dataexchange.ObjectFactory;
 import eu.toop.commons.dataexchange.TDEAddressType;
 import eu.toop.commons.dataexchange.TDEDataProviderType;
 import eu.toop.commons.dataexchange.TDEDataRequestSubjectType;
@@ -33,6 +29,7 @@ import eu.toop.commons.dataexchange.TDENaturalPersonType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.commons.jaxb.ToopXSDHelper;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
@@ -240,37 +237,10 @@ public class ToopMessageCreator {
   }
 
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
-    ObjectFactory objectFactory = new ObjectFactory();
-
-    try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(TDETOOPResponseType.class);
-      Marshaller marshaller = jaxbContext.createMarshaller();
-
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-      marshaller.marshal(objectFactory.createResponse(dpResponse), baos);
-
-
-      return baos.toByteArray();
-    } catch (Exception ex) {
-      throw new IllegalStateException(ex.getMessage(), ex);
-    }
+    return ToopWriter.response ().getAsBytes (dpResponse);
   }
 
   public static byte[] serializeRequest(TDETOOPRequestType dcRequest) {
-    ObjectFactory objectFactory = new ObjectFactory();
-
-    try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(TDETOOPRequestType.class);
-      Marshaller marshaller = jaxbContext.createMarshaller();
-
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-      marshaller.marshal(objectFactory.createRequest(dcRequest), baos);
-
-      return baos.toByteArray();
-    } catch (Exception ex) {
-      throw new IllegalStateException(ex.getMessage(), ex);
-    }
+    return ToopWriter.request ().getAsBytes (dcRequest);
   }
 }
