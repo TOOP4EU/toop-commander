@@ -1,21 +1,41 @@
+/**
+ * Copyright (C) 2018 toop.eu
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package eu.toop.commander;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.asic.SignatureHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.keystore.EKeyStoreType;
+
 import eu.toop.commander.util.Util;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.error.ToopErrorException;
 import eu.toop.commons.exchange.ToopMessageBuilder;
 import eu.toop.commons.jaxb.ToopReader;
 import eu.toop.iface.util.HttpClientInvoker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import java.io.*;
-import java.nio.file.Files;
 
 public class ConnectorManager {
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
@@ -56,7 +76,7 @@ public class ConnectorManager {
       ToopMessageBuilder.createResponseMessageAsic(tdeToopResponseType, baos, signatureHelper);
       LOGGER.debug("Send the response to " + CONNECTOR_FROM_DPURL);
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, baos.toByteArray());
-    } catch (Exception e) {
+    } catch (ToopErrorException | IOException e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
   }
@@ -93,7 +113,7 @@ public class ConnectorManager {
       LOGGER.debug("Send the request to " + CONNECTOR_FROM_DCURL);
       byte[] aDataToSend = baos.toByteArray();
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DCURL, aDataToSend);
-    } catch (Exception e) {
+    } catch (ToopErrorException | IOException e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
 

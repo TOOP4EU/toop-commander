@@ -1,32 +1,54 @@
+/**
+ * Copyright (C) 2018 toop.eu
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package eu.toop.commander;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigParseOptions;
-import com.typesafe.config.ConfigSyntax;
-import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
-import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
-import eu.toop.commons.concept.ConceptValue;
-import eu.toop.commons.dataexchange.*;
-import eu.toop.commons.exchange.ToopMessageBuilder;
-import eu.toop.commons.jaxb.ToopXSDHelper;
-import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
-import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
-import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.TextType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigParseOptions;
+import com.typesafe.config.ConfigSyntax;
+
+import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
+import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
+import eu.toop.commons.concept.ConceptValue;
+import eu.toop.commons.dataexchange.TDEAddressType;
+import eu.toop.commons.dataexchange.TDEDataProviderType;
+import eu.toop.commons.dataexchange.TDEDataRequestSubjectType;
+import eu.toop.commons.dataexchange.TDELegalEntityType;
+import eu.toop.commons.dataexchange.TDENaturalPersonType;
+import eu.toop.commons.dataexchange.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.jaxb.ToopWriter;
+import eu.toop.commons.jaxb.ToopXSDHelper;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.TextType;
 
 public class ToopMessageCreator {
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
@@ -82,7 +104,7 @@ public class ToopMessageCreator {
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
     fillDataProviderProperties(conf, dataProviderType);
     aResponse.setDocumentTypeIdentifier(ToopXSDHelper.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
-    aResponse.setDataProvider(dataProviderType);
+    aResponse.addDataProvider(dataProviderType);
 
     return aResponse;
   }
@@ -231,37 +253,10 @@ public class ToopMessageCreator {
   }
 
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
-    ObjectFactory objectFactory = new ObjectFactory();
-
-    try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(TDETOOPResponseType.class);
-      Marshaller marshaller = jaxbContext.createMarshaller();
-
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-      marshaller.marshal(objectFactory.createResponse(dpResponse), baos);
-
-
-      return baos.toByteArray();
-    } catch (Exception ex) {
-      throw new IllegalStateException(ex.getMessage(), ex);
-    }
+    return ToopWriter.response ().getAsBytes (dpResponse);
   }
 
   public static byte[] serializeRequest(TDETOOPRequestType dcRequest) {
-    ObjectFactory objectFactory = new ObjectFactory();
-
-    try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(TDETOOPRequestType.class);
-      Marshaller marshaller = jaxbContext.createMarshaller();
-
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-      marshaller.marshal(objectFactory.createRequest(dcRequest), baos);
-
-      return baos.toByteArray();
-    } catch (Exception ex) {
-      throw new IllegalStateException(ex.getMessage(), ex);
-    }
+    return ToopWriter.request ().getAsBytes (dcRequest);
   }
 }
