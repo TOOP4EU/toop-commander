@@ -13,8 +13,8 @@ ADD target/toop-commander-1.0.0.jar \
     response-metadata.conf \
     ./
 ADD target/lib ./lib/ 
-ADD request ./samplerequest
-ADD response ./sampleresponse
+ADD samples/request ./samplerequest
+ADD samples/response ./sampleresponse
 
 #run connector setup
 CMD ["java", "-jar", "toop-commander-1.0.0.jar"]

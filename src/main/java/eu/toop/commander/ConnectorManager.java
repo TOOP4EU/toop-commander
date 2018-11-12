@@ -53,10 +53,10 @@ public class ConnectorManager {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       LOGGER.debug("Create asic");
-      ToopMessageBuilder.createResponseMessage(tdeToopResponseType, baos, signatureHelper);
+      ToopMessageBuilder.createResponseMessageAsic(tdeToopResponseType, baos, signatureHelper);
       LOGGER.debug("Send the response to " + CONNECTOR_FROM_DPURL);
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, baos.toByteArray());
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
   }
@@ -89,11 +89,11 @@ public class ConnectorManager {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       LOGGER.debug("Create asic");
-      ToopMessageBuilder.createRequestMessage(tdetoopRequestType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessageAsic(tdetoopRequestType, baos, signatureHelper);
       LOGGER.debug("Send the request to " + CONNECTOR_FROM_DCURL);
       byte[] aDataToSend = baos.toByteArray();
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DCURL, aDataToSend);
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new IllegalStateException(e.getMessage(), e);
     }
 
@@ -119,7 +119,7 @@ public class ConnectorManager {
         } else {
           byte[] asic = convertToAsic(allBytes);
 
-          HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, asic);
+          HttpClientInvoker.httpClientCallNoResponse(url, asic);
         }
       } catch (Exception ex) {
         LOGGER.error(ex.getMessage(), ex);
@@ -136,7 +136,7 @@ public class ConnectorManager {
       //assume that it is xml, and error if not an exception will be logged
       TDETOOPResponseType tdetoopResponseType = ToopReader.response().read(allBytes);
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      ToopMessageBuilder.createRequestMessage(tdetoopResponseType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessageAsic(tdetoopResponseType, baos, signatureHelper);
       return baos.toByteArray();
     }
   }
@@ -148,7 +148,7 @@ public class ConnectorManager {
       //assume that it is xml, and error if not an exception will be logged
       TDETOOPRequestType tdeToopRequestType = ToopReader.request().read(allBytes);
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      ToopMessageBuilder.createRequestMessage(tdeToopRequestType, baos, signatureHelper);
+      ToopMessageBuilder.createRequestMessageAsic(tdeToopRequestType, baos, signatureHelper);
       return baos.toByteArray();
 
     }

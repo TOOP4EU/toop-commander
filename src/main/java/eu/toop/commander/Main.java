@@ -51,15 +51,14 @@ public class Main {
 
     ToopInterfaceListener interfaceListener = new ToopInterfaceListener();
     ToopInterfaceManager.setInterfaceDC(interfaceListener);
+    ToopInterfaceManager.setInterfaceDP(interfaceListener);
 
     LOGGER.info("Starting server");
     server.start();
 
     LOGGER.info("Entering CLI mode");
 
-
     try {
-
       ToopCommanderCli toopCommanderCli = new ToopCommanderCli();
       while (toopCommanderCli.readLine()) {
 

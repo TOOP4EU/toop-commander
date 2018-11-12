@@ -15,7 +15,7 @@
       <DCName>GSCCP ESPD System</DCName>
       <DCElectronicAddressIdentifier schemeID="iso6523-actorid-upis">9999:ESPD-ESIDIS</DCElectronicAddressIdentifier>
       <DCLegalAddress>
-      <CountryCode>GR</CountryCode>
+      <CountryCode>PF</CountryCode>
     </DCLegalAddress>
   </DataConsumer>
   <DataRequestSubject>
@@ -24,7 +24,7 @@
       <LegalPersonUniqueIdentifier>qwerty</LegalPersonUniqueIdentifier>
           <LegalName>MHTSOS</LegalName>
           <LegalEntityLegalAddress>
-        <CountryCode>SV</CountryCode>
+        <CountryCode>GQ</CountryCode>
       </LegalEntityLegalAddress>
     </LegalEntity>
   </DataRequestSubject>

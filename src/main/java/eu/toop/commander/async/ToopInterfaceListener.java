@@ -2,6 +2,7 @@ package eu.toop.commander.async;
 
 import eu.toop.commander.ConnectorManager;
 import eu.toop.commander.ToopMessageCreator;
+import eu.toop.commons.dataexchange.TDETOOPErrorMessageType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.iface.IToopInterfaceDC;
@@ -18,6 +19,12 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
   public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) throws IOException {
     LOGGER.debug("Received a Toop Response");
     LOGGER.debug(aResponse.toString());
+  }
+
+  @Override
+  public void onToopErrorMessage(@Nonnull TDETOOPErrorMessageType aErrorMessage) throws IOException {
+    LOGGER.debug("onToopErrorMessage");
+    LOGGER.debug(aErrorMessage.toString());
   }
 
   @Override

@@ -76,12 +76,13 @@ public class ToopMessageCreator {
     Config conf = parseMetadataFile(metadataFile);
 
     // Convert the TOOP Request to a TOOP Response
-    final TDETOOPResponseType aResponse = new TDETOOPResponseType ();
-    tdeToopRequestType.cloneTo (aResponse);
+    final TDETOOPResponseType aResponse = new TDETOOPResponseType();
+    tdeToopRequestType.cloneTo(aResponse);
 
-    final TDEDataProviderType dataProviderType = new TDEDataProviderType ();
-    fillDataProviderProperties (conf, dataProviderType);
-    aResponse.setDataProvider (dataProviderType);
+    final TDEDataProviderType dataProviderType = new TDEDataProviderType();
+    fillDataProviderProperties(conf, dataProviderType);
+    aResponse.setDocumentTypeIdentifier(ToopXSDHelper.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
+    aResponse.setDataProvider(dataProviderType);
 
     return aResponse;
   }
@@ -221,12 +222,12 @@ public class ToopMessageCreator {
     final String electronicAddressIdentifier = conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier");
     final String countryCode = conf.getString("ToopMessage.DataProvider.countryCode");
 
-    dataProviderType.setDPIdentifier (ToopXSDHelper.createIdentifier (schemeId, identifier));
-    dataProviderType.setDPName (ToopXSDHelper.createText (name));
-    dataProviderType.setDPElectronicAddressIdentifier (ToopXSDHelper.createIdentifier (electronicAddressIdentifier));
-    final TDEAddressType pa = new TDEAddressType ();
-    pa.setCountryCode (ToopXSDHelper.createCode (countryCode));
-    dataProviderType.setDPLegalAddress (pa);
+    dataProviderType.setDPIdentifier(ToopXSDHelper.createIdentifier(schemeId, identifier));
+    dataProviderType.setDPName(ToopXSDHelper.createText(name));
+    dataProviderType.setDPElectronicAddressIdentifier(ToopXSDHelper.createIdentifier(electronicAddressIdentifier));
+    final TDEAddressType pa = new TDEAddressType();
+    pa.setCountryCode(ToopXSDHelper.createCode(countryCode));
+    dataProviderType.setDPLegalAddress(pa);
   }
 
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
