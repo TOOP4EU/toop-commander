@@ -25,3 +25,4 @@ testData
 .tchistory
 /.settings/
 *.tar.gz
+*.orig
