@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Request xmlns="urn:eu:toop:ns:dataexchange-1p10">
+    <DocumentUniversalUniqueIdentifier>9813360d-957c-43ad-877f-973909853924</DocumentUniversalUniqueIdentifier>
+    <DocumentIssueDate>2018-10-08</DocumentIssueDate>
+    <DocumentIssueTime>15:42:00.027</DocumentIssueTime>
+    <CopyIndicator>false</CopyIndicator>
+    <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p10::Request##urn:eu.toop.request.registeredorganization::1.10</DocumentTypeIdentifier>
+    <SpecificationIdentifier>bla</SpecificationIdentifier>
+    <ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.datarequestresponse</ProcessIdentifier>
+    <DataConsumerDocumentIdentifier>DC-ID-17</DataConsumerDocumentIdentifier>
+    <DataRequestIdentifier>bla</DataRequestIdentifier>
+    <DataConsumer>
+        <DCUniqueIdentifier>ATU12345678</DCUniqueIdentifier>
+        <DCName>Helger Enterprises</DCName>
+        <DCElectronicAddressIdentifier schemeID="iso6523-actorid-upis">9999:freedonia-dev</DCElectronicAddressIdentifier>
+        <DCLegalAddress>
+            <CountryCode>AT</CountryCode>
+        </DCLegalAddress>
+    </DataConsumer>
+    <DataRequestSubject>
+        <DataRequestSubjectTypeCode>12345</DataRequestSubjectTypeCode>
+        <LegalEntity>
+            <LegalPersonUniqueIdentifier>GQ/PF/67890</LegalPersonUniqueIdentifier>
+            <LegalName>sampleLegalPersonName</LegalName>
+            <LegalEntityLegalAddress>
+                <CountryCode>GQ</CountryCode>
+            </LegalEntityLegalAddress>
+        </LegalEntity>
+    </DataRequestSubject>
+    <DataRequestAuthorization>
+        <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
+    </DataRequestAuthorization>
+    <DataElementRequest>
+        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <ConceptRequest>
+            <ConceptTypeCode>DC</ConceptTypeCode>
+            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+            <ConceptName>FreedoniaCompanyName</ConceptName>
+        </ConceptRequest>
+    </DataElementRequest>
+</Request>
