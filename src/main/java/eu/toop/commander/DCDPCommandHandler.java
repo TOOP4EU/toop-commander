@@ -75,6 +75,22 @@ public class DCDPCommandHandler {
 
   }
 
+  public static void runTest(List<String> commands) {
+
+    ValueEnforcer.notEmpty(commands, "Empty command list");
+    String command = commands.get(0);
+
+    if (commands.size() < 3)
+      throw new IllegalArgumentException(command + " requires at least 3 arguments");
+
+    String file[] = getOption(commands, "-f", 2);
+
+    if (file != null) {
+
+      ToopTestManager.getInstance ().executeTests (file[1]);
+    }
+  }
+
   private static String[] getOption(List<String> commands, String option, int expectedLength) {
     ValueEnforcer.isGE0(expectedLength, "expected length");
 

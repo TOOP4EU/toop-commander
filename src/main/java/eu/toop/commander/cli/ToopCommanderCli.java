@@ -43,7 +43,7 @@ public class ToopCommanderCli {
     Completer second = new SecondCompleter();
 
     ArgumentCompleter completer = new ArgumentCompleter(
-        new StringsCompleter("help", "send-dc-request", "send-dp-response", "quit", "cat"),
+        new StringsCompleter("help", "send-dc-request", "send-dp-response", "run-test", "quit", "cat"),
         second
     );
 

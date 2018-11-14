@@ -104,6 +104,10 @@ public class Main {
                 DCDPCommandHandler.processDCDPCommand(commands);
                 break;
 
+              case "run-test":
+                DCDPCommandHandler.runTest (commands);
+                break;
+
               case "quit":
                 DCDPCommandHandler.quit(server);
                 break;
