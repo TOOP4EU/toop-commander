@@ -142,7 +142,7 @@ public class ConnectorManager {
           HttpClientInvoker.httpClientCallNoResponse(url, asic);
         }
       } catch (Exception ex) {
-        LOGGER.error(ex.getMessage(), ex);
+        throw new IllegalStateException(ex.getMessage(), ex);
       }
 
     }

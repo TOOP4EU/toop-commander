@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,6 +39,7 @@ public class CommanderConfig {
   private static final int connectorPort;
   private static final String fromDCURL;
   private static final String fromDPURL;
+  private static final long testStepWaitTimeout;
 
 
   static {
@@ -56,9 +57,14 @@ public class CommanderConfig {
     keyPassword = conf.getString("toop-commander.security.keyPassword");
 
     connectorHost = conf.getString("toop-commander.connector.connectorHost");
-    connectorPort = conf.getInt ("toop-commander.connector.connectorPort");
+    connectorPort = conf.getInt("toop-commander.connector.connectorPort");
     fromDCURL = conf.getString("toop-commander.connector.from-dc-url");
     fromDPURL = conf.getString("toop-commander.connector.from-dp-url");
+
+    if (conf.hasPath("toop-commander.test.testStepWaitTimeout"))
+      testStepWaitTimeout = conf.getLong("toop-commander.test.testStepWaitTimeout");
+    else
+      testStepWaitTimeout = 30000l; //default to 30 seconds
   }
 
 
@@ -78,12 +84,12 @@ public class CommanderConfig {
     return keyAlias;
   }
 
-  public static String getConnectorHost () {
+  public static String getConnectorHost() {
 
     return connectorHost;
   }
 
-  public static int getConnectorPort () {
+  public static int getConnectorPort() {
 
     return connectorPort;
   }
@@ -106,5 +112,9 @@ public class CommanderConfig {
 
   public static String getKeyPassword() {
     return keyPassword;
+  }
+
+  public static long getTestStepWaitTimeout() {
+    return testStepWaitTimeout;
   }
 }

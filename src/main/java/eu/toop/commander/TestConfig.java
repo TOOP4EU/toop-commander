@@ -19,9 +19,9 @@ import javax.xml.xpath.XPathFactory;
 public class TestConfig {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TestConfig.class);
-  private List<TestScenario> testScenarioList = new ArrayList<> ();
+  private List<TestScenario> testScenarioList = new ArrayList<>();
 
-  public TestConfig (String configFile) {
+  public TestConfig(String configFile) {
 
     try {
 
@@ -36,8 +36,8 @@ public class TestConfig {
       NodeList testNodeList = (NodeList) xPath.compile("/TestConfig/Test").evaluate(doc, XPathConstants.NODESET);
 
       // Parse each Test
-      for (int i=0; i<testNodeList.getLength (); i++) {
-        Node testNode = testNodeList.item (i);
+      for (int i = 0; i < testNodeList.getLength(); i++) {
+        Node testNode = testNodeList.item(i);
 
         String name = (String) xPath.evaluate("@name", testNode, XPathConstants.STRING);
         String role = (String) xPath.evaluate("Role", testNode, XPathConstants.STRING);
@@ -47,20 +47,20 @@ public class TestConfig {
 
         // Parse expected error code list
         NodeList errorCodeNodeList = (NodeList) xPath.evaluate("SuccessCriteria/ExpectedErrorCodes/ErrorCode", testNode, XPathConstants.NODESET);
-        List<String> expectedErrorCodeList = new ArrayList<> ();
-        for (int j=0; j<errorCodeNodeList.getLength (); j++) {
-          expectedErrorCodeList.add(errorCodeNodeList.item (j).getTextContent ());
+        List<String> expectedErrorCodeList = new ArrayList<>();
+        for (int j = 0; j < errorCodeNodeList.getLength(); j++) {
+          expectedErrorCodeList.add(errorCodeNodeList.item(j).getTextContent());
         }
 
         // Create test scenario
-        TestScenario testScenario = new TestScenario (name,
-            TestScenario.Role.valueOf (role),
+        TestScenario testScenario = new TestScenario(name,
+            TestScenario.Role.valueOf(role),
             requestXMLReference,
             reportTemplateReference,
             summary,
             expectedErrorCodeList);
 
-        testScenarioList.add (testScenario);
+        testScenarioList.add(testScenario);
       }
 
     } catch (Exception e) {
@@ -68,8 +68,7 @@ public class TestConfig {
     }
   }
 
-  public List<TestScenario> getTestScenarioList () {
-
+  public List<TestScenario> getTestScenarioList() {
     return testScenarioList;
   }
 }
