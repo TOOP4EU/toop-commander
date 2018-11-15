@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToopTestManager {
 
@@ -50,18 +52,72 @@ public class ToopTestManager {
 
       //run the test scenario, don't return until its finished!!!! (of course with a timeout)
       TestScenarioManager.runTest(testScenario);
+
     }
+
+    // Generate test summary
+    generateTestsSummary(testConfig);
 
     // restore the original listeners
     ToopInterfaceManager.setInterfaceDC(originalInterfaceDC);
     ToopInterfaceManager.setInterfaceDP(originalInterfaceDP);
   }
 
+  private void generateTestsSummary(TestConfig testConfig) {
+
+    StringBuilder testSummary = new StringBuilder();
+
+    List<TestScenario> successfulTests = new ArrayList<> ();
+    List<TestScenario> failedTests = new ArrayList<> ();
+
+    for (int i = 0; i < testConfig.getTestScenarioList().size(); i++) {
+      final TestScenario testScenario = testConfig.getTestScenarioList().get(i);
+
+      boolean testSuccess = true;
+      for (TestStepContext testStepContext : testScenario.getExecutedTestSteps ()) {
+        if (!testStepContext.isSuccess()) {
+          testSuccess = false;
+        }
+      }
+
+      if (testSuccess) {
+        successfulTests.add (testScenario);
+      } else {
+        failedTests.add (testScenario);
+      }
+    }
+
+    testSummary.append ("\n\n\n");
+    testSummary.append ("Final test summary:\n");
+    testSummary.append (String.format ("  Number of tests: %d\n", testConfig.getTestScenarioList ().size ()));
+    testSummary.append (String.format ("  Number of successful tests: %d\n", successfulTests.size ()));
+    testSummary.append (String.format ("  Number of failed tests: %d\n", failedTests.size ()));
+
+    if (failedTests.size () > 0) {
+      testSummary.append ("\n");
+      testSummary.append ("Failed tests:\n");
+
+      for (TestScenario failedTestScenario : failedTests) {
+
+        testSummary.append (String.format("  Test [%s]: \n", failedTestScenario.getName ()));
+        for (TestStepContext testStepContext : failedTestScenario.getExecutedTestSteps ()) {
+
+          if (!testStepContext.isSuccess ()) {
+
+            testSummary.append (String.format ("    Failure in step [%d]: \"%s\"\n",
+                testStepContext.getTestStep ().stepCode, testStepContext.getResult ()));
+          }
+        }
+      }
+    }
+    LOGGER.info(testSummary.toString ());
+  }
+
   private class ToopTestManagerListener implements IToopInterfaceDC, IToopInterfaceDP {
     @Override
     public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) {
       LOGGER.debug("Received a Toop Response");
-      LOGGER.debug(aResponse.toString());
+      //LOGGER.debug(aResponse.toString());
 
       TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse));
     }

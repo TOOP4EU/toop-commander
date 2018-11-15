@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,8 +36,9 @@ public class TestScenarioManager {
    *
    * @param testScenario
    */
-  public static void runTest(TestScenario testScenario) {
+  public static List<TestStepContext> runTest(TestScenario testScenario) {
     LOGGER.info("Run test for test scenario " + testScenario.getName() + " with role " + testScenario.getRole());
+
     switch (testScenario.getRole()) {
       case DC: {
         //step 1, send a dc request.
@@ -77,6 +79,7 @@ public class TestScenarioManager {
     //TODO: check the array list testScenario.getExecutedTestSteps to compare
     //the executed steps, their success status with respect to the Role (DC, DP, BOTH)
     //you can do it also in the above switch statement
+    return testScenario.getExecutedTestSteps ();
   }
 
   private static TestStepContext executeStep1(TestScenario testScenario) {
