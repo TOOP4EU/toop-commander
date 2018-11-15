@@ -70,6 +70,13 @@ public class TestScenarioManager {
       }
       break;
     }
+
+
+
+
+    //TODO: check the array list testScenario.getExecutedTestSteps to compare
+    //the executed steps, their success status with respect to the Role (DC, DP, BOTH)
+    //you can do it also in the above switch statement
   }
 
   private static TestStepContext executeStep1(TestScenario testScenario) {

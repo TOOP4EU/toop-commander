@@ -60,4 +60,7 @@ public class TestScenario {
     executedTestSteps.add(testStepContext);
   }
 
+  public List<TestStepContext> getExecutedTestSteps() {
+    return executedTestSteps;
+  }
 }
