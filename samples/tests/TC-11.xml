@@ -5,10 +5,10 @@
     <DocumentIssueTime>15:42:00.027</DocumentIssueTime>
     <CopyIndicator>false</CopyIndicator>
     <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p10::Request##urn:eu.toop.request.registeredorganization::1.10</DocumentTypeIdentifier>
-    <SpecificationIdentifier>bla</SpecificationIdentifier>
+    <SpecificationIdentifier>urn:eu:toop:ns:dataexchange-1p10::Request</SpecificationIdentifier>
     <ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.datarequestresponse</ProcessIdentifier>
     <DataConsumerDocumentIdentifier>DC-ID-17</DataConsumerDocumentIdentifier>
-    <DataRequestIdentifier>bla</DataRequestIdentifier>
+    <DataRequestIdentifier>1f17a4fa-a905-4d9c-8191-97d1e7698511</DataRequestIdentifier>
     <DataConsumer>
         <DCUniqueIdentifier>ATU12345678</DCUniqueIdentifier>
         <DCName>Helger Enterprises</DCName>
@@ -18,7 +18,7 @@
         </DCLegalAddress>
     </DataConsumer>
     <DataRequestSubject>
-        <DataRequestSubjectTypeCode>12345</DataRequestSubjectTypeCode>
+        <DataRequestSubjectTypeCode>Natural Person</DataRequestSubjectTypeCode>
         <NaturalPerson>
             <PersonIdentifier>GQ/PF/12345</PersonIdentifier>
             <FamilyName>Stern</FamilyName>
@@ -33,7 +33,7 @@
         <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
     </DataRequestAuthorization>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -42,7 +42,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -51,7 +51,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -60,7 +60,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -69,7 +69,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -78,7 +78,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -87,7 +87,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -96,7 +96,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -106,7 +106,7 @@
     </DataElementRequest>
     <!-- Missing mapping for this concept in SMS (hamster.tno.nl)
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -116,7 +116,7 @@
     </DataElementRequest>
     -->
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -125,7 +125,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -134,7 +134,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -143,7 +143,7 @@
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
-        <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
+        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
