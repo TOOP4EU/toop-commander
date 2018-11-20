@@ -26,3 +26,6 @@ testData
 /.settings/
 *.tar.gz
 *.orig
+
+samples/tests/reports/*
+!samples/tests/reports/.gitkeep
