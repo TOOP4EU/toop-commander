@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ToopTestManager {
@@ -28,7 +29,7 @@ public class ToopTestManager {
 
   }
 
-  public void executeTests(final String testConfigFile) {
+  public void executeTests(final String testConfigFile, final String[] tests) {
 
     //backup the original dc-dp listener for the good old commands
     IToopInterfaceDC originalInterfaceDC = ToopInterfaceManager.getInterfaceDC();
@@ -44,15 +45,16 @@ public class ToopTestManager {
 
     // This is the main loop for all the different test scenarios defined in
     // the test config file.
-    for (int i = 0; i < testConfig.getTestScenarioList().size(); i++) {
-      //start the test
-      final TestScenario testScenario = testConfig.getTestScenarioList().get(i);
+    for (TestScenario testScenario : testConfig.getTestScenarioList ()) {
 
-      LOGGER.info("Running test " + (i + 1) + "/" + testConfig.getTestScenarioList().size() + ": " + testScenario.getName());
+      // If the caller has specified specific test-cases to execute check if
+      // this testScenario is present in the tests argument list.
+      if (tests != null && !Arrays.asList(tests).contains(testScenario.getName ())) {
+        continue; // Test is not specified by the caller, goto next testScenario...
+      }
 
       //run the test scenario, don't return until its finished!!!! (of course with a timeout)
       TestScenarioManager.runTest(testScenario);
-
     }
 
     // Generate test summary
@@ -63,15 +65,26 @@ public class ToopTestManager {
     ToopInterfaceManager.setInterfaceDP(originalInterfaceDP);
   }
 
+  public void executeTests(final String testConfigFile) {
+
+    executeTests(testConfigFile, null);
+  }
+
   private void generateTestsSummary(TestConfig testConfig) {
 
     StringBuilder testSummary = new StringBuilder();
 
     List<TestScenario> successfulTests = new ArrayList<> ();
     List<TestScenario> failedTests = new ArrayList<> ();
+    List<TestScenario> skippedTests = new ArrayList<> ();
 
     for (int i = 0; i < testConfig.getTestScenarioList().size(); i++) {
       final TestScenario testScenario = testConfig.getTestScenarioList().get(i);
+
+      if (testScenario.getExecutedTestSteps ().isEmpty ()) {
+        skippedTests.add (testScenario);
+        continue;
+      }
 
       boolean testSuccess = true;
       for (TestStepContext testStepContext : testScenario.getExecutedTestSteps ()) {
@@ -92,6 +105,7 @@ public class ToopTestManager {
     testSummary.append (String.format ("  Number of tests: %d\n", testConfig.getTestScenarioList ().size ()));
     testSummary.append (String.format ("  Number of successful tests: %d\n", successfulTests.size ()));
     testSummary.append (String.format ("  Number of failed tests: %d\n", failedTests.size ()));
+    testSummary.append (String.format ("  Number of skipped tests: %d\n", skippedTests.size ()));
 
     if (failedTests.size () > 0) {
       testSummary.append ("\n");
@@ -110,6 +124,17 @@ public class ToopTestManager {
         }
       }
     }
+
+    if (skippedTests.size () > 0) {
+
+      testSummary.append ("\n");
+      testSummary.append ("Skipped tests:\n");
+      for (TestScenario skippedTestScenario : skippedTests) {
+
+        testSummary.append (String.format ("  Test [%s]\n", skippedTestScenario.getName ()));
+      }
+    }
+
     LOGGER.info(testSummary.toString ());
   }
 

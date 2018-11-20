@@ -84,10 +84,11 @@ public class DCDPCommandHandler {
       throw new IllegalArgumentException(command + " requires at least 3 arguments");
 
     String file[] = getOption(commands, "-f", 2);
+    String tests[] = getOption(commands, "-t", 2);
 
     if (file != null) {
 
-      ToopTestManager.getInstance ().executeTests (file[1]);
+      ToopTestManager.getInstance ().executeTests (file[1], tests);
     }
   }
 

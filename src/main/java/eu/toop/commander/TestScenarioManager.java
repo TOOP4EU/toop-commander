@@ -3,6 +3,7 @@ package eu.toop.commander;
 import eu.toop.commons.dataexchange.TDEErrorType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.jaxb.ToopWriter;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,6 +151,9 @@ public class TestScenarioManager {
           }
         }
       }
+
+      // Log the response xml
+      LOGGER.info(ToopWriter.response ().getAsString (aResponse));
     } else {
       testStepContext = new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, false, "Couldn't receive response");
     }

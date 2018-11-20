@@ -3,6 +3,12 @@ Commands:
 
   cat                          print contents of a file
 
+  run-test          -f <test config file> -t <test names>
+                               Execute a set of predefined test scenarios
+                               To options '-t' is optional and if absent, all tests present in the test config file will
+                               executed. If '-t' is present, only the specified tests will be executed. Multiple test
+                               names (separated by whitespaces) can be provided with this flag.
+
   send-dc-request   -f <request file>
                                Send the request  file (asic or xml) to the configured connectors /from-dc endpoint
 
