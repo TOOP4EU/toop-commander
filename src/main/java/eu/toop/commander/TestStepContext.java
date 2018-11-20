@@ -23,8 +23,7 @@ public class TestStepContext {
   }
 
   public TestStepContext(TestStep testStep, boolean success) {
-    this.testStep = testStep;
-    this.success = success;
+    this(testStep, success, "N/A");
   }
 
   public TestStepContext(TestStep testStep, boolean success, String result) {

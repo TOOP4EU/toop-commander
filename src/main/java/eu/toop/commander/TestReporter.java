@@ -47,16 +47,28 @@ public class TestReporter {
         htmlString = htmlString.replace("$(DATE)", sdf.format(new Date()));
         htmlString = htmlString.replace("$(SUMMARY)", testScenario.getSummary ());
 
+        String[] status = new String[4];
         String[] results = new String[4];
         for (int i=0; i<TestStep.values ().length; i++) {
+          status[i] = "N/A";
           results[i] = "N/A";
         }
         for (TestStepContext testStep : testScenario.getExecutedTestSteps ()) {
-          results[testStep.getTestStep ().stepCode-1] = testStep.getResult ();
+
+          if (testStep.isSuccess ()) {
+            status[testStep.getTestStep ().stepCode - 1] = "Success";
+          } else {
+            status[testStep.getTestStep ().stepCode - 1] = "Failed";
+          }
+
+          if (testStep.getResult () != null) {
+            results[testStep.getTestStep ().stepCode - 1] = testStep.getResult ();
+          }
         }
         for (int i=0; i<TestStep.values ().length; i++) {
           TestStep testStep = TestStep.values()[i];
-          htmlString = htmlString.replace(String.format ("$(%s)", testStep.name ()), results[i]);
+          htmlString = htmlString.replace(String.format ("$(%s_STATUS)", testStep.name ()), status[i]);
+          htmlString = htmlString.replace(String.format ("$(%s_RESULT)", testStep.name ()), results[i]);
         }
 
         sb.append (htmlString + "<br><br>\n");
