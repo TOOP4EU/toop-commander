@@ -40,7 +40,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ToopInterfaceListenerTest {
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ToopInterfaceListenerTest.class);
   private final static Server server = new Server(CommanderConfig.getConnectorPort ());
   private final static ServletHandler servletHandler = new ServletHandler();
   private static TDETOOPResponseType aResponseMsg; // Populated by the nested class FromDPServlet upon incoming request
