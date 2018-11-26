@@ -15,7 +15,6 @@
  */
 package eu.toop.commander.cli;
 
-import ch.qos.logback.classic.spi.ThrowableProxyVO;
 import org.jline.builtins.Completers;
 import org.jline.reader.*;
 import org.jline.reader.impl.completer.ArgumentCompleter;
