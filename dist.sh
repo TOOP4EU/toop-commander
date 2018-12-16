@@ -1,8 +1,8 @@
 #!/bin/bash
 
-COMMANDER_VERSION=0.9.2
+COMMANDER_VERSION=0.9.3
 
-mvn -DskipTests=true clean verify
+mvn -Dmaven.test.skip=true clean verify
 
 rm -fr toop-commander-${COMMANDER_VERSION}.tar.gz
 

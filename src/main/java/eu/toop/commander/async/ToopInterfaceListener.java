@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,19 +33,19 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopInterfaceListener.class);
 
   @Override
-  public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) throws IOException {
+  public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) {
     LOGGER.debug("Received a Toop Response");
 
     // Log the response xml
-    LOGGER.info(ToopWriter.response ().getAsString (aResponse));
+    LOGGER.info(ToopWriter.response().getAsString(aResponse));
   }
 
   @Override
-  public void onToopRequest(@Nonnull TDETOOPRequestType aRequest) throws IOException {
+  public void onToopRequest(@Nonnull TDETOOPRequestType aRequest) {
     LOGGER.debug("Received a Toop Request");
 
-    final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse (aRequest, "response-metadata.conf");
+    final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse(aRequest, "response-metadata.conf");
 
-    ConnectorManager.sendDPResponse (aResponse);
+    ConnectorManager.sendDPResponse(aResponse);
   }
 }
