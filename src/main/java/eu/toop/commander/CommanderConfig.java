@@ -15,12 +15,12 @@
  */
 package eu.toop.commander;
 
+import java.io.File;
+
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigSyntax;
-
-import java.io.File;
 
 /**
  * @author yerlibilgin

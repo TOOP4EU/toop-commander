@@ -1,15 +1,17 @@
 package eu.toop.commander;
 
+import java.util.Arrays;
+
+import javax.annotation.Nonnull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
 import eu.toop.iface.ToopInterfaceManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.Nonnull;
-import java.util.Arrays;
 
 public class ToopTestManager {
 

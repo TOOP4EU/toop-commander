@@ -15,19 +15,20 @@
  */
 package eu.toop.commander;
 
+import java.util.List;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHandler;
+import org.jline.reader.UserInterruptException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import eu.toop.commander.async.ToopInterfaceListener;
 import eu.toop.commander.cli.ToopCommanderCli;
 import eu.toop.commander.servlets.RootServlet;
 import eu.toop.iface.ToopInterfaceManager;
 import eu.toop.iface.servlet.ToDCServlet;
 import eu.toop.iface.servlet.ToDPServlet;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHandler;
-import org.jline.reader.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * @author yerlibilgin

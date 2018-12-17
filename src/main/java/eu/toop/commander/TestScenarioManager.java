@@ -1,16 +1,17 @@
 package eu.toop.commander;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import eu.toop.commons.dataexchange.TDEErrorType;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.commons.jaxb.ToopWriter;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This class is responsible for running a test scenario with respect to

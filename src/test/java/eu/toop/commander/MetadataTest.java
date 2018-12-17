@@ -15,10 +15,11 @@
  */
 package eu.toop.commander;
 
-import com.typesafe.config.Config;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.typesafe.config.Config;
 
 /**
  * @author Anton Wiklund

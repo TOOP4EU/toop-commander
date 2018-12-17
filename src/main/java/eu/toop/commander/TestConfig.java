@@ -1,14 +1,20 @@
 package eu.toop.commander;
 
-import com.helger.commons.ValueEnforcer;
-import com.typesafe.config.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.ValueEnforcer;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigObject;
+import com.typesafe.config.ConfigParseOptions;
+import com.typesafe.config.ConfigSyntax;
+import com.typesafe.config.ConfigValue;
 
 public class TestConfig {
 

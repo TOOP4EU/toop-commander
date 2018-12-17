@@ -15,10 +15,11 @@
  */
 package eu.toop.commander.util;
 
-import eu.toop.commander.exceptions.ErrorReportingException;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import eu.toop.commander.exceptions.ErrorReportingException;
 
 public class HttpUtils {
   public static void sendError(String errorString, int statusCode, HttpServletResponse resp) {

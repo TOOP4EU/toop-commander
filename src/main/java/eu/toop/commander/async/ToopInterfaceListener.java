@@ -15,6 +15,11 @@
  */
 package eu.toop.commander.async;
 
+import javax.annotation.Nonnull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import eu.toop.commander.ConnectorManager;
 import eu.toop.commander.ToopMessageCreator;
 //import eu.toop.commons.dataexchange.TDETOOPErrorMessageType;
@@ -23,11 +28,6 @@ import eu.toop.commons.dataexchange.TDETOOPResponseType;
 import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.Nonnull;
-import java.io.IOException;
 
 public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP {
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopInterfaceListener.class);

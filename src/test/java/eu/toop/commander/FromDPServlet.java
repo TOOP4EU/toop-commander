@@ -15,10 +15,7 @@
  */
 package eu.toop.commander;
 
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.exchange.ToopMessageBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
 
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
@@ -26,7 +23,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import eu.toop.commons.dataexchange.TDETOOPRequestType;
+import eu.toop.commons.exchange.ToopMessageBuilder;
 
 @WebServlet ("/from-dp")
 public class FromDPServlet extends HttpServlet {

@@ -17,23 +17,29 @@ package eu.toop.commander.async;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import eu.toop.commander.CommanderConfig;
-import eu.toop.commander.ToopMessageCreator;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
-import eu.toop.commons.exchange.ToopMessageBuilder;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletHandler;
-import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.IOException;
+
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHandler;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import eu.toop.commander.CommanderConfig;
+import eu.toop.commander.ToopMessageCreator;
+import eu.toop.commons.dataexchange.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.exchange.ToopMessageBuilder;
 
 /**
  * @author Anton Wiklund

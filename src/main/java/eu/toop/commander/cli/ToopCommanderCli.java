@@ -15,14 +15,6 @@
  */
 package eu.toop.commander.cli;
 
-import org.jline.builtins.Completers;
-import org.jline.reader.*;
-import org.jline.reader.impl.completer.ArgumentCompleter;
-import org.jline.reader.impl.completer.StringsCompleter;
-import org.jline.reader.impl.history.DefaultHistory;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -30,6 +22,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import org.jline.builtins.Completers;
+import org.jline.reader.Candidate;
+import org.jline.reader.Completer;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.MaskingCallback;
+import org.jline.reader.ParsedLine;
+import org.jline.reader.Parser;
+import org.jline.reader.impl.completer.ArgumentCompleter;
+import org.jline.reader.impl.completer.StringsCompleter;
+import org.jline.reader.impl.history.DefaultHistory;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 
 public class ToopCommanderCli {
 

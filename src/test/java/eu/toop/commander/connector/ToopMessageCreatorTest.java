@@ -15,10 +15,11 @@
  */
 package eu.toop.commander.connector;
 
+import org.junit.jupiter.api.Test;
+
 import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.TDETOOPResponseType;
-import org.junit.jupiter.api.Test;
 
 class ToopMessageCreatorTest {
 
