@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
 
 import eu.toop.commander.CommanderConfig;
 import eu.toop.commander.ToopMessageCreator;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
 
 /**

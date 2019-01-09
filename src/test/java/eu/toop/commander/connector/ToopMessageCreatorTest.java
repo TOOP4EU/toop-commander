@@ -18,8 +18,8 @@ package eu.toop.commander.connector;
 import org.junit.jupiter.api.Test;
 
 import eu.toop.commander.ToopMessageCreator;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
 
 class ToopMessageCreatorTest {
 

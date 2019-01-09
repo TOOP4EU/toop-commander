@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
 
 @WebServlet ("/from-dp")

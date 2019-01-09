@@ -7,8 +7,8 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
 import eu.toop.iface.ToopInterfaceManager;

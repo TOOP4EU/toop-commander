@@ -26,10 +26,10 @@ import org.slf4j.LoggerFactory;
 
 import com.typesafe.config.Config;
 
-import eu.toop.commons.dataexchange.TDEDataElementRequestType;
-import eu.toop.commons.dataexchange.TDEDataProviderType;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v120.TDEDataElementRequestType;
+import eu.toop.commons.dataexchange.v120.TDEDataProviderType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
 
 /**
  * @author Anton Wiklund

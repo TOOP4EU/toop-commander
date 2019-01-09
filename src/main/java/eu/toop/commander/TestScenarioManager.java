@@ -7,9 +7,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.toop.commons.dataexchange.TDEErrorType;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v120.TDEErrorType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
 import eu.toop.commons.jaxb.ToopWriter;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
 

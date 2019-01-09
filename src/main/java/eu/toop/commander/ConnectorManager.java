@@ -30,8 +30,8 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.keystore.EKeyStoreType;
 
 import eu.toop.commander.util.Util;
-import eu.toop.commons.dataexchange.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
 import eu.toop.commons.error.ToopErrorException;
 import eu.toop.commons.exchange.ToopMessageBuilder;
 import eu.toop.commons.jaxb.ToopReader;
