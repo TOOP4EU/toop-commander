@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 toop.eu
+ * Copyright (C) 2018-2019 toop.eu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,10 @@ import org.slf4j.LoggerFactory;
 
 import com.typesafe.config.Config;
 
-import eu.toop.commons.dataexchange.v120.TDEDataElementRequestType;
-import eu.toop.commons.dataexchange.v120.TDEDataProviderType;
-import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v140.TDEDataElementRequestType;
+import eu.toop.commons.dataexchange.v140.TDEDataProviderType;
+import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 
 /**
  * @author Anton Wiklund
@@ -64,10 +64,10 @@ public class ToopMessageCreatorTest {
     assertNotNull (aRequest.getDataRequestSubject ().getNaturalPerson().getNaturalPersonLegalAddress().getCountry ());
     assertNotNull (aRequest.getDataRequestSubject ().getNaturalPerson().getNaturalPersonLegalAddress().getCountryCode ());
 
-    assertNotNull (aRequest.getDataRequestSubject ().getLegalEntity());
-    assertNotNull (aRequest.getDataRequestSubject ().getLegalEntity().getLegalEntityIdentifier ());
-    assertNotNull (aRequest.getDataRequestSubject ().getLegalEntity().getLegalName ());
-    assertNotNull (aRequest.getDataRequestSubject ().getLegalEntity().getLegalEntityLegalAddress ());
+    assertNotNull (aRequest.getDataRequestSubject ().getLegalPerson());
+    assertNotNull (aRequest.getDataRequestSubject ().getLegalPerson().getLegalEntityIdentifier ());
+    assertNotNull (aRequest.getDataRequestSubject ().getLegalPerson().getLegalName ());
+    assertNotNull (aRequest.getDataRequestSubject ().getLegalPerson().getLegalPersonLegalAddress ());
 
     assertNotNull (aRequest.getDataElementRequest ());
 
@@ -84,12 +84,12 @@ public class ToopMessageCreatorTest {
     assertEquals(aRequest.getDataRequestSubject ().getNaturalPerson ().getNaturalPersonLegalAddress ().getCountryCode ().getValue (), conf.getString("ToopMessage.NaturalPerson.Address.countryCode"));
     assertEquals(aRequest.getDataRequestSubject ().getNaturalPerson ().getNaturalPersonLegalAddress ().getAddressLineCount (), conf.getList ("ToopMessage.NaturalPerson.Address.addressLines").size());
     assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(aRequest.getDataRequestSubject ()
-        .getNaturalPerson ().getBirthDate ().toGregorianCalendar().getTime()),
+        .getNaturalPerson ().getBirthDate ().getValue ().toGregorianCalendar().getTime()),
         conf.getString("ToopMessage.NaturalPerson.birthDate"));
 
-    assertEquals(aRequest.getDataRequestSubject ().getLegalEntity ().getLegalEntityIdentifier ().getValue (), conf.getString("ToopMessage.LegalPerson.identifier"));
-    assertEquals(aRequest.getDataRequestSubject ().getLegalEntity ().getLegalName ().getValue (), conf.getString("ToopMessage.LegalPerson.name"));
-    assertEquals(aRequest.getDataRequestSubject ().getLegalEntity ().getLegalEntityLegalAddress ().getAddressLineCount (), conf.getList ("ToopMessage.LegalPerson.Address.addressLines").size());
+    assertEquals(aRequest.getDataRequestSubject ().getLegalPerson ().getLegalEntityIdentifier ().getValue (), conf.getString("ToopMessage.LegalPerson.identifier"));
+    assertEquals(aRequest.getDataRequestSubject ().getLegalPerson ().getLegalName ().getValue (), conf.getString("ToopMessage.LegalPerson.name"));
+    assertEquals(aRequest.getDataRequestSubject ().getLegalPerson ().getLegalPersonLegalAddress ().getAddressLineCount (), conf.getList ("ToopMessage.LegalPerson.Address.addressLines").size());
 
     assertEquals(aRequest.getDataElementRequest ().size (), conf.getList ("ToopMessage.Concepts.conceptList").size());
     for (int i=0; i<aRequest.getDataElementRequest ().size(); i++) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 toop.eu
+ * Copyright (C) 2018-2019 toop.eu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.exchange.ToopMessageBuilder;
 
 @WebServlet ("/from-dp")

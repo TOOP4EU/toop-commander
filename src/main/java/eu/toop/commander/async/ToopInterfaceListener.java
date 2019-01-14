@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 toop.eu
+ * Copyright (C) 2018-2019 toop.eu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,8 @@ import org.slf4j.LoggerFactory;
 
 import eu.toop.commander.ConnectorManager;
 import eu.toop.commander.ToopMessageCreator;
-//import eu.toop.commons.dataexchange.TDETOOPErrorMessageType;
-import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;

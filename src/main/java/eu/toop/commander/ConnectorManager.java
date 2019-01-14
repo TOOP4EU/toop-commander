@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 toop.eu
+ * Copyright (C) 2018-2019 toop.eu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.keystore.EKeyStoreType;
 
 import eu.toop.commander.util.Util;
-import eu.toop.commons.dataexchange.v120.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.v120.TDETOOPResponseType;
+import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.error.ToopErrorException;
 import eu.toop.commons.exchange.ToopMessageBuilder;
 import eu.toop.commons.jaxb.ToopReader;
