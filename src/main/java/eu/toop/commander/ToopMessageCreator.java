@@ -68,7 +68,7 @@ public class ToopMessageCreator {
     String destinationCountryCode = createCountryCode(country, conf);
 
     return ToopMessageBuilder.createMockRequest(dataRequestSubjectType, participantID,
-        destinationCountryCode, EPredefinedDocumentTypeIdentifier.REQUEST_REGISTEREDORGANIZATION,
+        EPredefinedDocumentTypeIdentifier.REQUEST_REGISTEREDORGANIZATION,
         EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
   }
 
