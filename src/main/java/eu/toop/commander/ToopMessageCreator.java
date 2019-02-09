@@ -84,10 +84,9 @@ public class ToopMessageCreator {
     fillLegalPersonProperties(conf, dataRequestSubjectType);
     fillConcepts(conf, conceptList);
     IdentifierType participantID = createParticipantId(conf);
-    String destinationCountryCode = createCountryCode(country, conf);
 
-    return ToopMessageBuilder.createMockResponse(participantID,
-        destinationCountryCode, EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION,
+    return ToopMessageBuilder.createMockResponse(participantID,dataRequestSubjectType,
+        EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION,
         EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
   }
 
