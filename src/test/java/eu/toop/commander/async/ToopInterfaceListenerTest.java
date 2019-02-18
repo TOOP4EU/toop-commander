@@ -39,7 +39,7 @@ import eu.toop.commander.CommanderConfig;
 import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
-import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.exchange.ToopMessageBuilder140;
 
 /**
  * @author Anton Wiklund
@@ -100,7 +100,7 @@ public class ToopInterfaceListenerTest {
                            @Nonnull final HttpServletResponse aHttpServletResponse) throws ServletException, IOException {
 
       // Parse ASiC
-      final TDETOOPResponseType aResponseMsg = ToopMessageBuilder.parseResponseMessage (aHttpServletRequest.getInputStream ());
+      final TDETOOPResponseType aResponseMsg = ToopMessageBuilder140.parseResponseMessage (aHttpServletRequest.getInputStream ());
       ToopInterfaceListenerTest.aResponseMsg = aResponseMsg;
 
       if (aResponseMsg == null) {

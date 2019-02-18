@@ -169,7 +169,7 @@ public class TestScenarioManager {
       }
 
       // Log the response xml
-      LOGGER.info(ToopWriter.response ().getAsString (aResponse));
+      LOGGER.info(ToopWriter.response140 ().getAsString (aResponse));
     } else {
       testStepContext = new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, false, "Couldn't receive response");
     }

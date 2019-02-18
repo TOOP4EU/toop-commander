@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
-import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.exchange.ToopMessageBuilder140;
 
 @WebServlet ("/from-dp")
 public class FromDPServlet extends HttpServlet {
@@ -39,7 +39,7 @@ public class FromDPServlet extends HttpServlet {
   protected void doPost (@Nonnull final HttpServletRequest aHttpServletRequest,
                          @Nonnull final HttpServletResponse aHttpServletResponse) throws ServletException, IOException {
       // Parse ASiC
-      final TDETOOPRequestType aRequestMsg = ToopMessageBuilder.parseRequestMessage (aHttpServletRequest.getInputStream ());
+      final TDETOOPRequestType aRequestMsg = ToopMessageBuilder140.parseRequestMessage (aHttpServletRequest.getInputStream ());
       if (aRequestMsg == null) {
         // The message content is invalid
         s_aLogger.error ("The request does not contain an ASiC archive or the ASiC archive does not contain a TOOP Request Message!");

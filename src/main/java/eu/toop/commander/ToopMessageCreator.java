@@ -43,9 +43,9 @@ import eu.toop.commons.dataexchange.v140.TDELegalPersonType;
 import eu.toop.commons.dataexchange.v140.TDENaturalPersonType;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
-import eu.toop.commons.exchange.ToopMessageBuilder;
+import eu.toop.commons.exchange.ToopMessageBuilder140;
 import eu.toop.commons.jaxb.ToopWriter;
-import eu.toop.commons.jaxb.ToopXSDHelper;
+import eu.toop.commons.jaxb.ToopXSDHelper140;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
 
 public class ToopMessageCreator {
@@ -67,7 +67,7 @@ public class ToopMessageCreator {
     IdentifierType participantID = createParticipantId(conf);
     String destinationCountryCode = createCountryCode(country, conf);
 
-    return ToopMessageBuilder.createMockRequest(dataRequestSubjectType, country, country, participantID,
+    return ToopMessageBuilder140.createMockRequest(dataRequestSubjectType, country, country, participantID,
         EPredefinedDocumentTypeIdentifier.REQUEST_REGISTEREDORGANIZATION,
         EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
   }
@@ -85,7 +85,7 @@ public class ToopMessageCreator {
     fillConcepts(conf, conceptList);
     IdentifierType participantID = createParticipantId(conf);
 
-    return ToopMessageBuilder.createMockResponse(participantID,dataRequestSubjectType,country,country,
+    return ToopMessageBuilder140.createMockResponse(participantID,dataRequestSubjectType,country,country,
         EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION,
         EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
   }
@@ -100,7 +100,7 @@ public class ToopMessageCreator {
 
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
     fillDataProviderProperties(conf, dataProviderType);
-    aResponse.getRoutingInformation ().setDocumentTypeIdentifier(ToopXSDHelper.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
+    aResponse.getRoutingInformation ().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
     aResponse.addDataProvider(dataProviderType);
 
     return aResponse;
@@ -135,7 +135,7 @@ public class ToopMessageCreator {
     String schemeId = conf.getString("ToopMessage.SenderParticipantId.schemeId");
     String participandId = conf.getString("ToopMessage.SenderParticipantId.value");
 
-    IdentifierType identifier = ToopXSDHelper.createIdentifier(
+    IdentifierType identifier = ToopXSDHelper140.createIdentifier(
         //scheme id
         schemeId,
         //value
@@ -165,39 +165,39 @@ public class ToopMessageCreator {
       LOGGER.debug("Override natural person identifier with " + identifier);
       naturalPersonIdentifier = identifier;
     }
-    dataRequestSubjectType.setDataRequestSubjectTypeCode(ToopXSDHelper.createCode(dataSubjectTypeCode));
+    dataRequestSubjectType.setDataRequestSubjectTypeCode(ToopXSDHelper140.createCode(dataSubjectTypeCode));
     {
       final String naturalPersonFirstName = conf.getString("ToopMessage.NaturalPerson.firstName");
       final String naturalPersonFamilyName = conf.getString("ToopMessage.NaturalPerson.familyName");
       final String naturalPersonBirthPlace = conf.getString("ToopMessage.NaturalPerson.birthPlace");
       final String naturalPersonNationality = conf.getString("ToopMessage.NaturalPerson.nationality");
       final TDENaturalPersonType naturalPerson = new TDENaturalPersonType();
-      naturalPerson.setPersonIdentifier(ToopXSDHelper.createIdentifierWithLOA(naturalPersonIdentifier));
-      naturalPerson.setFamilyName(ToopXSDHelper.createTextWithLOA(naturalPersonFamilyName));
-      naturalPerson.setFirstName(ToopXSDHelper.createTextWithLOA(naturalPersonFirstName));
+      naturalPerson.setPersonIdentifier(ToopXSDHelper140.createIdentifierWithLOA(naturalPersonIdentifier));
+      naturalPerson.setFamilyName(ToopXSDHelper140.createTextWithLOA(naturalPersonFamilyName));
+      naturalPerson.setFirstName(ToopXSDHelper140.createTextWithLOA(naturalPersonFirstName));
 
       try {
         Date date = sdf.parse(conf.getString("ToopMessage.NaturalPerson.birthDate"));
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(date);
         XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-        naturalPerson.setBirthDate(ToopXSDHelper.createDateWithLOA (date2));
+        naturalPerson.setBirthDate(ToopXSDHelper140.createDateWithLOA (date2));
       } catch (Exception e) {
         throw new IllegalArgumentException(e.getMessage(), e);
       }
 
       final TDEAddressType aAddress = new TDEAddressType();
       // Destination country to use
-      aAddress.setStreetName(ToopXSDHelper.createTextWithLOA (conf.getString("ToopMessage.NaturalPerson.Address.streetName")));
-      aAddress.setStreetNumber(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.streetNumber")));
-      aAddress.setCity(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.city")));
-      aAddress.setPostCode(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.postCode")));
-      aAddress.setCountry(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.country")));
-      aAddress.setCountryCode(ToopXSDHelper.createCodeWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.countryCode")));
+      aAddress.setStreetName(ToopXSDHelper140.createTextWithLOA (conf.getString("ToopMessage.NaturalPerson.Address.streetName")));
+      aAddress.setStreetNumber(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.streetNumber")));
+      aAddress.setCity(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.city")));
+      aAddress.setPostCode(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.postCode")));
+      aAddress.setCountry(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.country")));
+      aAddress.setCountryCode(ToopXSDHelper140.createCodeWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.countryCode")));
       final List<String> addressLines = conf.getStringList("ToopMessage.NaturalPerson.Address.addressLines");
       if (addressLines != null)
         for (String line : addressLines) {
-          aAddress.addAddressLine(ToopXSDHelper.createTextWithLOA(line));
+          aAddress.addAddressLine(ToopXSDHelper140.createTextWithLOA(line));
         }
       naturalPerson.setNaturalPersonLegalAddress(aAddress);
 
@@ -212,22 +212,22 @@ public class ToopMessageCreator {
 
 
     final TDELegalPersonType legalEntity = new TDELegalPersonType();
-    legalEntity.setLegalPersonUniqueIdentifier(ToopXSDHelper.createIdentifierWithLOA(legalPersonIdentifier));
-    legalEntity.setLegalEntityIdentifier(ToopXSDHelper.createIdentifierWithLOA(legalPersonIdentifier));
-    legalEntity.setLegalName(ToopXSDHelper.createTextWithLOA(legalPersonName));
+    legalEntity.setLegalPersonUniqueIdentifier(ToopXSDHelper140.createIdentifierWithLOA(legalPersonIdentifier));
+    legalEntity.setLegalEntityIdentifier(ToopXSDHelper140.createIdentifierWithLOA(legalPersonIdentifier));
+    legalEntity.setLegalName(ToopXSDHelper140.createTextWithLOA(legalPersonName));
 
     final TDEAddressType aAddress = new TDEAddressType();
     // Destination country to use
-    aAddress.setStreetName(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.streetName")));
-    aAddress.setStreetNumber(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.streetNumber")));
-    aAddress.setCity(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.city")));
-    aAddress.setPostCode(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.postCode")));
-    aAddress.setCountry(ToopXSDHelper.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.country")));
-    aAddress.setCountryCode(ToopXSDHelper.createCodeWithLOA(conf.getString("ToopMessage.LegalPerson.Address.countryCode")));
+    aAddress.setStreetName(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.streetName")));
+    aAddress.setStreetNumber(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.streetNumber")));
+    aAddress.setCity(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.city")));
+    aAddress.setPostCode(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.postCode")));
+    aAddress.setCountry(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.country")));
+    aAddress.setCountryCode(ToopXSDHelper140.createCodeWithLOA(conf.getString("ToopMessage.LegalPerson.Address.countryCode")));
     final List<String> addressLines = conf.getStringList("ToopMessage.LegalPerson.Address.addressLines");
     if (addressLines != null)
       for (String line : addressLines) {
-        aAddress.addAddressLine(ToopXSDHelper.createTextWithLOA(line));
+        aAddress.addAddressLine(ToopXSDHelper140.createTextWithLOA(line));
       }
 
     legalEntity.setLegalPersonLegalAddress(aAddress);
@@ -241,19 +241,19 @@ public class ToopMessageCreator {
     final String electronicAddressIdentifier = conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier");
     final String countryCode = conf.getString("ToopMessage.DataProvider.countryCode");
 
-    dataProviderType.setDPIdentifier(ToopXSDHelper.createIdentifier(schemeId, identifier));
-    dataProviderType.setDPName(ToopXSDHelper.createText(name));
-    dataProviderType.setDPElectronicAddressIdentifier(ToopXSDHelper.createIdentifier(electronicAddressIdentifier));
+    dataProviderType.setDPIdentifier(ToopXSDHelper140.createIdentifier(schemeId, identifier));
+    dataProviderType.setDPName(ToopXSDHelper140.createText(name));
+    dataProviderType.setDPElectronicAddressIdentifier(ToopXSDHelper140.createIdentifier(electronicAddressIdentifier));
     final TDEAddressType pa = new TDEAddressType();
-    pa.setCountryCode(ToopXSDHelper.createCodeWithLOA(countryCode));
+    pa.setCountryCode(ToopXSDHelper140.createCodeWithLOA(countryCode));
     dataProviderType.setDPLegalAddress(pa);
   }
 
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
-    return ToopWriter.response ().getAsBytes (dpResponse);
+    return ToopWriter.response140 ().getAsBytes (dpResponse);
   }
 
   public static byte[] serializeRequest(TDETOOPRequestType dcRequest) {
-    return ToopWriter.request ().getAsBytes (dcRequest);
+    return ToopWriter.request140 ().getAsBytes (dcRequest);
   }
 }

@@ -36,7 +36,7 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
     LOGGER.debug("Received a Toop Response");
 
     // Log the response xml
-    LOGGER.info(ToopWriter.response().getAsString(aResponse));
+    LOGGER.info(ToopWriter.response140().getAsString(aResponse));
   }
 
   @Override
