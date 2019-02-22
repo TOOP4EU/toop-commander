@@ -152,14 +152,14 @@ public class ToopMessageCreatorTest {
     assertNotNull (aDP);
     assertNotNull (aDP.getDPIdentifier ());
     assertNotNull (aDP.getDPName ());
-    assertNotNull (aDP.getDPElectronicAddressIdentifier ());
+    assertNotNull (aResponse.getRoutingInformation ().getDataProviderElectronicAddressIdentifier ());
     assertNotNull (aDP.getDPLegalAddress ());
     assertNotNull (aDP.getDPLegalAddress ().getCountryCode ());
 
     assertEquals (aDP.getDPIdentifier ().getSchemeID (), conf.getString("ToopMessage.DataProvider.schemeId"));
     assertEquals (aDP.getDPIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.identifier"));
     assertEquals (aDP.getDPName ().getValue (), conf.getString("ToopMessage.DataProvider.name"));
-    assertEquals (aDP.getDPElectronicAddressIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier"));
+    assertEquals (aResponse.getRoutingInformation ().getDataProviderElectronicAddressIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier"));
     assertEquals (aDP.getDPLegalAddress ().getCountryCode ().getValue (), conf.getString("ToopMessage.DataProvider.countryCode"));
   }
 }

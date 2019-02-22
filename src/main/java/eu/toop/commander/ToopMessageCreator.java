@@ -37,10 +37,12 @@ import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
 import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
 import eu.toop.commons.concept.ConceptValue;
 import eu.toop.commons.dataexchange.v140.TDEAddressType;
+import eu.toop.commons.dataexchange.v140.TDEAddressWithLOAType;
 import eu.toop.commons.dataexchange.v140.TDEDataProviderType;
 import eu.toop.commons.dataexchange.v140.TDEDataRequestSubjectType;
 import eu.toop.commons.dataexchange.v140.TDELegalPersonType;
 import eu.toop.commons.dataexchange.v140.TDENaturalPersonType;
+import eu.toop.commons.dataexchange.v140.TDERoutingInformationType;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder140;
@@ -99,7 +101,7 @@ public class ToopMessageCreator {
     tdeToopRequestType.cloneTo(aResponse);
 
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
-    fillDataProviderProperties(conf, dataProviderType);
+    fillDataProviderProperties(conf, aResponse.getRoutingInformation (), dataProviderType);
     aResponse.getRoutingInformation ().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
     aResponse.addDataProvider(dataProviderType);
 
@@ -186,7 +188,7 @@ public class ToopMessageCreator {
         throw new IllegalArgumentException(e.getMessage(), e);
       }
 
-      final TDEAddressType aAddress = new TDEAddressType();
+      final TDEAddressWithLOAType aAddress = new TDEAddressWithLOAType();
       // Destination country to use
       aAddress.setStreetName(ToopXSDHelper140.createTextWithLOA (conf.getString("ToopMessage.NaturalPerson.Address.streetName")));
       aAddress.setStreetNumber(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.streetNumber")));
@@ -216,7 +218,7 @@ public class ToopMessageCreator {
     legalEntity.setLegalEntityIdentifier(ToopXSDHelper140.createIdentifierWithLOA(legalPersonIdentifier));
     legalEntity.setLegalName(ToopXSDHelper140.createTextWithLOA(legalPersonName));
 
-    final TDEAddressType aAddress = new TDEAddressType();
+    final TDEAddressWithLOAType aAddress = new TDEAddressWithLOAType();
     // Destination country to use
     aAddress.setStreetName(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.streetName")));
     aAddress.setStreetNumber(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.LegalPerson.Address.streetNumber")));
@@ -234,7 +236,9 @@ public class ToopMessageCreator {
     dataRequestSubjectType.setLegalPerson(legalEntity);
   }
 
-  private static void fillDataProviderProperties(Config conf, final TDEDataProviderType dataProviderType) {
+  private static void fillDataProviderProperties(final Config conf, 
+                                                 final TDERoutingInformationType routingInfo,
+                                                 final TDEDataProviderType dataProviderType) {
     final String schemeId = conf.getString("ToopMessage.DataProvider.schemeId");
     final String identifier = conf.getString("ToopMessage.DataProvider.identifier");
     final String name = conf.getString("ToopMessage.DataProvider.name");
@@ -243,7 +247,7 @@ public class ToopMessageCreator {
 
     dataProviderType.setDPIdentifier(ToopXSDHelper140.createIdentifier(schemeId, identifier));
     dataProviderType.setDPName(ToopXSDHelper140.createText(name));
-    dataProviderType.setDPElectronicAddressIdentifier(ToopXSDHelper140.createIdentifier(electronicAddressIdentifier));
+    routingInfo.setDataProviderElectronicAddressIdentifier (ToopXSDHelper140.createIdentifier(electronicAddressIdentifier));
     final TDEAddressType pa = new TDEAddressType();
     pa.setCountryCode(ToopXSDHelper140.createCodeWithLOA(countryCode));
     dataProviderType.setDPLegalAddress(pa);
