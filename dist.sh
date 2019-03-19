@@ -16,7 +16,7 @@
 #
 
 
-COMMANDER_VERSION=0.9.3
+COMMANDER_VERSION=0.10.0-SNAPSHOT
 
 mvn -Dmaven.test.skip=true clean verify
 
@@ -35,6 +35,8 @@ cp -r target/toop-commander-${COMMANDER_VERSION}.jar \
     run.sh \
     toop-commander-${COMMANDER_VERSION}/
 
-tar -czvf toop-commander-${COMMANDER_VERSION}.tar.gz toop-commander-${COMMANDER_VERSION}
-
-rm -fr toop-commander-${COMMANDER_VERSION}
+if [ -z $1 ]
+then
+  tar -czvf toop-commander-${COMMANDER_VERSION}.tar.gz toop-commander-${COMMANDER_VERSION}
+  rm -fr toop-commander-${COMMANDER_VERSION}
+fi

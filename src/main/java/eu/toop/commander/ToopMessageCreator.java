@@ -17,14 +17,12 @@ package eu.toop.commander;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.UUIDType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +49,7 @@ import eu.toop.commons.jaxb.ToopXSDHelper140;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
 
 public class ToopMessageCreator {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ToopMessageCreator.class);
 
   private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -105,6 +103,14 @@ public class ToopMessageCreator {
     aResponse.getRoutingInformation ().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
     aResponse.addDataProvider(dataProviderType);
 
+    String schemeId = conf.getString("ToopMessage.DataRequestIdentifier.schemeId");
+    String schemeAgencyId = conf.getString("ToopMessage.DataRequestIdentifier.schemeAgencyId");
+    String identifier = conf.getString("ToopMessage.DataRequestIdentifier.identifier");
+
+    IdentifierType uuid = ToopXSDHelper140.createIdentifier(schemeId, identifier);
+    uuid.setSchemeAgencyID(schemeAgencyId);
+    aResponse.setDataRequestIdentifier(uuid);
+    aResponse.getSpecificationIdentifier().setValue("urn:eu:toop:ns:dataexchange-1p40::Response");
     return aResponse;
   }
 
@@ -240,12 +246,15 @@ public class ToopMessageCreator {
                                                  final TDERoutingInformationType routingInfo,
                                                  final TDEDataProviderType dataProviderType) {
     final String schemeId = conf.getString("ToopMessage.DataProvider.schemeId");
+    final String schemeAgencyId = conf.getString("ToopMessage.DataProvider.schemeAgencyId");
     final String identifier = conf.getString("ToopMessage.DataProvider.identifier");
     final String name = conf.getString("ToopMessage.DataProvider.name");
     final String electronicAddressIdentifier = conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier");
     final String countryCode = conf.getString("ToopMessage.DataProvider.countryCode");
 
-    dataProviderType.setDPIdentifier(ToopXSDHelper140.createIdentifier(schemeId, identifier));
+    IdentifierType dpIdentifier = ToopXSDHelper140.createIdentifier(schemeId, identifier);
+    dpIdentifier.setSchemeAgencyID(schemeAgencyId);
+    dataProviderType.setDPIdentifier(dpIdentifier);
     dataProviderType.setDPName(ToopXSDHelper140.createText(name));
     routingInfo.setDataProviderElectronicAddressIdentifier (ToopXSDHelper140.createIdentifier(electronicAddressIdentifier));
     final TDEAddressType pa = new TDEAddressType();

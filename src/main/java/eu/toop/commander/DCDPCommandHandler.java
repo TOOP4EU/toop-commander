@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,8 @@ public class DCDPCommandHandler {
     boolean isDCRequest = command.equals("send-dc-request");
 
 
-    if (commands.size() < 3)
-      throw new IllegalArgumentException(command + " requires at least 3 arguments");
+    if (commands.size() < 1)
+      throw new IllegalArgumentException(command + " requires at least 1 arguments");
 
     String file[] = getOption(commands, "-f", 2);
     if (file != null) {
@@ -52,11 +52,7 @@ public class DCDPCommandHandler {
       } else {
         ConnectorManager.sendDPResponse(file[1]);
       }
-      return;
-    }
-
-
-    if (getOption(commands, "-new", 1) != null) {
+    } else if (getOption(commands, "-new", 1) != null) {
       String[] identifierOption = getOption(commands, "-i", 2);
       String[] countryOption = getOption(commands, "-c", 2);
       String[] metadataFileOption = getOption(commands, "-m", 2);
@@ -88,10 +84,17 @@ public class DCDPCommandHandler {
 
     if (file != null) {
 
-      ToopTestManager.getInstance ().executeTests (file[1], tests);
+      ToopTestManager.getInstance().executeTests(file[1], tests);
     }
   }
 
+  /**
+   *
+   * @param commands the list of commands
+   * @param option the expected option
+   * @param expectedLength expected length of parameters (including the option)
+   * @return
+   */
   private static String[] getOption(List<String> commands, String option, int expectedLength) {
     ValueEnforcer.isGE0(expectedLength, "expected length");
 
@@ -136,7 +139,6 @@ public class DCDPCommandHandler {
 
     return null;
   }
-
 
 
   /**

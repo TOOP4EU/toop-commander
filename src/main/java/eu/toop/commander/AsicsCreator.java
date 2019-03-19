@@ -18,8 +18,8 @@ public class AsicsCreator {
       "123456");
 
   public static void main(String[] args) throws IOException {
-    createAsic("samples/request/TOOPRequest.asic", "samples/request/TOOPRequest.xml");
-    createAsic("samples/response/TOOPResponse.asic", "samples/response/TOOPResponse.xml");
+    createAsic("samples/request/TOOPRequest.asice", "samples/request/TOOPRequest.xml");
+    createAsic("samples/response/TOOPResponse.asice", "samples/response/TOOPResponse.xml");
   }
 
   private static void createAsic(String target, String input) throws IOException {
