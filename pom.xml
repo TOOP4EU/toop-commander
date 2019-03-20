@@ -93,6 +93,22 @@
           </archive>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>logs/**</exclude>
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/NOTICE</exclude>
+            <exclude>**/*.asice</exclude>
+            <exclude>**/*.conf</exclude>
+            <exclude>**/*.jks</exclude>
+            <exclude>**/*.pfx</exclude>
+            <exclude>**/*.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
