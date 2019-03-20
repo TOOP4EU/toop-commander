@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,10 +19,14 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.helger.xsds.ccts.cct.schemamodule.CodeType;
+import eu.toop.commons.dataexchange.v140.*;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.UUIDType;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.BinaryObjectType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,15 +38,6 @@ import com.typesafe.config.ConfigSyntax;
 import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
 import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
 import eu.toop.commons.concept.ConceptValue;
-import eu.toop.commons.dataexchange.v140.TDEAddressType;
-import eu.toop.commons.dataexchange.v140.TDEAddressWithLOAType;
-import eu.toop.commons.dataexchange.v140.TDEDataProviderType;
-import eu.toop.commons.dataexchange.v140.TDEDataRequestSubjectType;
-import eu.toop.commons.dataexchange.v140.TDELegalPersonType;
-import eu.toop.commons.dataexchange.v140.TDENaturalPersonType;
-import eu.toop.commons.dataexchange.v140.TDERoutingInformationType;
-import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder140;
 import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.commons.jaxb.ToopXSDHelper140;
@@ -53,23 +48,88 @@ public class ToopMessageCreator {
 
   private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+  private static eu.toop.commons.dataexchange.v140.ObjectFactory v140Factory = new ObjectFactory();
+
   public static TDETOOPRequestType createDCRequest(String identifier, String country, String metadataFile) {
     LOGGER.debug("Create a DC request from  identifier " + identifier + " country : " + country);
 
     Config conf = parseMetadataFile(metadataFile);
 
-    final List<ConceptValue> conceptList = new ArrayList<>();
+
+    TDETOOPRequestType tdetoopRequestType = v140Factory.createTDETOOPRequestType();
+
+    //DocumentUniversalUniqueIdentifier
+    tdetoopRequestType.setDocumentUniversalUniqueIdentifier(
+        ToopXSDHelper140.createIdentifier(conf.getString("ToopMessage.DocumentUniversalUniqueIdentifier.schemeAgencyID"),
+            conf.getString("ToopMessage.DocumentUniversalUniqueIdentifier.schemeID"),
+            UUID.randomUUID().toString())
+    );
+
+    //DocumentIssueDate - DocumentIssueTime
+    GregorianCalendar c = new GregorianCalendar();
+    try {
+      XMLGregorianCalendar dateTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+      tdetoopRequestType.setDocumentIssueDate(dateTime);
+      tdetoopRequestType.setDocumentIssueTime(dateTime);
+    } catch (DatatypeConfigurationException e) {
+      LOGGER.error("Coudln't create request");
+      throw new IllegalStateException(e);
+    }
+
+    //Copy indicator
+    tdetoopRequestType.setCopyIndicator(ToopXSDHelper140.createIndicator(false));
+
+    // DataConsumerDocumentIdentifier
+    tdetoopRequestType.setDataConsumerDocumentIdentifier(ToopXSDHelper140.createIdentifier("demo-agency", "whatsoever", "DC-ID-17"));
+
+
+    //   <DataConsumerCountryCode>SE</DataConsumerCountryCode>
+    //   <DataProviderCountryCode>GQ</DataProviderCountryCode>
+//
+
+    String predefinedDocTypeId = EPredefinedDocumentTypeIdentifier.URN_EU_TOOP_NS_DATAEXCHANGE_1P40_REQUEST_URN_EU_TOOP_REQUEST_REGISTEREDORGANIZATION_1_40.getID();
+
+    //SpecificationIdentifier
+    tdetoopRequestType.setSpecificationIdentifier(ToopXSDHelper140.createIdentifier("toop-doctypeid-qns",
+        predefinedDocTypeId.substring(0, predefinedDocTypeId.indexOf("##"))));
+
+
+    TDERoutingInformationType routingInformation = v140Factory.createTDERoutingInformationType();
+    routingInformation.setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier("toop-doctypeid-qns", predefinedDocTypeId));
+    routingInformation.setProcessIdentifier(ToopXSDHelper140.createIdentifier("toop-procid-agreement", EPredefinedProcessIdentifier.DATAREQUESTRESPONSE.getID()));
+    routingInformation.setDataConsumerElectronicAddressIdentifier(createParticipantId(conf));
+    String dataConsumerCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataConsumerCountryCode", "SE");
+    String dataProviderCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataProviderCountryCode", "GQ");
+    routingInformation.setDataConsumerCountryCode(ToopXSDHelper140.createCode(dataConsumerCountryCode));
+    routingInformation.setDataProviderCountryCode(ToopXSDHelper140.createCode(dataProviderCountryCode));
+    tdetoopRequestType.setRoutingInformation(routingInformation);
+
     final TDEDataRequestSubjectType dataRequestSubjectType = new TDEDataRequestSubjectType();
 
-    fillNaturalPersonProperties(dataRequestSubjectType, identifier, conf);
-    fillLegalPersonProperties(conf, dataRequestSubjectType);
-    fillConcepts(conf, conceptList);
-    IdentifierType participantID = createParticipantId(conf);
-    String destinationCountryCode = createCountryCode(country, conf);
+    TDEDataConsumerType dataConsumerType = v140Factory.createTDEDataConsumerType();
+    dataConsumerType.setDCUniqueIdentifier(ToopXSDHelper140.createIdentifier("whatsoever","9914", "ATU12345678"));
+    dataConsumerType.setDCName(ToopXSDHelper140.createText("Helger Enterprises"));
+    TDEAddressType tdeAddressType = v140Factory.createTDEAddressType();
+    tdeAddressType.setCountryCode(ToopXSDHelper140.createCodeWithLOA(dataConsumerCountryCode));
+    dataConsumerType.setDCLegalAddress(tdeAddressType);
 
-    return ToopMessageBuilder140.createMockRequest(dataRequestSubjectType, country, country, participantID,
-        EPredefinedDocumentTypeIdentifier.REQUEST_REGISTEREDORGANIZATION,
-        EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
+    tdetoopRequestType.setDataConsumer(dataConsumerType);
+
+    fillNaturalPersonProperties(dataRequestSubjectType, identifier, conf);
+    //fillLegalPersonProperties(conf, dataRequestSubjectType);
+    tdetoopRequestType.setDataRequestSubject(dataRequestSubjectType);
+
+    TDEDataRequestAuthorizationType authorization = v140Factory.createTDEDataRequestAuthorizationType();
+    authorization.setDataRequestConsentToken(new BinaryObjectType());
+
+
+    tdetoopRequestType.setDataRequestAuthorization(authorization);
+
+
+    fillConcepts(conf, tdetoopRequestType);
+
+
+    return tdetoopRequestType;
   }
 
 
@@ -82,10 +142,10 @@ public class ToopMessageCreator {
 
     fillNaturalPersonProperties(dataRequestSubjectType, identifier, conf);
     fillLegalPersonProperties(conf, dataRequestSubjectType);
-    fillConcepts(conf, conceptList);
+    //fillConcepts(conf, );
     IdentifierType participantID = createParticipantId(conf);
 
-    return ToopMessageBuilder140.createMockResponse(participantID,dataRequestSubjectType,country,country,
+    return ToopMessageBuilder140.createMockResponse(participantID, dataRequestSubjectType, country, country,
         EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION,
         EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
   }
@@ -99,8 +159,8 @@ public class ToopMessageCreator {
     tdeToopRequestType.cloneTo(aResponse);
 
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
-    fillDataProviderProperties(conf, aResponse.getRoutingInformation (), dataProviderType);
-    aResponse.getRoutingInformation ().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
+    fillDataProviderProperties(conf, aResponse.getRoutingInformation(), dataProviderType);
+    aResponse.getRoutingInformation().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
     aResponse.addDataProvider(dataProviderType);
 
     String schemeId = conf.getString("ToopMessage.DataRequestIdentifier.schemeId");
@@ -129,24 +189,24 @@ public class ToopMessageCreator {
     return ConfigFactory.parseFile(file).resolve();
   }
 
-  private static String createCountryCode(String country, Config conf) {
-    String destinationCountryCode = conf.getString("ToopMessage.DestinationCountryCode");
+  private static String getOrDefault(Config conf, String key, String defaultValue) {
+    String value = conf.getString(key);
 
-    if (country != null) {
-      LOGGER.debug("Override default destination country with " + country);
-      destinationCountryCode = country;
+    if (value != null) {
+      LOGGER.debug("Override default " + key + " value with " + defaultValue);
+      value = defaultValue;
     }
-    return destinationCountryCode;
+    return value;
   }
 
   private static IdentifierType createParticipantId(Config conf) {
-    String schemeId = conf.getString("ToopMessage.SenderParticipantId.schemeId");
-    String participandId = conf.getString("ToopMessage.SenderParticipantId.value");
+    String schemeAgencyId = conf.getString("ToopMessage.RoutingInformation.DataConsumerElectronicAddressIdentifier.schemeAgencyId");
+    String schemeId = conf.getString("ToopMessage.RoutingInformation.DataConsumerElectronicAddressIdentifier.schemeId");
+    String participandId = conf.getString("ToopMessage.RoutingInformation.DataConsumerElectronicAddressIdentifier.value");
 
     IdentifierType identifier = ToopXSDHelper140.createIdentifier(
-        //scheme id
+        schemeAgencyId,
         schemeId,
-        //value
         participandId);
     if (LOGGER.isTraceEnabled()) {
       LOGGER.trace(identifier.toString());
@@ -155,13 +215,23 @@ public class ToopMessageCreator {
     return identifier;
   }
 
-  private static void fillConcepts(Config conf, List<ConceptValue> conceptList) {
+  private static void fillConcepts(Config conf, TDETOOPRequestType request) {
     LOGGER.debug("Process concepts");
     final String conceptNamespace = conf.getString("ToopMessage.Concepts.conceptNamespace");
+    LOGGER.info("Namepspace " + conceptNamespace);
     final List<String> conceptStringList = conf.getStringList("ToopMessage.Concepts.conceptList");
     for (String concept : conceptStringList) {
       LOGGER.trace("Concept " + concept);
-      conceptList.add(new ConceptValue(conceptNamespace, concept));
+      TDEDataElementRequestType tdeDataElementRequestType = v140Factory.createTDEDataElementRequestType();
+      tdeDataElementRequestType.setDataElementRequestIdentifier(ToopXSDHelper140.createIdentifier("bla"));
+      TDEConceptRequestType tdeConceptRequestType = v140Factory.createTDEConceptRequestType();
+      tdeConceptRequestType.setConceptTypeCode(ToopXSDHelper140.createCode("DC"));
+      tdeConceptRequestType.setSemanticMappingExecutionIndicator(ToopXSDHelper140.createIndicator(false));
+      tdeConceptRequestType.setConceptNamespace(ToopXSDHelper140.createIdentifier(conceptNamespace));
+      tdeConceptRequestType.setConceptName(ToopXSDHelper140.createText(concept));
+      tdeConceptRequestType.setConceptDefinition(Arrays.asList(ToopXSDHelper140.createText("Definition of " + concept)));
+      tdeDataElementRequestType.setConceptRequest(tdeConceptRequestType);
+      request.addDataElementRequest(tdeDataElementRequestType);
     }
   }
 
@@ -189,14 +259,14 @@ public class ToopMessageCreator {
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(date);
         XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-        naturalPerson.setBirthDate(ToopXSDHelper140.createDateWithLOA (date2));
+        naturalPerson.setBirthDate(ToopXSDHelper140.createDateWithLOA(date2));
       } catch (Exception e) {
         throw new IllegalArgumentException(e.getMessage(), e);
       }
 
       final TDEAddressWithLOAType aAddress = new TDEAddressWithLOAType();
       // Destination country to use
-      aAddress.setStreetName(ToopXSDHelper140.createTextWithLOA (conf.getString("ToopMessage.NaturalPerson.Address.streetName")));
+      aAddress.setStreetName(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.streetName")));
       aAddress.setStreetNumber(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.streetNumber")));
       aAddress.setCity(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.city")));
       aAddress.setPostCode(ToopXSDHelper140.createTextWithLOA(conf.getString("ToopMessage.NaturalPerson.Address.postCode")));
@@ -242,7 +312,7 @@ public class ToopMessageCreator {
     dataRequestSubjectType.setLegalPerson(legalEntity);
   }
 
-  private static void fillDataProviderProperties(final Config conf, 
+  private static void fillDataProviderProperties(final Config conf,
                                                  final TDERoutingInformationType routingInfo,
                                                  final TDEDataProviderType dataProviderType) {
     final String schemeId = conf.getString("ToopMessage.DataProvider.schemeId");
@@ -256,17 +326,17 @@ public class ToopMessageCreator {
     dpIdentifier.setSchemeAgencyID(schemeAgencyId);
     dataProviderType.setDPIdentifier(dpIdentifier);
     dataProviderType.setDPName(ToopXSDHelper140.createText(name));
-    routingInfo.setDataProviderElectronicAddressIdentifier (ToopXSDHelper140.createIdentifier(electronicAddressIdentifier));
+    routingInfo.setDataProviderElectronicAddressIdentifier(ToopXSDHelper140.createIdentifier(electronicAddressIdentifier));
     final TDEAddressType pa = new TDEAddressType();
     pa.setCountryCode(ToopXSDHelper140.createCodeWithLOA(countryCode));
     dataProviderType.setDPLegalAddress(pa);
   }
 
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
-    return ToopWriter.response140 ().getAsBytes (dpResponse);
+    return ToopWriter.response140().getAsBytes(dpResponse);
   }
 
   public static byte[] serializeRequest(TDETOOPRequestType dcRequest) {
-    return ToopWriter.request140 ().getAsBytes (dcRequest);
+    return ToopWriter.request140().getAsBytes(dcRequest);
   }
 }

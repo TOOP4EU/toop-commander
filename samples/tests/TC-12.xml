@@ -16,22 +16,25 @@
     limitations under the License.
 
 -->
-<Request xmlns="urn:eu:toop:ns:dataexchange-1p10">
-    <DocumentUniversalUniqueIdentifier>9813360d-957c-43ad-877f-973909853924</DocumentUniversalUniqueIdentifier>
-    <DocumentIssueDate>2018-10-08</DocumentIssueDate>
-    <DocumentIssueTime>15:42:00.027</DocumentIssueTime>
+<Request xmlns="urn:eu:toop:ns:dataexchange-1p40">
+    <DocumentUniversalUniqueIdentifier schemeID="toop-doctypeid-qns" schemeAgencyID="demo-agency">a45dda71-f838-4fa3-b53e-dcc764ecdabe</DocumentUniversalUniqueIdentifier>
+    <DocumentIssueDate>2019-03-11</DocumentIssueDate>
+    <DocumentIssueTime>15:04:35.488</DocumentIssueTime>
     <CopyIndicator>false</CopyIndicator>
-    <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p10::Request##urn:eu.toop.request.registeredorganization::1.10</DocumentTypeIdentifier>
-    <SpecificationIdentifier>urn:eu:toop:ns:dataexchange-1p10::Request</SpecificationIdentifier>
+  <SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request</SpecificationIdentifier>
+  <DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">DC-ID-17</DataConsumerDocumentIdentifier>
+  <RoutingInformation>
+    <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.registeredorganization::1.40</DocumentTypeIdentifier>
     <ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.datarequestresponse</ProcessIdentifier>
-    <DataConsumerDocumentIdentifier>DC-ID-17</DataConsumerDocumentIdentifier>
-    <DataRequestIdentifier>1f17a4fa-a905-4d9c-8191-97d1e7698512</DataRequestIdentifier>
+    <DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0002">9999:freedonia-dev</DataConsumerElectronicAddressIdentifier>
+    <DataConsumerCountryCode>SE</DataConsumerCountryCode>
+    <DataProviderCountryCode>GQ</DataProviderCountryCode>
+  </RoutingInformation>
     <DataConsumer>
-        <DCUniqueIdentifier>ATU12345678</DCUniqueIdentifier>
+    <DCUniqueIdentifier schemeID="9914" schemeAgencyID="whatsoever">ATU12345678</DCUniqueIdentifier>
         <DCName>Helger Enterprises</DCName>
-        <DCElectronicAddressIdentifier schemeID="iso6523-actorid-upis">9999:freedonia-dev</DCElectronicAddressIdentifier>
         <DCLegalAddress>
-            <CountryCode>AT</CountryCode>
+        <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType" levelOfAssurance="None">SE</CountryCode>
         </DCLegalAddress>
     </DataConsumer>
     <DataRequestSubject>
@@ -53,7 +56,8 @@
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaAddress</ConceptName>
+            <ConceptName>FreedoniaStreetAddress</ConceptName>
+            <ConceptDefinition>Definition of FreedoniaStreetAddress</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -63,8 +67,10 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaSSNumber</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaSSNumber</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
+  <!--
     <DataElementRequest>
         <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
@@ -72,8 +78,9 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaBusinessCode</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaBusinessCode</ConceptDefinition>
         </ConceptRequest>
-    </DataElementRequest>
+  </DataElementRequest>-->
     <DataElementRequest>
         <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
@@ -81,6 +88,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaVATNumber</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaVATNumber</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -90,6 +98,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaCompanyType</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaCompanyType</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -99,6 +108,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaRegistrationDate</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaRegistrationDate</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -108,6 +118,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaRegistrationNumber</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaRegistrationNumber</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -117,6 +128,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaCompanyName</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaCompanyName</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <!-- Missing mapping for this concept in SMS (hamster.tno.nl)
@@ -127,18 +139,20 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaCompanyNaceCode</ConceptName>
+            <ConceptDefinition>Definition of FreedoniaCompanyNaceCode</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     -->
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+  <!--<DataElementRequest>
+    <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
         <ConceptRequest>
             <ConceptTypeCode>DC</ConceptTypeCode>
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaActivityDeclaration</ConceptName>
+            <ConceptDefinition>Definition of FreedoniaActivityDeclaration</ConceptDefinition>
         </ConceptRequest>
-    </DataElementRequest>
+  </DataElementRequest>-->
     <DataElementRequest>
         <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
         <ConceptRequest>
@@ -146,6 +160,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaRegistrationAuthority</ConceptName>
+            <ConceptDefinition>Definition of FreedoniaRegistrationAuthority</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -155,6 +170,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaLegalStatus</ConceptName>
+            <ConceptDefinition>Definition of FreedoniaLegalStatus</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
     <DataElementRequest>
@@ -164,6 +180,7 @@
             <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
             <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
             <ConceptName>FreedoniaLegalStatusEffectiveDate</ConceptName>
+            <ConceptDefinition>Definition of FreedoniaLegalStatusEffectiveDate</ConceptDefinition>
         </ConceptRequest>
     </DataElementRequest>
 </Request>
