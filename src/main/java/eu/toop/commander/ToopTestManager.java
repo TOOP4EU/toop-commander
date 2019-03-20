@@ -101,5 +101,15 @@ public class ToopTestManager {
 
       TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest));
     }
-  }
+
+    @Override
+    public void onToopErrorResponse(@Nonnull TDETOOPResponseType aResponse) {
+      LOGGER.debug("Received a Toop Error Response");
+      //LOGGER.debug(aResponse.toString());
+
+      // TODO
+      if (false) 
+        TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse));
+    }
+}
 }

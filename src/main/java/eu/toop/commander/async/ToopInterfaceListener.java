@@ -47,4 +47,12 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
 
     ConnectorManager.sendDPResponse(aResponse);
   }
+
+  @Override
+  public void onToopErrorResponse(@Nonnull TDETOOPResponseType aResponse) {
+    LOGGER.debug("Received a Toop Error Response");
+
+    // Log the response xml
+    LOGGER.info(ToopWriter.response140().getAsString(aResponse));
+  }
 }
