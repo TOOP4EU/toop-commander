@@ -38,14 +38,14 @@
         </DCLegalAddress>
     </DataConsumer>
     <DataRequestSubject>
-      <DataRequestSubjectTypeCode>Legal Entity</DataRequestSubjectTypeCode>
-      <LegalEntity>
-        <LegalPersonUniqueIdentifier>GQ/PF/LE001</LegalPersonUniqueIdentifier>
-        <LegalName>sampleLegalPersonName</LegalName>
-        <LegalEntityLegalAddress>
-          <CountryCode>GQ</CountryCode>
-        </LegalEntityLegalAddress>
-      </LegalEntity>
+      <DataRequestSubjectTypeCode>LE</DataRequestSubjectTypeCode>
+      <LegalPerson>
+        <LegalPersonUniqueIdentifier levelOfAssurance="None">GQ/PF/LE001</LegalPersonUniqueIdentifier>
+        <LegalName levelOfAssurance="None">sampleLegalPersonName</LegalName>
+        <LegalPersonLegalAddress>
+          <CountryCode levelOfAssurance="None">GQ</CountryCode>
+        </LegalPersonLegalAddress>
+      </LegalPerson>
     </DataRequestSubject>
     <DataRequestAuthorization>
         <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>

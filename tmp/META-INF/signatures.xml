@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:XAdESSignatures xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:ns2="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns3="http://uri.etsi.org/02918/v1.2.1#">
+    <Signature Id="Signature">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <Reference Id="ID_0" URI="TOOPResponse.xml">
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                <DigestValue>kLfuwCSKOTqgGe1J5iP5Iq7ahv0zgb1YQwDTTt3eUfg=</DigestValue>
+            </Reference>
+            <Reference URI="#SignedProperties" Type="http://uri.etsi.org/01903#SignedProperties">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue/>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIDhzCCAm+gAwIBAgIEGd65YzANBgkqhkiG9w0BAQsFADB0MQswCQYDVQQGEwJFRTEQMA4GA1UECBMHVW5rbm93bjEPMA0GA1UEBxMGVGFsaW5uMRYwFAYDVQQKEw1TZWN1cml0eUhvdXNlMREwDwYDVQQLEwhzZWN1cml0eTEXMBUGA1UEAxMOdG9vcC1jb21tYW5kZXIwHhcNMTkwMzExMjMwMjI1WhcNMjkwMzA4MjMwMjI1WjB0MQswCQYDVQQGEwJFRTEQMA4GA1UECBMHVW5rbm93bjEPMA0GA1UEBxMGVGFsaW5uMRYwFAYDVQQKEw1TZWN1cml0eUhvdXNlMREwDwYDVQQLEwhzZWN1cml0eTEXMBUGA1UEAxMOdG9vcC1jb21tYW5kZXIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDRnEr8Yzt8M7LuW/qvvMV8VozAaMWV0zm2DeZwaT+TiDh0vq6jHj/CQJFY2OvcQbKLkN9DIvBydCTJKz46+lLHI7N18yWlfTj4w4PHmdFhu+9AqVKDMeLgnldsAuQbFlVH5s8maG1CwN6iRdLqcpSEUQxVI5RrIpv0fKcLdxd7buLyQ/LU1OlOP81tpPqYpIjpx1hZixh9hDGFMovyE6zrcZGhfVTFjQdsEtKgu5LVWG4o7Ko6CPvvfbZYgmaiLwB4sWB6mTVwBBL6IVYStNjBdHJuMp2XBKo/TQ42AA02GoVU30zDVW6pJDxIsEFqEHduoy+J7WcKxD8UJE+5eHpVAgMBAAGjITAfMB0GA1UdDgQWBBQzUi9zV/wYhSs7LhnaG5haNS2b8TANBgkqhkiG9w0BAQsFAAOCAQEAfGeT0ICLup9p7opFgFA/zr6TyScRbYITXM4rdo1tc+WAthOurkuR75vFa4I35Ei6WMzL7DkHKU8zWKFYcyPEWDUTPCtrvOZ3i6MJwqhxm2GsBKcopJVsgcGAPAMh06iVgg2ZReMwfUv8oZxvRnCg1WsYnqd4QDYaT06J1by7U5U59RDz0pDAqHNk/mUMZF0rJBtQV4gVvGyb8T3n54tmN5InUcVzuVg3G7QBnqCHNBY+rC+mZkdOImJjiFDfFyR4R1d+FM+1x2hNNLN5zdINXpxRkT/jHoh6aCPYao7+2FMj5pCiwWPWXdsse4hPCXnmLj1dgv2OtrnsXvzOjK++CA==</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+        <Object>
+            <ns2:QualifyingProperties Target="#Signature"/>
+        </Object>
+    </Signature>
+</ns3:XAdESSignatures>

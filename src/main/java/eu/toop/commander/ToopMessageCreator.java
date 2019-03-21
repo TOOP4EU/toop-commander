@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,9 @@
 package eu.toop.commander;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -82,17 +85,11 @@ public class ToopMessageCreator {
     // DataConsumerDocumentIdentifier
     tdetoopRequestType.setDataConsumerDocumentIdentifier(ToopXSDHelper140.createIdentifier("demo-agency", "whatsoever", "DC-ID-17"));
 
-
-    //   <DataConsumerCountryCode>SE</DataConsumerCountryCode>
-    //   <DataProviderCountryCode>GQ</DataProviderCountryCode>
-//
-
     String predefinedDocTypeId = EPredefinedDocumentTypeIdentifier.URN_EU_TOOP_NS_DATAEXCHANGE_1P40_REQUEST_URN_EU_TOOP_REQUEST_REGISTEREDORGANIZATION_1_40.getID();
 
     //SpecificationIdentifier
     tdetoopRequestType.setSpecificationIdentifier(ToopXSDHelper140.createIdentifier("toop-doctypeid-qns",
         predefinedDocTypeId.substring(0, predefinedDocTypeId.indexOf("##"))));
-
 
     TDERoutingInformationType routingInformation = v140Factory.createTDERoutingInformationType();
     routingInformation.setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier("toop-doctypeid-qns", predefinedDocTypeId));
@@ -107,7 +104,7 @@ public class ToopMessageCreator {
     final TDEDataRequestSubjectType dataRequestSubjectType = new TDEDataRequestSubjectType();
 
     TDEDataConsumerType dataConsumerType = v140Factory.createTDEDataConsumerType();
-    dataConsumerType.setDCUniqueIdentifier(ToopXSDHelper140.createIdentifier("whatsoever","9914", "ATU12345678"));
+    dataConsumerType.setDCUniqueIdentifier(ToopXSDHelper140.createIdentifier("whatsoever", "9914", "ATU12345678"));
     dataConsumerType.setDCName(ToopXSDHelper140.createText("Helger Enterprises"));
     TDEAddressType tdeAddressType = v140Factory.createTDEAddressType();
     tdeAddressType.setCountryCode(ToopXSDHelper140.createCodeWithLOA(dataConsumerCountryCode));
@@ -120,7 +117,10 @@ public class ToopMessageCreator {
     tdetoopRequestType.setDataRequestSubject(dataRequestSubjectType);
 
     TDEDataRequestAuthorizationType authorization = v140Factory.createTDEDataRequestAuthorizationType();
-    authorization.setDataRequestConsentToken(new BinaryObjectType());
+    BinaryObjectType binaryObjectType = new BinaryObjectType();
+    binaryObjectType.setValue(Base64.getDecoder().decode("MTExMDEwMTAxMDEwMTAwMDExMTAxMDE="));
+    binaryObjectType.setMimeCode("application/octet-stream");
+    authorization.setDataRequestConsentToken(binaryObjectType);
 
 
     tdetoopRequestType.setDataRequestAuthorization(authorization);
@@ -134,20 +134,28 @@ public class ToopMessageCreator {
 
 
   public static TDETOOPResponseType createDPResponse(String identifier, String country, String metadataFile) {
-
     Config conf = parseMetadataFile(metadataFile);
+    //use the sample response as a basis
+    try (FileInputStream fis = new FileInputStream("samples/response/TOOPResponse.asice")) {
+      TDETOOPResponseType response = ToopMessageBuilder140.parseResponseMessage(fis);
+      fillNaturalPersonProperties(response.getDataRequestSubject(), identifier, conf);
+      //fillLegalPersonProperties(conf, response.getDataRequestSubject());
 
-    final List<ConceptValue> conceptList = new ArrayList<>();
-    final TDEDataRequestSubjectType dataRequestSubjectType = new TDEDataRequestSubjectType();
+      if(country != null && !country.isEmpty()) {
+        oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType code = ToopXSDHelper140.createCode(country);
+        response.getRoutingInformation().setDataConsumerCountryCode(code);
+        response.getRoutingInformation().setDataProviderCountryCode(code);
+        response.getDataConsumer().getDCLegalAddress().setCountryCode(code);
+      }
 
-    fillNaturalPersonProperties(dataRequestSubjectType, identifier, conf);
-    fillLegalPersonProperties(conf, dataRequestSubjectType);
-    //fillConcepts(conf, );
-    IdentifierType participantID = createParticipantId(conf);
-
-    return ToopMessageBuilder140.createMockResponse(participantID, dataRequestSubjectType, country, country,
-        EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION,
-        EPredefinedProcessIdentifier.DATAREQUESTRESPONSE, conceptList);
+      if(identifier != null && !identifier.isEmpty()){
+        IdentifierType participantID = createParticipantId(conf);
+        response.getRoutingInformation().setDataConsumerElectronicAddressIdentifier(participantID);
+      }
+      return response;
+    } catch (IOException ex) {
+      throw new IllegalStateException(ex);
+    }
   }
 
   public static TDETOOPResponseType createDPResponse(TDETOOPRequestType tdeToopRequestType, String metadataFile) {

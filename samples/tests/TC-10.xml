@@ -40,13 +40,13 @@
     </DataConsumer>
     <DataRequestSubject>
         <DataRequestSubjectTypeCode>LE</DataRequestSubjectTypeCode>
-        <LegalEntity>
+        <LegalPerson>
             <LegalPersonUniqueIdentifier levelOfAssurance="None">GQ/PF/67890</LegalPersonUniqueIdentifier>
             <LegalName levelOfAssurance="None">sampleLegalPersonName</LegalName>
-            <LegalEntityLegalAddress>
+            <LegalPersonLegalAddress>
                 <CountryCode levelOfAssurance="None">GQ</CountryCode>
-            </LegalEntityLegalAddress>
-        </LegalEntity>
+            </LegalPersonLegalAddress>
+        </LegalPerson>
     </DataRequestSubject>
     <DataRequestAuthorization>
         <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>

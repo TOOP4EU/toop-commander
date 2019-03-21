@@ -34,18 +34,19 @@
     <DCUniqueIdentifier schemeID="9914" schemeAgencyID="whatsoever">ATU12345678</DCUniqueIdentifier>
         <DCName>Helger Enterprises</DCName>
         <DCLegalAddress>
-        <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType" levelOfAssurance="None">SE</CountryCode>
+            <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType"
+                         levelOfAssurance="None">AT</CountryCode>
         </DCLegalAddress>
     </DataConsumer>
     <DataRequestSubject>
-        <DataRequestSubjectTypeCode>Legal Entity</DataRequestSubjectTypeCode>
-        <LegalEntity>
-            <LegalPersonUniqueIdentifier>GQ/PF/67890</LegalPersonUniqueIdentifier>
-            <LegalName>sampleLegalPersonName</LegalName>
-            <LegalEntityLegalAddress>
-                <CountryCode>GQ</CountryCode>
-            </LegalEntityLegalAddress>
-        </LegalEntity>
+        <DataRequestSubjectTypeCode>LE</DataRequestSubjectTypeCode>
+        <LegalPerson>
+            <LegalPersonUniqueIdentifier levelOfAssurance="None">GQ/PF/67890</LegalPersonUniqueIdentifier>
+            <LegalName levelOfAssurance="None">sampleLegalPersonName</LegalName>
+            <LegalPersonLegalAddress>
+                <CountryCode levelOfAssurance="None">GQ</CountryCode>
+            </LegalPersonLegalAddress>
+        </LegalPerson>
     </DataRequestSubject>
     <DataRequestAuthorization>
         <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
