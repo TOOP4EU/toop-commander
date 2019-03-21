@@ -21,7 +21,7 @@ import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 
-class ToopMessageCreatorTest {
+public class ToopMessageCreatorTest {
 
   @Test
   void createDCRequest() throws Exception {
