@@ -19,7 +19,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import eu.toop.commons.jaxb.ToopXSDHelper140;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -15,23 +15,19 @@
  */
 package eu.toop.commander;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.StreamHelper;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
 import org.eclipse.jetty.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Process the command line input and executes the related services.

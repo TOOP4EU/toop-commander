@@ -1,8 +1,11 @@
 package eu.toop.commander;
 
-import com.helger.commons.ValueEnforcer;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+import com.helger.commons.ValueEnforcer;
 
 /**
  * This class represents a mainCommand and its options parsed as a map

@@ -1,20 +1,23 @@
 package eu.toop.commander;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.StreamHelper;
-import eu.toop.commander.dpsearch.EntityType;
-import eu.toop.commander.dpsearch.IDType;
-import eu.toop.commander.dpsearch.MatchType;
-import eu.toop.commander.dpsearch.ResultListType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.xml.bind.JAXBElement;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
+
+import javax.xml.bind.JAXBElement;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelper;
+
+import eu.toop.commander.dpsearch.EntityType;
+import eu.toop.commander.dpsearch.IDType;
+import eu.toop.commander.dpsearch.MatchType;
+import eu.toop.commander.dpsearch.ResultListType;
 
 /**
  * This class contains provides means to perform or check the id query via the toop connector proxy service to TOOP Directory

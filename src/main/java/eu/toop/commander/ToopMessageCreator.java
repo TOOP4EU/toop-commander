@@ -17,19 +17,19 @@ package eu.toop.commander;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.UUID;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.helger.xsds.ccts.cct.schemamodule.CodeType;
-import eu.toop.commons.dataexchange.v140.*;
-import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.UUIDType;
-import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.BinaryObjectType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,10 +40,24 @@ import com.typesafe.config.ConfigSyntax;
 
 import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
 import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
-import eu.toop.commons.concept.ConceptValue;
+import eu.toop.commons.dataexchange.v140.ObjectFactory;
+import eu.toop.commons.dataexchange.v140.TDEAddressType;
+import eu.toop.commons.dataexchange.v140.TDEAddressWithLOAType;
+import eu.toop.commons.dataexchange.v140.TDEConceptRequestType;
+import eu.toop.commons.dataexchange.v140.TDEDataConsumerType;
+import eu.toop.commons.dataexchange.v140.TDEDataElementRequestType;
+import eu.toop.commons.dataexchange.v140.TDEDataProviderType;
+import eu.toop.commons.dataexchange.v140.TDEDataRequestAuthorizationType;
+import eu.toop.commons.dataexchange.v140.TDEDataRequestSubjectType;
+import eu.toop.commons.dataexchange.v140.TDELegalPersonType;
+import eu.toop.commons.dataexchange.v140.TDENaturalPersonType;
+import eu.toop.commons.dataexchange.v140.TDERoutingInformationType;
+import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
+import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder140;
 import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.commons.jaxb.ToopXSDHelper140;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.BinaryObjectType;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
 
 /**

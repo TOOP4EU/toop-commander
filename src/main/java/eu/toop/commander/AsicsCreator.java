@@ -15,21 +15,15 @@
  */
 package eu.toop.commander;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.helger.asic.AsicWriterFactory;
 import com.helger.asic.ESignatureMethod;
 import com.helger.asic.IAsicWriter;
 import com.helger.asic.SignatureHelper;
-import com.helger.commons.mime.EMimeContentType;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
 import com.helger.security.keystore.EKeyStoreType;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URLConnection;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
 
 /**
  * This class is used for creating the asic files from the sample request and response XML files
