@@ -38,8 +38,8 @@ public class AsicsCreator {
 
   /**
    * Entry point
-   * @param args
-   * @throws IOException
+   * @param args commandline arguments
+   * @throws IOException on error
    */
   public static void main(String[] args) throws IOException {
     createAsic("samples/request/TOOPRequest.asice", "samples/request/TOOPRequest.xml", "TOOPRequest");

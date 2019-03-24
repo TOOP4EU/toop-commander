@@ -3,7 +3,13 @@ package eu.toop.commander.dpsearch;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.*;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -13,24 +19,24 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ResultListType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="match" type="{}MatchType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="version" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="total-result-count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="used-result-count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="result-page-index" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="result-page-count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="first-result-index" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="last-result-index" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="query-terms" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="creation-dt" use="required" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ResultListType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="match" type="{}MatchType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="version" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="total-result-count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="used-result-count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="result-page-index" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="result-page-count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="first-result-index" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="last-result-index" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="query-terms" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="creation-dt" use="required" type="{http://www.w3.org/2001/XMLSchema}dateTime" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

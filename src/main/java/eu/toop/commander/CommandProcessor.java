@@ -153,7 +153,7 @@ public class CommandProcessor {
   }
 
   /**
-   * Process and extract the command parameters <code>country</code> and <code>doctype</code> from the command <br/>
+   * Process and extract the command parameters <code>country</code> and <code>doctype</code> from the command <br>
    * <code>id-query -c &lt;country code&gt; -d &lt;doctype&gt; </code>
    * and perform the query on the toop commander. Then displays the result as
    * both raw and interpreted format

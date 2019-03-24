@@ -29,15 +29,14 @@ public class Command {
   }
 
   /**
-   * Get the actual command
-   * @return
+   * @return the actual command
    */
   public String getMainCommand() {
     return mainCommand;
   }
 
   /**
-   * Get the entire parmeter list that is associated with the given option
+   * Get the entire parameter list that is associated with the given option
    * @param key the option
    * @return the parameter list or null (if the map is empty or key doesn't hit)
    */
@@ -45,30 +44,26 @@ public class Command {
     if (options == null || options.size() == 0)
       return null;
 
-    if (options.containsKey(key)){
-      return options.get(key);
-    }
-
-    return null;
+    return options.get(key);
   }
 
   /**
-   * Traverse the whole list and group with respect to options that start with a dash.<br/>
-   * For example, the following words <br/>
-   * <code>sampleCommand optionwithoutdash1 optionwithoutdash2 -f file1 -q -t option1 option2 -c option3</code><br/>
-   * is parsed as a linked hash map as follows <br/>
+   * Traverse the whole list and group with respect to options that start with a dash.<br>
+   * For example, the following words <br>
+   * <code>sampleCommand optionwithoutdash1 optionwithoutdash2 -f file1 -q -t option1 option2 -c option3</code><br>
+   * is parsed as a linked hash map as follows <br>
    * <pre>
    *   mainCommand: sampleCommand,
    *   option map:
-   *      "" -> (optionwithoutdash1, optionwithoutdash2)
-   *      f -> (file1)
-   *      q -> ()
-   *      t -> (option1, option2)
-   *      c -> (option3)
+   *      "" -&gt; (optionwithoutdash1, optionwithoutdash2)
+   *      f -&gt; (file1)
+   *      q -&gt; ()
+   *      t -&gt; (option1, option2)
+   *      c -&gt; (option3)
    * </pre>
    *
-   * @param words
-   * @return
+   * @param words word list
+   * @return A new command
    */
   public static Command parse(List<String> words) {
     ValueEnforcer.notEmpty(words, "The word list cannot be null or empty");
@@ -100,25 +95,22 @@ public class Command {
   }
 
   /**
-   * Return the entire options map
-   * @return
+   * @return the entire options map
    */
   public Map<String, List<String>> getOptions() {
     return options;
   }
 
   /**
-   * Returns the parameters that don't have a leading option
-   * @return
+   * @return the parameters that don't have a leading option
    */
   public List<String> getEmptyParameters() {
     return getArguments("");
   }
 
   /**
-   * Returns true if the options map contains the given <code>key</code>
-   * @param key
-   * @return
+   * @param key key to check
+   * @return true if the options map contains the given <code>key</code>
    */
   public boolean hasOption(String key) {
     if(options == null || options.isEmpty())
