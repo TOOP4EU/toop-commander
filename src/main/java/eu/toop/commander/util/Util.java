@@ -17,7 +17,15 @@ package eu.toop.commander.util;
 
 import java.security.MessageDigest;
 
+/**
+ * A class that contains utility functions
+ */
 public class Util {
+  /**
+   * Returns the SHA 256 hash of the input data
+   * @param data
+   * @return
+   */
   public static byte[] sha256(byte[] data) {
     try {
       return MessageDigest.getInstance("SHA-256").digest(data);

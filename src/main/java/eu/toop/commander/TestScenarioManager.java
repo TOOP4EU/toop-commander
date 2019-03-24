@@ -35,8 +35,16 @@ import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType
  */
 public class TestScenarioManager {
 
+  /**
+   * The Logger instance
+   */
   private static final Logger LOGGER = LoggerFactory.getLogger(TestScenarioManager.class);
 
+
+  /**
+   * A map that holds context objects that make sure the Thread waits for the result of the step
+   * before switching to the next step.
+   */
   private static final Map<TestStep, TestStepContext[]> testStepWaiterMap = new HashMap<>();
 
 
@@ -51,7 +59,8 @@ public class TestScenarioManager {
    * Run the supplied test scenario with respect to its role and do not return
    * until it is finished or a certain timeout is expired
    *
-   * @param testScenario
+   * @param testScenario the test scenario
+   * @return the list
    */
   public static List<TestStepContext> runTest(TestScenario testScenario) {
     LOGGER.info("Run test for test scenario " + testScenario.getName() + " with role " + testScenario.getRole());
@@ -99,6 +108,11 @@ public class TestScenarioManager {
     return testScenario.getExecutedTestSteps ();
   }
 
+  /**
+   * Execute first step (send request as DC)
+   * @param testScenario
+   * @return
+   */
   private static TestStepContext executeStep1(TestScenario testScenario) {
     TestStepContext testStepContext;
     try {
@@ -114,6 +128,11 @@ public class TestScenarioManager {
     return testStepContext;
   }
 
+  /**
+   * Execute second step (receive a request as DP)
+   * @param testScenario
+   * @return
+   */
   private static TestStepContext executeStep2(TestScenario testScenario) {
     //step 4, wait for a result in receive response.
     TestStepContext testStepContext = waitForTestStep(TestStep.TEST_STEP_RECEIVE_REQUEST);
@@ -128,6 +147,12 @@ public class TestScenarioManager {
     return testStepContext;
   }
 
+  /**
+   * Execute third step (send a response as DP)
+   * @param testScenario
+   * @param previousStepContext
+   * @return
+   */
   private static TestStepContext executeStep3(TestScenario testScenario, TestStepContext previousStepContext) {
     TestStepContext testStepContext;
     try {
@@ -145,6 +170,11 @@ public class TestScenarioManager {
     return testStepContext;
   }
 
+  /**
+   * Execute the fourth step (receive a response as DC)
+   * @param testScenario
+   * @return
+   */
   private static TestStepContext executeStep4(TestScenario testScenario) {
     //step 4, wait for a result in receive response.
     TestStepContext testStepContext = waitForTestStep(TestStep.TEST_STEP_RECEIVE_RESPONSE);
@@ -193,7 +223,6 @@ public class TestScenarioManager {
       testStepContextWaiter.notifyAll();
     }
   }
-
 
   /**
    * Wait on and consume the satellite object for a test step

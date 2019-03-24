@@ -31,5 +31,12 @@ Commands:
                                is used.
                                For the details of the metadata file, please read the README.
 
+  id-query -t                  Availability test for the id query service
+
+  id-query -c <Country> -d <docType> [-raw]
+                               Query the connector for a business card related to the <Country> and the <docType>.
+                               The connector url is taken from the 'toop-commander.connector.{connectorHost:connectorPort}'
+                               config value declared in the file 'toop-commander.conf'
+                               The optional parameter -raw prints the result in raw format.
 
   quit                         exit toop-commander

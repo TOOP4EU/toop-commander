@@ -25,6 +25,7 @@ rm -fr toop-commander-${COMMANDER_VERSION}.tar.gz
 mkdir -p toop-commander-${COMMANDER_VERSION}
 
 cp -r target/toop-commander-${COMMANDER_VERSION}.jar \
+    playground-keystore-v1.jks \
     response-metadata.conf \
     toop-commander.conf \
     toop-keystore.jks \

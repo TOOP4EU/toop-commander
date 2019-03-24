@@ -46,6 +46,9 @@ import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.commons.jaxb.ToopXSDHelper140;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IdentifierType;
 
+/**
+ * The type Toop message creator.
+ */
 public class ToopMessageCreator {
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopMessageCreator.class);
 
@@ -53,6 +56,14 @@ public class ToopMessageCreator {
 
   private static eu.toop.commons.dataexchange.v140.ObjectFactory v140Factory = new ObjectFactory();
 
+  /**
+   * Create dc request tdetoop request type.
+   *
+   * @param identifier   the identifier
+   * @param country      the country
+   * @param metadataFile the metadata file
+   * @return the tdetoop request type
+   */
   public static TDETOOPRequestType createDCRequest(String identifier, String country, String metadataFile) {
     LOGGER.debug("Create a DC request from  identifier " + identifier + " country : " + country);
 
@@ -133,6 +144,14 @@ public class ToopMessageCreator {
   }
 
 
+  /**
+   * Create dp response tdetoop response type.
+   *
+   * @param identifier   the identifier
+   * @param country      the country
+   * @param metadataFile the metadata file
+   * @return the tdetoop response type
+   */
   public static TDETOOPResponseType createDPResponse(String identifier, String country, String metadataFile) {
     Config conf = parseMetadataFile(metadataFile);
     //use the sample response as a basis
@@ -158,6 +177,13 @@ public class ToopMessageCreator {
     }
   }
 
+  /**
+   * Create dp response tdetoop response type.
+   *
+   * @param tdeToopRequestType the tde toop request type
+   * @param metadataFile       the metadata file
+   * @return the tdetoop response type
+   */
   public static TDETOOPResponseType createDPResponse(TDETOOPRequestType tdeToopRequestType, String metadataFile) {
 
     Config conf = parseMetadataFile(metadataFile);
@@ -182,6 +208,12 @@ public class ToopMessageCreator {
     return aResponse;
   }
 
+  /**
+   * Parse metadata file config.
+   *
+   * @param metadataFile the metadata file
+   * @return the config
+   */
   public static Config parseMetadataFile(String metadataFile) {
     ConfigParseOptions opt = ConfigParseOptions.defaults();
     opt.setSyntax(ConfigSyntax.CONF);
@@ -197,6 +229,13 @@ public class ToopMessageCreator {
     return ConfigFactory.parseFile(file).resolve();
   }
 
+  /**
+   * Get a value for the given key, if it doesn't exist, return the defaul value
+   * @param conf
+   * @param key
+   * @param defaultValue
+   * @return
+   */
   private static String getOrDefault(Config conf, String key, String defaultValue) {
     String value = conf.getString(key);
 
@@ -207,6 +246,11 @@ public class ToopMessageCreator {
     return value;
   }
 
+  /**
+   * Parse the parcitipant id from configuration
+   * @param conf
+   * @return
+   */
   private static IdentifierType createParticipantId(Config conf) {
     String schemeAgencyId = conf.getString("ToopMessage.RoutingInformation.DataConsumerElectronicAddressIdentifier.schemeAgencyId");
     String schemeId = conf.getString("ToopMessage.RoutingInformation.DataConsumerElectronicAddressIdentifier.schemeId");
@@ -223,6 +267,11 @@ public class ToopMessageCreator {
     return identifier;
   }
 
+  /**
+   * Parse the concepts and fill them into the requst
+   * @param conf
+   * @param request
+   */
   private static void fillConcepts(Config conf, TDETOOPRequestType request) {
     LOGGER.debug("Process concepts");
     final String conceptNamespace = conf.getString("ToopMessage.Concepts.conceptNamespace");
@@ -243,6 +292,12 @@ public class ToopMessageCreator {
     }
   }
 
+  /**
+   * Parse the NP properties from the conf file.
+   * @param dataRequestSubjectType
+   * @param identifier
+   * @param conf
+   */
   private static void fillNaturalPersonProperties(TDEDataRequestSubjectType dataRequestSubjectType, String identifier, Config conf) {
     final String dataSubjectTypeCode = conf.getString("ToopMessage.dataSubjectTypeCode");
     String naturalPersonIdentifier = conf.getString("ToopMessage.NaturalPerson.identifier");
@@ -291,6 +346,11 @@ public class ToopMessageCreator {
     }
   }
 
+  /**
+   * Parse the legal person properties from the conf file and fill them into the request object.
+   * @param conf
+   * @param dataRequestSubjectType
+   */
   private static void fillLegalPersonProperties(Config conf, TDEDataRequestSubjectType dataRequestSubjectType) {
     final String legalPersonIdentifier = conf.getString("ToopMessage.LegalPerson.identifier");
     final String legalPersonName = conf.getString("ToopMessage.LegalPerson.name");
@@ -320,6 +380,12 @@ public class ToopMessageCreator {
     dataRequestSubjectType.setLegalPerson(legalEntity);
   }
 
+  /**
+   * parse data provider properties from the conf file and fill them into the request.
+   * @param conf
+   * @param routingInfo
+   * @param dataProviderType
+   */
   private static void fillDataProviderProperties(final Config conf,
                                                  final TDERoutingInformationType routingInfo,
                                                  final TDEDataProviderType dataProviderType) {
@@ -340,10 +406,22 @@ public class ToopMessageCreator {
     dataProviderType.setDPLegalAddress(pa);
   }
 
+  /**
+   * Serialize response byte [ ].
+   *
+   * @param dpResponse the dp response
+   * @return the byte [ ]
+   */
   public static byte[] serializeResponse(TDETOOPResponseType dpResponse) {
     return ToopWriter.response140().getAsBytes(dpResponse);
   }
 
+  /**
+   * Serialize request byte [ ].
+   *
+   * @param dcRequest the dc request
+   * @return the byte [ ]
+   */
   public static byte[] serializeRequest(TDETOOPRequestType dcRequest) {
     return ToopWriter.request140().getAsBytes(dcRequest);
   }

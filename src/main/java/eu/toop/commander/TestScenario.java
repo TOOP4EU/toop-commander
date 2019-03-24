@@ -18,10 +18,25 @@ package eu.toop.commander;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Test scenario.
+ */
 public class TestScenario {
 
+  /**
+   * The enum Role.
+   */
   public enum Role {
-    DC, DP, BOTH
+    /**
+     * Dc role.
+     */
+    DC, /**
+     * Dp role.
+     */
+    DP, /**
+     * Both role.
+     */
+    BOTH
   }
   private final String name;
   private final Role role;
@@ -32,6 +47,16 @@ public class TestScenario {
 
   private final List<TestStepContext> executedTestSteps = new ArrayList<>();
 
+  /**
+   * Instantiates a new Test scenario.
+   *
+   * @param name                    the name
+   * @param role                    the role
+   * @param requestXMLReference     the request xml reference
+   * @param reportTemplateReference the report template reference
+   * @param summary                 the summary
+   * @param expectedErrorCodes      the expected error codes
+   */
   public TestScenario(final String name,
                       final Role role,
                       final String requestXMLReference,
@@ -47,34 +72,74 @@ public class TestScenario {
     this.expectedErrorCodes = expectedErrorCodes;
   }
 
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
   public String getName () {
     return name;
   }
 
+  /**
+   * Gets role.
+   *
+   * @return the role
+   */
   public Role getRole () {
     return role;
   }
 
+  /**
+   * Gets request xml reference.
+   *
+   * @return the request xml reference
+   */
   public String getRequestXMLReference () {
     return requestXMLReference;
   }
 
+  /**
+   * Gets report template reference.
+   *
+   * @return the report template reference
+   */
   public String getReportTemplateReference () {
     return reportTemplateReference;
   }
 
+  /**
+   * Gets summary.
+   *
+   * @return the summary
+   */
   public String getSummary () {
     return summary;
   }
 
+  /**
+   * Gets expected error codes.
+   *
+   * @return the expected error codes
+   */
   public List<String> getExpectedErrorCodes () {
     return expectedErrorCodes;
   }
 
+  /**
+   * Add test result.
+   *
+   * @param testStepContext the test step context
+   */
   public void addTestResult(TestStepContext testStepContext) {
     executedTestSteps.add(testStepContext);
   }
 
+  /**
+   * Gets executed test steps.
+   *
+   * @return the executed test steps
+   */
   public List<TestStepContext> getExecutedTestSteps() {
     return executedTestSteps;
   }

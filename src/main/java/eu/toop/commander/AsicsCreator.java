@@ -31,6 +31,9 @@ import java.net.URLConnection;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 
+/**
+ * This class is used for creating the asic files from the sample request and response XML files
+ */
 public class AsicsCreator {
   static AsicWriterFactory factory = AsicWriterFactory.newFactory(ESignatureMethod.XAdES);
   static SignatureHelper signatureHelper = new SignatureHelper(EKeyStoreType.PKCS12,
@@ -39,11 +42,24 @@ public class AsicsCreator {
       "toop-commander",
       "123456");
 
+  /**
+   * Entry point
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
     createAsic("samples/request/TOOPRequest.asice", "samples/request/TOOPRequest.xml", "TOOPRequest");
     createAsic("samples/response/TOOPResponse.asice", "samples/response/TOOPResponse.xml", "TOOPResponse");
   }
 
+  /**
+   * Create an asic file from the <code>input</code> file, place it into the <code>target</code> asic file
+   * and set the entry name to <code>name</code>
+   * @param target the asic file to be created
+   * @param input the input xml file
+   * @param name the name of the zip entry
+   * @throws IOException
+   */
   private static void createAsic(String target, String input, String name) throws IOException {
     IAsicWriter iAsicWriter = factory.newContainer(new File(target));
     iAsicWriter.add(new File(input), name, MimeTypeParser.parseMimeType("application/xml"));

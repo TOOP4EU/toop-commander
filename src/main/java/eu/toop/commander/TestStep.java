@@ -15,6 +15,9 @@
  */
 package eu.toop.commander;
 
+/**
+ * The enum Test step.
+ */
 public enum TestStep {
   /**
    * Step 1 - sening the request
@@ -35,6 +38,9 @@ public enum TestStep {
    */
   TEST_STEP_RECEIVE_RESPONSE(4);
 
+  /**
+   * The Step code.
+   */
   public final int stepCode;
 
   TestStep(int stepCode){

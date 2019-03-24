@@ -18,6 +18,9 @@ package eu.toop.commander;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Test report.
+ */
 public class TestReport {
 
   private final List<TestScenario> successfulTests = new ArrayList<> ();
@@ -25,6 +28,11 @@ public class TestReport {
   private final List<TestScenario> executedTests = new ArrayList<> ();
   private final List<TestScenario> skippedTests = new ArrayList<> ();
 
+  /**
+   * Instantiates a new Test report.
+   *
+   * @param testConfig the test config
+   */
   public TestReport(TestConfig testConfig) {
 
     for (int i = 0; i < testConfig.getTestScenarioList().size(); i++) {
@@ -52,21 +60,41 @@ public class TestReport {
     }
   }
 
+  /**
+   * Gets successful tests.
+   *
+   * @return the successful tests
+   */
   public List<TestScenario> getSuccessfulTests () {
 
     return successfulTests;
   }
 
+  /**
+   * Gets failed tests.
+   *
+   * @return the failed tests
+   */
   public List<TestScenario> getFailedTests () {
 
     return failedTests;
   }
 
+  /**
+   * Gets skipped tests.
+   *
+   * @return the skipped tests
+   */
   public List<TestScenario> getSkippedTests () {
 
     return skippedTests;
   }
 
+  /**
+   * Gets executed tests.
+   *
+   * @return the executed tests
+   */
   public List<TestScenario> getExecutedTests () {
 
     return executedTests;

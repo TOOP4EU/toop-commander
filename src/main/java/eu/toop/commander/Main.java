@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,9 +34,16 @@ import eu.toop.iface.servlet.ToDPServlet;
  * @author yerlibilgin
  */
 public class Main {
-
+  /**
+   * The Logger instance
+   */
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+  /**
+   * Toop commander entry point
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     int port = CommanderConfig.getHttpPort();
 
@@ -76,48 +83,48 @@ public class Main {
     try {
       ToopCommanderCli toopCommanderCli = new ToopCommanderCli();
       while (toopCommanderCli.readLine()) {
-
         try {
 
-          List<String> commands = toopCommanderCli.getWords();
+          Command command = Command.parse(toopCommanderCli.getWords());
 
-          if (commands != null && commands.size() > 0) {
-            switch (commands.get(0)) {
-              case "help":
-                DCDPCommandHandler.printHelpMessage();
-                break;
-
-              case "cat": {
-                for (int i = 1; i < commands.size(); ++i) {
-                  String file = commands.get(i).trim();
-                  if (!file.isEmpty()) {
-                    System.out.println("Contents of " + file + ":\n");
-                    DCDPCommandHandler.printFile(file);
-                  }
-                }
-              }
-
+          switch (command.getMainCommand()) {
+            case "help":
+              CommandProcessor.printHelpMessage();
               break;
 
-              case "send-dc-request":
-              case "send-dp-response":
-                DCDPCommandHandler.processDCDPCommand(commands);
-                break;
-
-              case "run-test":
-                DCDPCommandHandler.runTest (commands);
-                break;
-
-              case "quit":
-                DCDPCommandHandler.quit(server);
-                break;
-
-              default:
-                DCDPCommandHandler.printHelpMessage();
-                break;
+            case "cat": {
+              List<String> fileNames = command.getEmptyParameters();
+              fileNames.forEach(fileName -> {
+                String trimmedName = fileName.trim();
+                if (!trimmedName.isEmpty()) {
+                  System.out.println("Contents of " + trimmedName + ":\n");
+                  CommandProcessor.printFile(trimmedName);
+                }
+              });
             }
-          } else {
-            DCDPCommandHandler.printHelpMessage();
+
+            break;
+
+            case "id-query":
+              CommandProcessor.processIdQuery(command);
+              break;
+
+            case "send-dc-request":
+            case "send-dp-response":
+              CommandProcessor.processDCDPCommand(command);
+              break;
+
+            case "run-test":
+              CommandProcessor.runTest(command);
+              break;
+
+            case "quit":
+              CommandProcessor.quit(server);
+              break;
+
+            default:
+              CommandProcessor.printHelpMessage();
+              break;
           }
         } catch (Exception ex) {
           LOGGER.error(ex.getMessage(), ex);
@@ -126,8 +133,7 @@ public class Main {
         }
       }
     } catch (UserInterruptException ex) {
-      DCDPCommandHandler.quit(server);
+      CommandProcessor.quit(server);
     }
-
   }
 }

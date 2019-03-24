@@ -26,10 +26,21 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The type Test reporter.
+ */
 public class TestReporter {
-
+  /**
+   * The Logger instance
+   */
   private static final Logger LOGGER = LoggerFactory.getLogger(TestReporter.class);
 
+  /**
+   * Export report.
+   *
+   * @param testConfig   the test config
+   * @param reportFolder the report folder
+   */
   public static void exportReport (TestConfig testConfig, String reportFolder) {
 
     TestReport report = new TestReport (testConfig);
@@ -99,6 +110,12 @@ public class TestReporter {
     }
   }
 
+  /**
+   * Print report string.
+   *
+   * @param testConfig the test config
+   * @return the string
+   */
   public static String printReport (TestConfig testConfig) {
 
     TestReport report = new TestReport (testConfig);

@@ -28,6 +28,9 @@ import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
 
+/**
+ * The listener that processes the toop request, responses and errors
+ */
 public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP {
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopInterfaceListener.class);
 

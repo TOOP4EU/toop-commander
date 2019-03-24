@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import eu.toop.commander.CommanderConfig;
 
 /**
+ * The default get servlet for the root context path (/)
  * @author yerlibilgin
  */
 public class RootServlet extends HttpServlet {

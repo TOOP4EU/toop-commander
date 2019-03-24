@@ -37,29 +37,59 @@ import eu.toop.commons.exchange.ToopMessageBuilder140;
 import eu.toop.commons.jaxb.ToopReader;
 import eu.toop.iface.util.HttpClientInvoker;
 
+/**
+ * The type Connector manager.
+ */
 public class ConnectorManager {
+  /**
+   * The Logger instance
+   */
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
 
+  /**
+   * The Signature helper.
+   */
   static final SignatureHelper signatureHelper = new SignatureHelper(EKeyStoreType.JKS,
       CommanderConfig.getKeystore(),
       CommanderConfig.getKeystorePassword(),
       CommanderConfig.getKeyAlias(),
       CommanderConfig.getKeyPassword());
 
+  /**
+   * The constant CONNECTOR_FROM_DCURL.
+   */
   public static final String CONNECTOR_FROM_DCURL = CommanderConfig.getConnectorFromDCURL();
+  /**
+   * The constant CONNECTOR_FROM_DPURL.
+   */
   public static final String CONNECTOR_FROM_DPURL = CommanderConfig.getConnectorFromDPURL();
 
 
+  /**
+   * Send dc request.
+   *
+   * @param file the file
+   */
   public static void sendDCRequest(String file) {
     LOGGER.info("Send DC request ");
     new ToopRequestMarshaller().sendMessage(file, CONNECTOR_FROM_DCURL);
   }
 
+  /**
+   * Send dp response.
+   *
+   * @param file the file
+   */
   public static void sendDPResponse(String file) {
     LOGGER.info("Send DP response ");
     new ToopResponseMarshaller().sendMessage(file, CONNECTOR_FROM_DPURL);
   }
 
+  /**
+   * Send dp response.
+   *
+   * @param tdeToopResponseType the tde toop response type
+   */
   public static void sendDPResponse(final TDETOOPResponseType tdeToopResponseType) {
     LOGGER.info("Send DP response ");
 
@@ -82,7 +112,14 @@ public class ConnectorManager {
   }
 
 
-  //Create a DP response from scratch and send it
+  /**
+   * Send dp response.
+   *
+   * @param identifier   the identifier
+   * @param country      the country
+   * @param metadataFile the metadata file
+   */
+//Create a DP response from scratch and send it
   public static void sendDPResponse(String identifier, String country, String metadataFile) {
     LOGGER.info("Send DP Response Identifier: " + identifier + " Country: " + country + " metadata file: " + metadataFile);
 
@@ -92,7 +129,14 @@ public class ConnectorManager {
   }
 
 
-  //Create a DC request from scratch and send it
+  /**
+   * Send dc request.
+   *
+   * @param identifier   the identifier
+   * @param country      the country
+   * @param metadataFile the metadata file
+   */
+//Create a DC request from scratch and send it
   public static void sendDCRequest(String identifier, String country, String metadataFile) {
     LOGGER.info("Send DC Request Identifier: " + identifier + " Country: " + country + " metadata file: " + metadataFile);
 
@@ -120,7 +164,16 @@ public class ConnectorManager {
   }
 
 
+  /**
+   * The type Toop message sender.
+   */
   static abstract class ToopMessageSender {
+    /**
+     * Send message.
+     *
+     * @param file the file
+     * @param url  the url
+     */
     public void sendMessage(String file, String url) {
       LOGGER.info("Send file " + file + " to the endpoint " + url);
 
@@ -147,9 +200,19 @@ public class ConnectorManager {
 
     }
 
+    /**
+     * Convert to asic byte [ ].
+     *
+     * @param allBytes the all bytes
+     * @return the byte [ ]
+     * @throws Exception the exception
+     */
     protected abstract byte[] convertToAsic(byte[] allBytes) throws Exception;
   }
 
+  /**
+   * The type Toop response marshaller.
+   */
   static class ToopResponseMarshaller extends ToopMessageSender {
     @Override
     protected byte[] convertToAsic(byte[] allBytes) throws Exception {
@@ -162,6 +225,9 @@ public class ConnectorManager {
   }
 
 
+  /**
+   * The type Toop request marshaller.
+   */
   static class ToopRequestMarshaller extends ToopMessageSender {
     @Override
     protected byte[] convertToAsic(byte[] allBytes) throws Exception {

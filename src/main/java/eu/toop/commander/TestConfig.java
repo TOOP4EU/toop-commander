@@ -31,11 +31,22 @@ import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigSyntax;
 import com.typesafe.config.ConfigValue;
 
+/**
+ * The type Test config.
+ */
 public class TestConfig {
 
+  /**
+   * The Logger instance
+   */
   private static final Logger LOGGER = LoggerFactory.getLogger(TestConfig.class);
   private List<TestScenario> testScenarioList = new ArrayList<>();
 
+  /**
+   * Instantiates a new Test config.
+   *
+   * @param configFile the config file
+   */
   public TestConfig(String configFile) {
     try {
       LOGGER.debug("Try to parse " + configFile);
@@ -78,6 +89,11 @@ public class TestConfig {
     return (String) co.get(testName).unwrapped();
   }
 
+  /**
+   * Gets test scenario list.
+   *
+   * @return the test scenario list
+   */
   public List<TestScenario> getTestScenarioList() {
     return testScenarioList;
   }

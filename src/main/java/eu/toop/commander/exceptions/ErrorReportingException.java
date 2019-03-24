@@ -15,6 +15,10 @@
  */
 package eu.toop.commander.exceptions;
 
+/**
+ * An exception that represents a problem that ocurred during the reporting
+ * of an errors after the automated test
+ */
 public class ErrorReportingException extends IllegalStateException {
   public ErrorReportingException(Throwable e) {
     super(e);
