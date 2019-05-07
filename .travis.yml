@@ -1,6 +1,5 @@
 dist: xenial
-language: bash
-services: docker
+language: java
 
 env:
   global:
@@ -12,9 +11,8 @@ OOKLagdfeVswbcWJ1wx4Y5q/eUWmyLIdNTX4otP+ZZdhS6tUqSCeSCfaxIrGXZOIJRiKIxssogLVijbA
 o0m2Wh7QTarfrrZFNMNZYfnbP3dR7OUV+XIMoiCgaQR+pxiRyS3+8U="
 
 install:
-  #  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
-  #  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
-  - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-8 mvn clean install
+#  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
 
 cache:
   directories:
@@ -27,14 +25,22 @@ branches:
 jobs:
   include:
     - stage: test
+      jdk: openjdk8
       script:
-        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-8 mvn test -B -P coverage sonar:sonar
+        - mvn test -B -P coverage
       after_success:
-        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-8 mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
+        - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
+        - docker build -t commander .
         - bash <(curl -s https://codecov.io/bash)
     - stage: test
+      jdk: openjdk11
       script:
-        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-11 mvn test -B
+        - mvn test -B
     - stage: test
+      jdk: oraclejdk11
       script:
-        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-12 mvn test -B
+        - mvn test -B
+    - stage: test
+      jdk: openjdk12
+      script:
+        - mvn test -B
