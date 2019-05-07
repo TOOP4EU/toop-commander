@@ -30,7 +30,6 @@ jobs:
         - mvn test -B -P coverage
       after_success:
         - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
-        - docker build -t commander .
         - bash <(curl -s https://codecov.io/bash)
     - stage: test
       jdk: openjdk11
@@ -38,9 +37,5 @@ jobs:
         - mvn test -B
     - stage: test
       jdk: oraclejdk11
-      script:
-        - mvn test -B
-    - stage: test
-      jdk: openjdk12
       script:
         - mvn test -B
