@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
+import eu.toop.commons.exchange.ToopRequestWithAttachments140;
+import eu.toop.commons.exchange.ToopResponseWithAttachments140;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
 import eu.toop.iface.ToopInterfaceManager;
@@ -107,19 +107,19 @@ public class ToopTestManager {
 
   private class ToopTestManagerListener implements IToopInterfaceDC, IToopInterfaceDP {
     @Override
-    public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) {
+    public void onToopResponse(@Nonnull ToopResponseWithAttachments140 aResponse) {
       LOGGER.debug("Received a Toop Response");
-      TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse));
+      TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse.getResponse ()));
     }
 
     @Override
-    public void onToopRequest(@Nonnull TDETOOPRequestType aRequest) {
+    public void onToopRequest(@Nonnull ToopRequestWithAttachments140 aRequest) {
       LOGGER.debug("Received a Toop Request");
-      TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest));
+      TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest.getRequest ()));
     }
 
     @Override
-    public void onToopErrorResponse(@Nonnull TDETOOPResponseType aResponse) {
+    public void onToopErrorResponse(@Nonnull ToopResponseWithAttachments140 aResponse) {
       LOGGER.debug("Received a Toop Error Response");
       LOGGER.error(aResponse.toString());
     }

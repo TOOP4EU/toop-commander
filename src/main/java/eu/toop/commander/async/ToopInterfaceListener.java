@@ -22,8 +22,9 @@ import org.slf4j.LoggerFactory;
 
 import eu.toop.commander.ConnectorManager;
 import eu.toop.commander.ToopMessageCreator;
-import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
+import eu.toop.commons.exchange.ToopRequestWithAttachments140;
+import eu.toop.commons.exchange.ToopResponseWithAttachments140;
 import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
@@ -35,27 +36,27 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopInterfaceListener.class);
 
   @Override
-  public void onToopResponse(@Nonnull TDETOOPResponseType aResponse) {
+  public void onToopResponse(@Nonnull ToopResponseWithAttachments140 aResponseWA) {
     LOGGER.debug("Received a Toop Response");
 
     // Log the response xml
-    LOGGER.info(ToopWriter.response140().getAsString(aResponse));
+    LOGGER.info(ToopWriter.response140().getAsString(aResponseWA.getResponse ()));
   }
 
   @Override
-  public void onToopRequest(@Nonnull TDETOOPRequestType aRequest) {
+  public void onToopRequest(@Nonnull ToopRequestWithAttachments140 aRequestWA) {
     LOGGER.debug("Received a Toop Request");
 
-    final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse(aRequest, "response-metadata.conf");
+    final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse(aRequestWA.getRequest (), "response-metadata.conf");
 
     ConnectorManager.sendDPResponse(aResponse);
   }
 
   @Override
-  public void onToopErrorResponse(@Nonnull TDETOOPResponseType aResponse) {
+  public void onToopErrorResponse(@Nonnull ToopResponseWithAttachments140 aResponseWA) {
     LOGGER.debug("Received a Toop Error Response");
 
     // Log the response xml
-    LOGGER.info(ToopWriter.response140().getAsString(aResponse));
+    LOGGER.info(ToopWriter.response140().getAsString(aResponseWA.getResponse ()));
   }
 }
