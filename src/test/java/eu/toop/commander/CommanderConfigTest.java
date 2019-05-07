@@ -19,15 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Anton Wiklund
  */
-public class CommanderConfigTest {
-
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CommanderConfigTest.class);
+public final class CommanderConfigTest {
 
   @Test
   void commanderConfigTest() {

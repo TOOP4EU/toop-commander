@@ -40,6 +40,7 @@ import eu.toop.commander.ToopMessageCreator;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder140;
+import eu.toop.commons.exchange.ToopRequestWithAttachments140;
 
 /**
  * @author Anton Wiklund
@@ -65,12 +66,12 @@ public class ToopInterfaceListenerTest {
   }
 
   @Test
-  void toopDataProviderTest() throws IOException {
+  void toopDataProviderTest() {
 
     final TDETOOPRequestType aRequest = ToopMessageCreator.createDCRequest (null, null, "metadata.conf");
     final ToopInterfaceListener toopInterfaceListener = new ToopInterfaceListener ();
     try {
-      toopInterfaceListener.onToopRequest (aRequest);
+      toopInterfaceListener.onToopRequest (new ToopRequestWithAttachments140 (aRequest, null));
       assertNotNull (aResponseMsg);
     } catch (final IllegalStateException ex) {
       // Can happen if the server is not running
@@ -100,10 +101,10 @@ public class ToopInterfaceListenerTest {
                            @Nonnull final HttpServletResponse aHttpServletResponse) throws ServletException, IOException {
 
       // Parse ASiC
-      final TDETOOPResponseType aResponseMsg = ToopMessageBuilder140.parseResponseMessage (aHttpServletRequest.getInputStream ());
-      ToopInterfaceListenerTest.aResponseMsg = aResponseMsg;
+      final TDETOOPResponseType responseMsg = ToopMessageBuilder140.parseResponseMessage (aHttpServletRequest.getInputStream (), null);
+      ToopInterfaceListenerTest.aResponseMsg = responseMsg;
 
-      if (aResponseMsg == null) {
+      if (responseMsg == null) {
         // The message content is invalid
         s_aLogger.error ("The request does not contain an ASiC archive or the ASiC archive does not contain a TOOP Response Message!");
         aHttpServletResponse.setStatus (HttpServletResponse.SC_BAD_REQUEST);
