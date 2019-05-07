@@ -24,7 +24,7 @@
     <version>1.1.0</version>
   </parent>
   <artifactId>toop-commander</artifactId>
-  <version>0.10.1-SNAPSHOT</version>
+  <version>0.10.2-SNAPSHOT</version>
   <url>https://github.com/toop4eu/toop-commander</url>
   <inceptionYear>2018</inceptionYear>
 
@@ -157,7 +157,7 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlet</artifactId>
-      <version>9.4.14.v20181114</version>
+      <version>9.4.18.v20190429</version>
     </dependency>
 
     <dependency>
