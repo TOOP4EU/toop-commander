@@ -20,7 +20,7 @@ cache:
 
 branches:
   only:
-    - master
+    - dummytests
 
 jobs:
   include:
