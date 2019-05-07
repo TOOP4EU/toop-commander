@@ -1,5 +1,6 @@
 dist: xenial
-language: java
+language: bash
+services: docker
 
 env:
   global:
@@ -9,11 +10,12 @@ X53XvhyAh7NRIaOxZnGKQtX94UkBvh938BJsLdzwaRDeBSsF0rqFyslmm3F/85EqdI6zLTvRwPkrsgy8
 br0BJ4u6zUELd1/mpc/Vd8RuKJ/wFiGJr+2aFQ4zjv24Y5PhB/QDOJkEnhXBXAj1pT320+UfcebFE8ewYN1pm14uo6FZTSAHUuL/8O9muovOovif613ufuPTveHYKlF1/B1AY5ug0fd1qCgN3v6QrYRgur4sGyhq
 OOKLagdfeVswbcWJ1wx4Y5q/eUWmyLIdNTX4otP+ZZdhS6tUqSCeSCfaxIrGXZOIJRiKIxssogLVijbA4pXRB6gKkc+nK8W0evKnWp8AeJ4l9RSfERkjosI6NYH5pQP0GrBfWDTgNXyypUHhw8QK2FyTtz+92cGh
 o0m2Wh7QTarfrrZFNMNZYfnbP3dR7OUV+XIMoiCgaQR+pxiRyS3+8U="
-  
+
 install:
-#  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
-  
+  #  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+  #  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
+  - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-8 mvn clean install
+
 cache:
   directories:
     - $HOME/.m2
@@ -25,22 +27,14 @@ branches:
 jobs:
   include:
     - stage: test
-      jdk: openjdk8
       script:
-        - mvn test -B -P coverage
+        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-8 mvn test -B -P coverage sonar:sonar
       after_success:
-        - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
+        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-8 mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
         - bash <(curl -s https://codecov.io/bash)
     - stage: test
-      jdk: openjdk11
       script:
-        - mvn test -B
+        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-11 mvn test -B
     - stage: test
-      jdk: oraclejdk11
       script:
-        - mvn test -B
-    - stage: test
-      jdk: openjdk12
-      script:
-        - mvn test -B
-  
+        - docker run -it -v $(pwd):/root/sources -w /root/sources maven:3.6.1-jdk-12 mvn test -B
