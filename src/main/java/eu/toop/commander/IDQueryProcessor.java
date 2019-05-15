@@ -6,18 +6,16 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
-
-import eu.toop.commander.dpsearch.EntityType;
-import eu.toop.commander.dpsearch.IDType;
-import eu.toop.commander.dpsearch.MatchType;
-import eu.toop.commander.dpsearch.ResultListType;
+import com.helger.pd.searchapi.PDSearchAPIReader;
+import com.helger.pd.searchapi.v1.EntityType;
+import com.helger.pd.searchapi.v1.IDType;
+import com.helger.pd.searchapi.v1.MatchType;
+import com.helger.pd.searchapi.v1.ResultListType;
 
 /**
  * This class contains provides means to perform or check the id query via the toop connector proxy service to TOOP Directory
@@ -135,16 +133,10 @@ public class IDQueryProcessor {
 
   /**
    * Unmarshal a ResultListType instance from the given string
-   * @param str
-   * @return
-   * @throws javax.xml.bind.JAXBException
+   * @param str string
+   * @return <code>null</code> on error
    */
-  private static ResultListType jaxbUnmarshalFromString(String str)
-      throws javax.xml.bind.JAXBException {
-    javax.xml.bind.JAXBContext jaxbCtx =
-        javax.xml.bind.JAXBContext.newInstance(ResultListType.class.getPackage().getName());
-    javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
-    JAXBElement ret = (JAXBElement) unmarshaller.unmarshal(new java.io.StringReader(str));
-    return (ResultListType) ret.getValue();
+  private static ResultListType jaxbUnmarshalFromString(String str)  {
+    return PDSearchAPIReader.resultListV1 ().read (str);
   }
 }
