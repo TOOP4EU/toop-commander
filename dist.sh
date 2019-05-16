@@ -16,7 +16,7 @@
 #
 
 
-COMMANDER_VERSION=0.10.0
+COMMANDER_VERSION=0.10.2-SNAPSHOT
 
 mvn -Dmaven.test.skip=true clean verify
 
@@ -28,11 +28,12 @@ cp -r target/toop-commander-${COMMANDER_VERSION}.jar \
     playground-keystore-v1.jks \
     response-metadata.conf \
     toop-commander.conf \
-    toop-keystore.jks \
+    toop-commander.pfx \
     metadata.conf \
     target/lib \
     README.md \
     samples \
+    ./.tchistory \
     run.sh \
     toop-commander-${COMMANDER_VERSION}/
 

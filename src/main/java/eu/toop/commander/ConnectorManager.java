@@ -49,7 +49,7 @@ public class ConnectorManager {
   /**
    * The Signature helper.
    */
-  static final SignatureHelper signatureHelper = new SignatureHelper(EKeyStoreType.JKS,
+  static final SignatureHelper signatureHelper = new SignatureHelper(EKeyStoreType.PKCS12,
       CommanderConfig.getKeystore(),
       CommanderConfig.getKeystorePassword(),
       CommanderConfig.getKeyAlias(),
