@@ -98,7 +98,7 @@ public class ToopTestManager {
     LOGGER.info(TestReporter.printReport(testConfig));
 
     // Export the test summary
-    TestReporter.exportReport(testConfig, "samples/tests/reports/");
+    TestReporter.exportReport(testConfig, "data/tests/reports/");
 
     // restore the original listeners
     ToopInterfaceManager.setInterfaceDC(originalInterfaceDC);
@@ -109,19 +109,33 @@ public class ToopTestManager {
     @Override
     public void onToopResponse(@Nonnull ToopResponseWithAttachments140 aResponse) {
       LOGGER.debug("Received a Toop Response");
-      TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse.getResponse ()));
+      TestScenarioManager.fireTestStepOcurred(new TestStepResponseContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse));
     }
 
     @Override
     public void onToopRequest(@Nonnull ToopRequestWithAttachments140 aRequest) {
       LOGGER.debug("Received a Toop Request");
-      TestScenarioManager.fireTestStepOcurred(new TestStepContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest.getRequest ()));
+      TestScenarioManager.fireTestStepOcurred(new TestStepRequestContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest));
     }
 
     @Override
     public void onToopErrorResponse(@Nonnull ToopResponseWithAttachments140 aResponse) {
       LOGGER.debug("Received a Toop Error Response");
-      LOGGER.error(aResponse.toString());
+
+      StringBuilder errorStringBuilder = new StringBuilder();
+
+      aResponse.getResponse().getError().forEach(error -> {
+        errorStringBuilder
+            .append("Error Code: ")
+            .append(error.getErrorCode())
+            .append("Error Text: ")
+        .append(error.getErrorText()).append("\n\n");
+
+        LOGGER.error(error.toString());
+      });
+
+      //FIXME provide a better error explanation here
+      TestScenarioManager.fireTestStepOcurred(new TestStepErrorContext(TestStep.TEST_STEP_RECEIVE_REQUEST, errorStringBuilder.toString()));
     }
   }
 }

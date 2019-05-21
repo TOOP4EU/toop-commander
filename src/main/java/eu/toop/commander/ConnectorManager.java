@@ -21,7 +21,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
+import java.util.Iterator;
+import java.util.List;
 
+import eu.toop.commons.exchange.AsicReadEntry;
+import eu.toop.commons.exchange.AsicWriteEntry;
+import eu.toop.commons.exchange.ToopResponseWithAttachments140;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,6 +96,10 @@ public class ConnectorManager {
    * @param tdeToopResponseType the tde toop response type
    */
   public static void sendDPResponse(final TDETOOPResponseType tdeToopResponseType) {
+    sendDPResponse(tdeToopResponseType, null);
+  }
+
+  public static void sendDPResponse(TDETOOPResponseType tdeToopResponseType, Iterable<AsicWriteEntry> attachments) {
     LOGGER.info("Send DP response ");
 
     //log the last request to file
@@ -103,7 +112,7 @@ public class ConnectorManager {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       LOGGER.debug("Create asic");
-      ToopMessageBuilder140.createResponseMessageAsic(tdeToopResponseType, baos, signatureHelper);
+      ToopMessageBuilder140.createResponseMessageAsic(tdeToopResponseType, baos, signatureHelper, attachments);
       LOGGER.debug("Send the response to " + CONNECTOR_FROM_DPURL);
       HttpClientInvoker.httpClientCallNoResponse(CONNECTOR_FROM_DPURL, baos.toByteArray());
     } catch (ToopErrorException | IOException e) {
@@ -127,7 +136,6 @@ public class ConnectorManager {
 
     sendDPResponse(tdetoopResponseType);
   }
-
 
   /**
    * Send dc request.
@@ -162,7 +170,6 @@ public class ConnectorManager {
     }
 
   }
-
 
   /**
    * The type Toop message sender.

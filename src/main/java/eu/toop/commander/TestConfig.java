@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,6 +61,21 @@ public class TestConfig {
         String name = checkAndUnwrap(co, "TestName");
         String role = checkAndUnwrap(co, "Role");
         String requestXMLReference = checkAndUnwrap(co, "RequestXMLReference");
+
+        String responseXMLReference = null;
+        if(co.containsKey("ResponseXMLReference"))
+          responseXMLReference = (String) co.get("ResponseXMLReference").unwrapped();
+
+        String responseMetadataFile = null;
+        if (co.containsKey("ResponseMetadataFile"))
+          responseMetadataFile = checkAndUnwrap(co, "ResponseMetadataFile");
+
+        @SuppressWarnings("unchecked")
+        ArrayList<String> responseAttachments = null;
+        if (co.containsKey("ResponseAttachments"))
+          responseAttachments = (ArrayList<String>) co.get("ResponseAttachments").unwrapped();
+
+
         String reportTemplateReference = checkAndUnwrap(co, "ReportTemplateReference");
         String summary = checkAndUnwrap(co, "Summary");
 
@@ -68,11 +83,15 @@ public class TestConfig {
         ConfigValue successCriteria = co.get("SuccessCriteria");
         Map<String, ConfigObject> errors = (Map<String, ConfigObject>) successCriteria.unwrapped();
 
+        @SuppressWarnings("unchecked")
         ArrayList<String> expectedErrorCodeList = (ArrayList<String>) errors.get("ExpectedErrorCodes");
         // Create test scenario
         TestScenario testScenario = new TestScenario(name,
             TestScenario.Role.valueOf(role),
             requestXMLReference,
+            responseXMLReference,
+            responseMetadataFile,
+            responseAttachments,
             reportTemplateReference,
             summary,
             expectedErrorCodeList);

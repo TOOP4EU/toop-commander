@@ -83,8 +83,8 @@ public class TestReporter {
             status[testStep.getTestStep ().stepCode - 1] = "Failed";
           }
 
-          if (testStep.getResult () != null) {
-            results[testStep.getTestStep ().stepCode - 1] = testStep.getResult ();
+          if (testStep instanceof TestStepErrorContext) {
+            results[testStep.getTestStep ().stepCode - 1] = ((TestStepErrorContext) testStep).getErrorMessage();
           }
         }
         for (int i=0; i<TestStep.values ().length; i++) {
@@ -138,10 +138,10 @@ public class TestReporter {
         testSummary.append (String.format("  Test [%s]: \n", failedTestScenario.getName ()));
         for (TestStepContext testStepContext : failedTestScenario.getExecutedTestSteps ()) {
 
-          if (!testStepContext.isSuccess ()) {
+          if (testStepContext instanceof TestStepErrorContext) {
 
             testSummary.append (String.format ("    Failure in step [%d]: \"%s\"\n",
-                testStepContext.getTestStep ().stepCode, testStepContext.getResult ()));
+                testStepContext.getTestStep ().stepCode, ((TestStepErrorContext) testStepContext).getErrorMessage()));
           }
         }
       }

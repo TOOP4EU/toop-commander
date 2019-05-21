@@ -18,6 +18,8 @@ package eu.toop.commander;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,8 @@ import eu.toop.commons.dataexchange.v140.TDEDataElementRequestType;
 import eu.toop.commons.dataexchange.v140.TDEDataProviderType;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * @author Anton Wiklund
@@ -152,5 +156,11 @@ public class ToopMessageCreatorTest {
     assertEquals (aDP.getDPName ().getValue (), conf.getString("ToopMessage.DataProvider.name"));
     assertEquals (aResponse.getRoutingInformation ().getDataProviderElectronicAddressIdentifier ().getValue (), conf.getString("ToopMessage.DataProvider.electronicAddressIdentifier"));
     assertEquals (aDP.getDPLegalAddress ().getCountryCode ().getValue (), conf.getString("ToopMessage.DataProvider.countryCode"));
+  }
+
+  @org.junit.Test
+  public void createDPResponse() throws FileNotFoundException, JAXBException {
+    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse(new FileInputStream("data/response/TOOPResponse.xml"));
+    System.out.println(dpResponse.getRoutingInformation().getProcessIdentifier());
   }
 }

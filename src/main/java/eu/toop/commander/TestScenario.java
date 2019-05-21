@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,7 @@
  */
 package eu.toop.commander;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,17 +31,23 @@ public class TestScenario {
     /**
      * Dc role.
      */
-    DC, /**
+    DC,
+    /**
      * Dp role.
      */
-    DP, /**
+    DP,
+    /**
      * Both role.
      */
     BOTH
   }
+
   private final String name;
   private final Role role;
   private final String requestXMLReference;
+  private final String responseXMLReference;
+  private final String responseMetadataFileName;
+  private final ArrayList<String> responseAttachments;
   private final String reportTemplateReference;
   private final String summary;
   private final List<String> expectedErrorCodes;
@@ -49,10 +56,21 @@ public class TestScenario {
 
   /**
    * Instantiates a new Test scenario.
-   *
-   * @param name                    the name
+   *  @param name                    the name
    * @param role                    the role
    * @param requestXMLReference     the request xml reference
+   * @param responseXMLReference     the response xml reference (for DP and BOTH Roles)
+   * @param responseMetadataFileName  the file that contains information about the reponse to be created
+   *                                  for this scenario (can be null). <p><b>Both <code>responseXMLReference</code> and <code>responseMetadataFileName</code></b> can be provided.
+   *                                  However the <code>responseXMLReference</code>
+   *                                  has a precedence over <code>responseMetadataFileName</code>.
+   *                                  i.e. if <code>responseXMLReference</code> is not null, it will be used and
+   *                                  <code>responseMetadataFileName</code> will be discarded.
+   *                                  If both values are null, then we assume the file <code>data/response-metadata.conf</code> as
+   *                                  the default data source for the possible response to be created.
+   *                                  </p>
+   * @param responseAttachments  the list of attachemnts that should be added to the asic file
+   *                             created for this test scenario
    * @param reportTemplateReference the report template reference
    * @param summary                 the summary
    * @param expectedErrorCodes      the expected error codes
@@ -60,13 +78,19 @@ public class TestScenario {
   public TestScenario(final String name,
                       final Role role,
                       final String requestXMLReference,
+                      @Nullable  final String responseXMLReference,
+                      @Nullable final String responseMetadataFileName,
+                      @Nullable ArrayList<String> responseAttachments,
                       final String reportTemplateReference,
                       final String summary,
-                      final List<String> expectedErrorCodes) {
+                      @Nullable final List<String> expectedErrorCodes) {
 
     this.name = name;
     this.role = role;
     this.requestXMLReference = requestXMLReference;
+    this.responseXMLReference = responseXMLReference;
+    this.responseMetadataFileName = responseMetadataFileName;
+    this.responseAttachments = responseAttachments;
     this.reportTemplateReference = reportTemplateReference;
     this.summary = summary;
     this.expectedErrorCodes = expectedErrorCodes;
@@ -77,7 +101,7 @@ public class TestScenario {
    *
    * @return the name
    */
-  public String getName () {
+  public String getName() {
     return name;
   }
 
@@ -86,7 +110,7 @@ public class TestScenario {
    *
    * @return the role
    */
-  public Role getRole () {
+  public Role getRole() {
     return role;
   }
 
@@ -95,8 +119,27 @@ public class TestScenario {
    *
    * @return the request xml reference
    */
-  public String getRequestXMLReference () {
+  public String getRequestXMLReference() {
     return requestXMLReference;
+  }
+
+
+
+  public String getResponseMetadataFileName() {
+    return responseMetadataFileName;
+  }
+
+
+  /**
+   * Get the response xml reference
+   * @return
+   */
+  public String getResponseXMLReference() {
+    return responseXMLReference;
+  }
+
+  public ArrayList<String> getResponseAttachments() {
+    return responseAttachments;
   }
 
   /**
@@ -104,7 +147,7 @@ public class TestScenario {
    *
    * @return the report template reference
    */
-  public String getReportTemplateReference () {
+  public String getReportTemplateReference() {
     return reportTemplateReference;
   }
 
@@ -113,7 +156,7 @@ public class TestScenario {
    *
    * @return the summary
    */
-  public String getSummary () {
+  public String getSummary() {
     return summary;
   }
 
@@ -122,7 +165,7 @@ public class TestScenario {
    *
    * @return the expected error codes
    */
-  public List<String> getExpectedErrorCodes () {
+  public List<String> getExpectedErrorCodes() {
     return expectedErrorCodes;
   }
 

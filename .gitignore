@@ -29,3 +29,5 @@ testData
 
 samples/tests/reports/*
 !samples/tests/reports/.gitkeep
+data/tests/reports
+logs

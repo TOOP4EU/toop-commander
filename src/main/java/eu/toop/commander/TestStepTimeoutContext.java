@@ -16,38 +16,16 @@
 package eu.toop.commander;
 
 /**
- * A class that represents contextual information related
- * to a test step
+ * A class that represents a test step that timed out before receiving a request/response
  */
-public class TestStepContext {
-
-  private final boolean success;
-  /**
-   * The actual test step wrapped in this context
-   */
-  private final TestStep testStep;
-
+public class TestStepTimeoutContext extends TestStepErrorContext {
   /**
    * Instantiates a new Test step context.
-   *
-   * @param testStep        the test step
+   *  @param testStep        the test step
    */
-  public TestStepContext(TestStep testStep, boolean success) {
-    this.testStep = testStep;
-    this.success = success;
+  public TestStepTimeoutContext(TestStep testStep) {
+    super(testStep, "Timeout receiving request/response");
   }
 
-
-  /**
-   * Gets test step.
-   *
-   * @return the test step
-   */
-  public TestStep getTestStep() {
-    return testStep;
-  }
-
-  public boolean isSuccess() {
-    return success;
-  }
 }
+

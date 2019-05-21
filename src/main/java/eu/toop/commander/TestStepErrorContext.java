@@ -19,35 +19,15 @@ package eu.toop.commander;
  * A class that represents contextual information related
  * to a test step
  */
-public class TestStepContext {
+public class TestStepErrorContext extends TestStepContext{
+  private final String errorMessage;
 
-  private final boolean success;
-  /**
-   * The actual test step wrapped in this context
-   */
-  private final TestStep testStep;
-
-  /**
-   * Instantiates a new Test step context.
-   *
-   * @param testStep        the test step
-   */
-  public TestStepContext(TestStep testStep, boolean success) {
-    this.testStep = testStep;
-    this.success = success;
+  public TestStepErrorContext(TestStep testStep, String errorMessage) {
+    super(testStep, false);
+    this.errorMessage = errorMessage;
   }
 
-
-  /**
-   * Gets test step.
-   *
-   * @return the test step
-   */
-  public TestStep getTestStep() {
-    return testStep;
-  }
-
-  public boolean isSuccess() {
-    return success;
+  public String getErrorMessage() {
+    return errorMessage;
   }
 }

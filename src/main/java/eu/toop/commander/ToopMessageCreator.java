@@ -18,6 +18,7 @@ package eu.toop.commander;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
@@ -26,6 +27,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -174,14 +179,14 @@ public class ToopMessageCreator {
       fillNaturalPersonProperties(response.getDataRequestSubject(), identifier, conf);
       //fillLegalPersonProperties(conf, response.getDataRequestSubject());
 
-      if(country != null && !country.isEmpty()) {
+      if (country != null && !country.isEmpty()) {
         oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType code = ToopXSDHelper140.createCode(country);
         response.getRoutingInformation().setDataConsumerCountryCode(code);
         response.getRoutingInformation().setDataProviderCountryCode(code);
         response.getDataConsumer().getDCLegalAddress().setCountryCode(code);
       }
 
-      if(identifier != null && !identifier.isEmpty()){
+      if (identifier != null && !identifier.isEmpty()) {
         IdentifierType participantID = createParticipantId(conf);
         response.getRoutingInformation().setDataConsumerElectronicAddressIdentifier(participantID);
       }
@@ -208,7 +213,7 @@ public class ToopMessageCreator {
 
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
     fillDataProviderProperties(conf, aResponse.getRoutingInformation(), dataProviderType);
-    aResponse.getRoutingInformation().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
+    aResponse.getRoutingInformation().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.URN_EU_TOOP_NS_DATAEXCHANGE_1P40_RESPONSE_URN_EU_TOOP_RESPONSE_REGISTEREDORGANIZATION_1_40.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
     aResponse.addDataProvider(dataProviderType);
 
     String schemeId = conf.getString("ToopMessage.DataRequestIdentifier.schemeId");
@@ -220,6 +225,13 @@ public class ToopMessageCreator {
     aResponse.setDataRequestIdentifier(uuid);
     aResponse.getSpecificationIdentifier().setValue("urn:eu:toop:ns:dataexchange-1p40::Response");
     return aResponse;
+  }
+
+  public static TDETOOPResponseType createDPResponse(InputStream responseStream) throws JAXBException {
+    JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
+    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+    JAXBElement<TDETOOPResponseType> element = (JAXBElement<TDETOOPResponseType>) unmarshaller.unmarshal(responseStream);
+    return element.getValue();
   }
 
   /**
@@ -245,6 +257,7 @@ public class ToopMessageCreator {
 
   /**
    * Get a value for the given key, if it doesn't exist, return the defaul value
+   *
    * @param conf
    * @param key
    * @param defaultValue
@@ -262,6 +275,7 @@ public class ToopMessageCreator {
 
   /**
    * Parse the parcitipant id from configuration
+   *
    * @param conf
    * @return
    */
@@ -283,6 +297,7 @@ public class ToopMessageCreator {
 
   /**
    * Parse the concepts and fill them into the requst
+   *
    * @param conf
    * @param request
    */
@@ -308,6 +323,7 @@ public class ToopMessageCreator {
 
   /**
    * Parse the NP properties from the conf file.
+   *
    * @param dataRequestSubjectType
    * @param identifier
    * @param conf
@@ -362,6 +378,7 @@ public class ToopMessageCreator {
 
   /**
    * Parse the legal person properties from the conf file and fill them into the request object.
+   *
    * @param conf
    * @param dataRequestSubjectType
    */
@@ -396,6 +413,7 @@ public class ToopMessageCreator {
 
   /**
    * parse data provider properties from the conf file and fill them into the request.
+   *
    * @param conf
    * @param routingInfo
    * @param dataProviderType
