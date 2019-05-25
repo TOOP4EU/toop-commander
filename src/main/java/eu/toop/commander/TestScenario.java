@@ -75,7 +75,8 @@ public class TestScenario {
    * @param summary                 the summary
    * @param expectedErrorCodes      the expected error codes
    */
-  public TestScenario(final String name,
+  public TestScenario(TestConfig parentConfig,
+                      final String name,
                       final Role role,
                       final String requestXMLReference,
                       @Nullable  final String responseXMLReference,
@@ -94,6 +95,7 @@ public class TestScenario {
     this.reportTemplateReference = reportTemplateReference;
     this.summary = summary;
     this.expectedErrorCodes = expectedErrorCodes;
+    this.parentConfig = parentConfig;
   }
 
   /**
@@ -186,4 +188,16 @@ public class TestScenario {
   public List<TestStepContext> getExecutedTestSteps() {
     return executedTestSteps;
   }
+
+
+  private TestConfig parentConfig;
+
+  public TestConfig getParentConfig() {
+    return parentConfig;
+  }
+
+  public void setParentConfig(TestConfig parentConfig) {
+    this.parentConfig = parentConfig;
+  }
+
 }

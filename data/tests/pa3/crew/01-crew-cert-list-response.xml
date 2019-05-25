@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2018-2019 toop.eu
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<toop:Response xmlns:toop="urn:eu:toop:ns:dataexchange-1p40">
+  <toop:DocumentUniversalUniqueIdentifier schemeAgencyID="whatsoever">68c3460a-8049-42eb-a8c5-ecad531b2686</toop:DocumentUniversalUniqueIdentifier>
+  <toop:DocumentIssueDate>2019-01-17</toop:DocumentIssueDate>
+  <toop:DocumentIssueTime>10:13:11</toop:DocumentIssueTime>
+  <toop:CopyIndicator>false</toop:CopyIndicator>
+  <toop:SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Response</toop:SpecificationIdentifier>
+  <toop:DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">101-287.56666-1</toop:DataConsumerDocumentIdentifier>
+  <toop:DataConsumerGlobalSessionIdentifier schemeAgencyID="whatsoever">394956-1</toop:DataConsumerGlobalSessionIdentifier>
+  <toop:DataConsumerRequestPurpose  languageID="en">Retrieve META data for crew certificates</toop:DataConsumerRequestPurpose>
+  <toop:DataRequestIdentifier schemeAgencyID="whatsoever">8acda8d6-1a37-11e9-ab14-d663bd873d93</toop:DataRequestIdentifier>
+  <toop:RoutingInformation>
+    <toop:DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Response##urn:eu.toop.response.crewcertificate-list::1.40</toop:DocumentTypeIdentifier>
+    <toop:ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.twophasedrequestresponse</toop:ProcessIdentifier>
+    <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:freedonia-dev</toop:DataConsumerElectronicAddressIdentifier>
+    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
+    <toop:DataProviderElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:elonia-dev</toop:DataProviderElectronicAddressIdentifier>
+    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+  </toop:RoutingInformation>
+  <toop:DataConsumer>
+    <toop:DCUniqueIdentifier schemeAgencyID="whatsoever">GF3848484848</toop:DCUniqueIdentifier>
+    <toop:DCName>Maritime Authority - Port Control</toop:DCName>
+    <toop:DCLegalAddress>
+      <toop:AddressLine>Yayalar Mah. Himbil Sit.</toop:AddressLine>
+      <toop:AddressLine>34 Pendik</toop:AddressLine>
+      <toop:StreetName>Sabit Melul Cad.</toop:StreetName>
+      <toop:StreetNumber>32</toop:StreetNumber>
+      <toop:City>Fredoningew</toop:City>
+      <toop:PostCode>34955</toop:PostCode>
+      <toop:Country>Freedonia</toop:Country>
+      <toop:CountryCode>GF</toop:CountryCode>
+    </toop:DCLegalAddress>
+  </toop:DataConsumer>
+  <toop:DataRequestSubject>
+    <toop:DataRequestSubjectTypeCode>LE</toop:DataRequestSubjectTypeCode>
+    <toop:LegalPerson>
+      <toop:LegalPersonUniqueIdentifier  levelOfAssurance="None">EE/GF/3848484848</toop:LegalPersonUniqueIdentifier>
+      <toop:LegalName levelOfAssurance="None">Deniz Kusu</toop:LegalName>
+      <toop:AlternativeLegalPersonIdentifier schemeID="whatsoever">3848484849</toop:AlternativeLegalPersonIdentifier>
+      <toop:LegalPersonLegalAddress>
+        <toop:CountryCode levelOfAssurance="None">GF</toop:CountryCode>
+      </toop:LegalPersonLegalAddress>
+    </toop:LegalPerson>
+  </toop:DataRequestSubject>
+  <toop:DocumentRequest>
+    <toop:DocumentRequestIdentifier schemeAgencyID="whatsoever">10264d7b-9966-4d09-936f-43dd8fe99c42</toop:DocumentRequestIdentifier>
+    <toop:DocumentRequestTypeCode>LIST</toop:DocumentRequestTypeCode>
+    <toop:DocumentResponse>
+      <toop:DocumentName>ISMCompliance</toop:DocumentName>
+      <toop:DocumentDescription>Crew List for the flying dutchman</toop:DocumentDescription>
+      <toop:DocumentValidityPeriod>until 26/12/2021</toop:DocumentValidityPeriod>
+      <toop:LegalReference>SOLAS 1974</toop:LegalReference>
+      <toop:DocumentIdentifier>077SM/16</toop:DocumentIdentifier>
+      <toop:DocumentIssueDate>2016-12-12</toop:DocumentIssueDate>
+      <toop:DocumentIssuePlace>Crabland, Ogygia</toop:DocumentIssuePlace>
+      <toop:ErrorIndicator>false</toop:ErrorIndicator>
+      <toop:DocumentIssuer>
+        <toop:DocumentIssuerIdentifier schemeAgencyID="whatsoever">OG12345678</toop:DocumentIssuerIdentifier>
+        <toop:DocumentIssuerName>EE-EMA</toop:DocumentIssuerName>
+      </toop:DocumentIssuer>
+      <toop:Document>
+        <toop:DocumentURI>https://flyingdutchman.carribean.wr/cc/all</toop:DocumentURI>
+        <toop:DocumentMimeTypeCode>application/pdf</toop:DocumentMimeTypeCode>
+      </toop:Document>
+    </toop:DocumentResponse>
+    <toop:DocumentResponse>
+      <toop:DocumentName>ContinuousSynopsis</toop:DocumentName>
+      <toop:DocumentDescription>Continuous Synopsis Record (CSR)</toop:DocumentDescription>
+      <toop:DocumentIssueDate>2015-03-26</toop:DocumentIssueDate>
+      <toop:DocumentIssuePlace>Tallinn, Estonia</toop:DocumentIssuePlace>
+      <toop:ErrorIndicator>false</toop:ErrorIndicator>
+      <toop:DocumentIssuer>
+        <toop:DocumentIssuerIdentifier schemeAgencyID="whatsoever">EE12345678</toop:DocumentIssuerIdentifier>
+        <toop:DocumentIssuerName>EE-EMA</toop:DocumentIssuerName>
+      </toop:DocumentIssuer>
+      <toop:Document>
+        <toop:DocumentURI>https://flyingdutchman.carribean.wr/cc/all</toop:DocumentURI>
+        <toop:DocumentMimeTypeCode>application/xml</toop:DocumentMimeTypeCode>
+      </toop:Document>
+    </toop:DocumentResponse>
+  </toop:DocumentRequest>
+  <!--DP ACTION: provide this block of information about the Data Provider-->
+  <toop:DataProvider>
+    <!--Rule: The preferred identifier is the national VAT number.  Compulsory use of the attribute schemeAgencyID.-->
+    <toop:DPIdentifier schemeAgencyID="whatsoever">SV12345678</toop:DPIdentifier>
+    <toop:DPName>SV-EMA</toop:DPName>
+    <toop:DPAdministrativeUnit>0072:991010101332</toop:DPAdministrativeUnit>
+    <toop:DPLegalAddress>
+      <toop:AddressLine>Valge 4</toop:AddressLine>
+      <toop:StreetName>Valge</toop:StreetName>
+      <toop:StreetNumber>4</toop:StreetNumber>
+      <toop:City>Elingen</toop:City>
+      <toop:PostCode>11413</toop:PostCode>
+      <toop:Country>Elonia</toop:Country>
+      <!--The country of the data provider MUST always be specified using the code list CountryCodeIdentifier (ISO 3166-1 2A:2006)-->
+      <toop:CountryCode>SV</toop:CountryCode>
+    </toop:DPLegalAddress>
+    <toop:DPContactDetails>
+      <toop:ContactPoint>Helin Tamm</toop:ContactPoint>
+      <toop:ContactTelephoneNumber>+372 620 5555</toop:ContactTelephoneNumber>
+      <toop:ContactEmailAddress>provider@uk.org</toop:ContactEmailAddress>
+    </toop:DPContactDetails>
+  </toop:DataProvider>
+</toop:Response>

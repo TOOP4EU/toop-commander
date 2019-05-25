@@ -29,7 +29,7 @@ public class MetadataTest {
   @Test
   void metadataTest() {
 
-    final String metadataFile = "metadata.conf";
+    final String metadataFile = "data/request-metadata.conf";
 
     Config conf = ToopMessageCreator.parseMetadataFile(metadataFile);
 
@@ -75,7 +75,7 @@ public class MetadataTest {
   @Test
   void responseMetadataTest() {
 
-    final String metadataFile = "response-metadata.conf";
+    final String metadataFile = "data/response-metadata.conf";
 
     Config conf = ToopMessageCreator.parseMetadataFile(metadataFile);
 

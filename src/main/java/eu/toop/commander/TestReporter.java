@@ -100,7 +100,7 @@ public class TestReporter {
       }
     }
 
-    String reportName = String.format ("Test report - %s.html", sdf.format(new Date()));
+    String reportName = String.format ("Test report - %s-%s.html", testConfig.getCategory(), sdf.format(new Date()));
 
     try {
       File newHtmlFile = new File(reportFolder + reportName);

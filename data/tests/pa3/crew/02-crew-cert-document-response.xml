@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2018-2019 toop.eu
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<toop:Response xmlns:toop="urn:eu:toop:ns:dataexchange-1p40">
+  <toop:DocumentUniversalUniqueIdentifier schemeAgencyID="whatsoever">4e46c74c-a2aa-446f-8c26-0d9aec37baa9</toop:DocumentUniversalUniqueIdentifier>
+  <toop:DocumentIssueDate>2019-01-18</toop:DocumentIssueDate>
+  <toop:DocumentIssueTime>12:15:45</toop:DocumentIssueTime>
+  <toop:CopyIndicator>false</toop:CopyIndicator>
+  <toop:SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Response</toop:SpecificationIdentifier>
+  <toop:DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">101-287.56666-2</toop:DataConsumerDocumentIdentifier>
+  <toop:DataConsumerGlobalSessionIdentifier schemeAgencyID="whatsoever">394956-2</toop:DataConsumerGlobalSessionIdentifier>
+  <toop:DataConsumerRequestPurpose  languageID="en">Retrieve crew certificate</toop:DataConsumerRequestPurpose>
+  <toop:DataRequestIdentifier schemeAgencyID="whatsoever">2ad2519b-d13e-4a9f-9244-acb91a98af79</toop:DataRequestIdentifier>
+  <toop:RoutingInformation>
+    <toop:DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Response##urn:eu.toop.response.crewcertificate::1.40</toop:DocumentTypeIdentifier>
+    <toop:ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.twophasedrequestresponse</toop:ProcessIdentifier>
+    <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:freedonia-dev</toop:DataConsumerElectronicAddressIdentifier>
+    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
+    <toop:DataProviderElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:elonia-dev</toop:DataProviderElectronicAddressIdentifier>
+    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+  </toop:RoutingInformation>
+  <toop:DataConsumer>
+    <toop:DCUniqueIdentifier schemeAgencyID="whatsoever">GF3848484848</toop:DCUniqueIdentifier>
+    <toop:DCName>Maritime Authority - Port Control</toop:DCName>
+    <toop:DCLegalAddress>
+      <toop:AddressLine>Yayalar Mah. Himbil Sit.</toop:AddressLine>
+      <toop:AddressLine>34 Pendik</toop:AddressLine>
+      <toop:StreetName>Sabit Melul Cad.</toop:StreetName>
+      <toop:StreetNumber>32</toop:StreetNumber>
+      <toop:City>Fredoningew</toop:City>
+      <toop:PostCode>34955</toop:PostCode>
+      <toop:Country>Freedonia</toop:Country>
+      <toop:CountryCode>GF</toop:CountryCode>
+    </toop:DCLegalAddress>
+  </toop:DataConsumer>
+  <toop:DataRequestSubject>
+    <toop:DataRequestSubjectTypeCode>NP</toop:DataRequestSubjectTypeCode>
+    <toop:LegalPerson>
+      <toop:LegalPersonUniqueIdentifier  levelOfAssurance="None">EE/GF/3848484848</toop:LegalPersonUniqueIdentifier>
+      <toop:LegalName levelOfAssurance="None">Maccus the First Mate</toop:LegalName>
+      <toop:AlternativeLegalPersonIdentifier schemeID="whatsoever">3848484849</toop:AlternativeLegalPersonIdentifier>
+      <toop:LegalPersonLegalAddress>
+        <toop:CountryCode levelOfAssurance="None">GF</toop:CountryCode>
+      </toop:LegalPersonLegalAddress>
+    </toop:LegalPerson>
+  </toop:DataRequestSubject>
+  <toop:DocumentRequest>
+    <toop:DocumentRequestIdentifier schemeAgencyID="whatsoever">ed64280e-4596-4136-9744-297d540031ba</toop:DocumentRequestIdentifier>
+    <toop:DocumentURI>https://flyingdutchman.carribean.wr/cc/maccus</toop:DocumentURI>
+    <toop:DocumentResponse>
+      <toop:DocumentName>ISMCompliance</toop:DocumentName>
+      <toop:DocumentDescription>Document of Compliance (DOC)</toop:DocumentDescription>
+      <toop:DocumentValidityPeriod>until 26/12/2021</toop:DocumentValidityPeriod>
+      <toop:LegalReference>SOLAS 1974</toop:LegalReference>
+      <toop:DocumentIdentifier>077SM/16</toop:DocumentIdentifier>
+      <toop:DocumentIssueDate>2016-12-12</toop:DocumentIssueDate>
+      <toop:DocumentIssuePlace>Crabland, Ogygia</toop:DocumentIssuePlace>
+      <toop:ErrorIndicator>false</toop:ErrorIndicator>
+      <toop:DocumentIssuer>
+        <toop:DocumentIssuerIdentifier schemeAgencyID="whatsoever">EE12345678</toop:DocumentIssuerIdentifier>
+        <toop:DocumentIssuerName>Calypso</toop:DocumentIssuerName>
+      </toop:DocumentIssuer>
+      <toop:Document>
+        <toop:DocumentURI>file:/attachments/crew-maccus.pdf</toop:DocumentURI>
+        <toop:DocumentMimeTypeCode>application/pdf</toop:DocumentMimeTypeCode>
+      </toop:Document>
+    </toop:DocumentResponse>
+  </toop:DocumentRequest>
+  <toop:DataProvider>
+    <toop:DPIdentifier schemeAgencyID="whatsoever">EE12345678</toop:DPIdentifier>
+    <toop:DPName>EE-EMA</toop:DPName>
+    <toop:DPAdministrativeUnit>0072:991010101332</toop:DPAdministrativeUnit>
+    <toop:DPLegalAddress>
+      <toop:AddressLine>Valge 4</toop:AddressLine>
+      <toop:StreetName>Valge</toop:StreetName>
+      <toop:StreetNumber>4</toop:StreetNumber>
+      <toop:City>Elonington</toop:City>
+      <toop:PostCode>11413</toop:PostCode>
+      <toop:Country>Elonia</toop:Country>
+      <toop:CountryCode>SV</toop:CountryCode>
+    </toop:DPLegalAddress>
+    <toop:DPContactDetails>
+      <toop:ContactPoint>Helin Tamm</toop:ContactPoint>
+      <toop:ContactTelephoneNumber>+372 620 5555</toop:ContactTelephoneNumber>
+      <toop:ContactEmailAddress>provider@uk.org</toop:ContactEmailAddress>
+    </toop:DPContactDetails>
+  </toop:DataProvider>
+</toop:Response>

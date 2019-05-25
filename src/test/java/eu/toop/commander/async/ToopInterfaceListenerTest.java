@@ -68,7 +68,7 @@ public class ToopInterfaceListenerTest {
   //@Test
   void toopDataProviderTest() {
 
-    final TDETOOPRequestType aRequest = ToopMessageCreator.createDCRequest (null, null, "metadata.conf");
+    final TDETOOPRequestType aRequest = ToopMessageCreator.createDCRequest (null, null, "data/request-metadata.conf");
     final ToopInterfaceListener toopInterfaceListener = new ToopInterfaceListener ();
     try {
       toopInterfaceListener.onToopRequest (new ToopRequestWithAttachments140 (aRequest, null));

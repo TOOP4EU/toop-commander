@@ -42,8 +42,8 @@ public class AsicsCreator {
    * @throws IOException on error
    */
   public static void main(String[] args) throws IOException {
-    createAsic("samples/request/TOOPRequest.asice", "samples/request/TOOPRequest.xml", "TOOPRequest");
-    createAsic("samples/response/TOOPResponse.asice", "samples/response/TOOPResponse.xml", "TOOPResponse");
+    createAsic("data/request/TOOPRequest.asice", "data/request/TOOPRequest.xml", "TOOPRequest");
+    createAsic("data/response/TOOPResponse.asice", "data/response/TOOPResponse.xml", "TOOPResponse");
   }
 
   /**

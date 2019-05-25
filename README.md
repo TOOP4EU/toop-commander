@@ -32,6 +32,16 @@ Commands:
 
   cat file1 file2 file3 ...    print contents of the provided files
 
+  id-query -c <COUNTRY_CODE> -d <docType>
+                               Send an id-query to the toop directory via the configured toop-connector
+
+  run-test -f <TEST_CONFIG_FILE> [-t <TEST_CASE_NAMES>]
+                               Run an automated test with respect to its HOCON definition given in <TEST_CONFIG_FILE>. 
+                               The optional -t parameter specifies the test case names (separated by space) that are specifically
+                               intended to be executed. In such a case all the test cases not mentioned in the <TEST_CASE_NAMES> list
+                               are ignored by the commander.
+                               For an example TEST_CONFIG_FILE and its reference information please check "data/tests/test-config.conf"
+                               
   send-dc-request   -f <request file>
                                Send the request  file (ASiC or xml) to the configured connectors /from-dc endpoint
 
@@ -42,7 +52,7 @@ Commands:
                                Create a new toop request message using the provided data and send it to the /from-dc endpoint
                                if the options -i and -c are provided, then they override the DataSubjectIdentifier
                                and DataSubjectCountry values in the metadata file.
-                               The option '-m' is optional and if it is absent, the default metadata.conf file
+                               The option '-m' is optional and if it is absent, the default data/request-metadata.conf file
                                is used.
                                For the details of the metadata file, please read the README.
 
@@ -50,10 +60,9 @@ Commands:
                                Create a new toop response message using the provided data and send it to the /from-dp endpoint
                                if the options -i and -c are provided, then they override the DataSubjectIdentifier
                                and DataSubjectCountry values in the metadata file.
-                               The option '-m' is optional and if it is absent, the default metadata.conf file
+                               The option '-m' is optional and if it is absent, the default data/request-metadata.conf file
                                is used.
                                For the details of the metadata file, please read the README.
-
 
   quit                         exit toop-commander
 
@@ -77,7 +86,7 @@ if the file is an ASiC, toop-commander will send it directly. For an xml file, i
 
 In the command line interface type `send-dp-response FILE_NAME` , where `FILE_NAME` points to an absolute or relative toop request xml or ASiC file.
 
-example:
+Example:
 
 ```
 toop-commander> send-dp-response -f response/TOOPResponse
@@ -92,15 +101,28 @@ You can use the command `send-dc-request` or `send-dp-response` with the argumen
 Additional arguments for `send-dc-request -new` and `send-dp-response -new` are 
 * `-i <Document Subject Identifier>`, 
 * `-c <Document Subject Country>`, 
-* `-m metadata.conf`. 
+* `-m <metadata.conf file>`. 
 
-These arguments are all optional. The default values are in the default metadata file `metadata.conf` (formatted as `HOCON`). 
+These arguments are all optional. The default values are in the default metadata file `data/request-metadata.conf` (formatted as `HOCON`). 
 If you provide arguments `-i` and `-c`, they will override the keys `ToopMessage.NaturalPerson.identifier` and `ToopMessage.DestinationCountryCode` that are defined in the 
-metadata file (either the default `metadata.conf` or the one that you optionally provide with `-m` argument)
+metadata file (either the default `data/request-metadata.conf` or the one that you optionally provide with `-m` argument)
 
 You can create multiple metadata files for different test cases so that you can obtain variance between the data that is created during the request/response creation
 
-Please inspect the file `metadata.conf` for the default values.
+Please inspect the file `data/request-metadata.conf` for the default values.
+
+## Automated tests
+You can use `run-test` command with the `-f` flag and provide a test configuration (i.e. a TEST SUITE) file for running a set of test cases.
+If you provide `-t` flag together with `space` separated test case names, only those declared test cases will be executed and the
+rest will be skipped.
+Examples:
+```
+# Run all the test cases defined under pa3.conf
+run-test -f data/tests/pa3/pa3.conf
+
+# Run test cases TC-1, TC-3 and TC-10 in the test-config.conf file
+run-test -f data/tests/test-config.conf -t TC-1 TC-3 TC-10
+```
 
 # Configuration
 

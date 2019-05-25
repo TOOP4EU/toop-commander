@@ -125,8 +125,8 @@ public class ToopMessageCreator {
     routingInformation.setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier("toop-doctypeid-qns", predefinedDocTypeId));
     routingInformation.setProcessIdentifier(ToopXSDHelper140.createIdentifier("toop-procid-agreement", EPredefinedProcessIdentifier.DATAREQUESTRESPONSE.getID()));
     routingInformation.setDataConsumerElectronicAddressIdentifier(createParticipantId(conf));
-    String dataConsumerCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataConsumerCountryCode", "SE");
-    String dataProviderCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataProviderCountryCode", "GQ");
+    String dataConsumerCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataConsumerCountryCode", "GF");
+    String dataProviderCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataProviderCountryCode", "SV");
     routingInformation.setDataConsumerCountryCode(ToopXSDHelper140.createCode(dataConsumerCountryCode));
     routingInformation.setDataProviderCountryCode(ToopXSDHelper140.createCode(dataProviderCountryCode));
     tdetoopRequestType.setRoutingInformation(routingInformation);
@@ -174,7 +174,7 @@ public class ToopMessageCreator {
   public static TDETOOPResponseType createDPResponse(String identifier, String country, String metadataFile) {
     Config conf = parseMetadataFile(metadataFile);
     //use the sample response as a basis
-    try (FileInputStream fis = new FileInputStream("samples/response/TOOPResponse.asice")) {
+    try (FileInputStream fis = new FileInputStream("data/response/TOOPResponse.asice")) {
       TDETOOPResponseType response = ToopMessageBuilder140.parseResponseMessage(fis);
       fillNaturalPersonProperties(response.getDataRequestSubject(), identifier, conf);
       //fillLegalPersonProperties(conf, response.getDataRequestSubject());
@@ -213,7 +213,9 @@ public class ToopMessageCreator {
 
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
     fillDataProviderProperties(conf, aResponse.getRoutingInformation(), dataProviderType);
-    aResponse.getRoutingInformation().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(EPredefinedDocumentTypeIdentifier.URN_EU_TOOP_NS_DATAEXCHANGE_1P40_RESPONSE_URN_EU_TOOP_RESPONSE_REGISTEREDORGANIZATION_1_40.getScheme(), EPredefinedDocumentTypeIdentifier.RESPONSE_REGISTEREDORGANIZATION.getID()));
+    aResponse.getRoutingInformation().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(
+            EPredefinedDocumentTypeIdentifier.URN_EU_TOOP_NS_DATAEXCHANGE_1P40_RESPONSE_URN_EU_TOOP_RESPONSE_REGISTEREDORGANIZATION_1_40.getScheme(),
+            EPredefinedDocumentTypeIdentifier.URN_EU_TOOP_NS_DATAEXCHANGE_1P40_RESPONSE_URN_EU_TOOP_RESPONSE_REGISTEREDORGANIZATION_1_40.getID()));
     aResponse.addDataProvider(dataProviderType);
 
     String schemeId = conf.getString("ToopMessage.DataRequestIdentifier.schemeId");
@@ -244,7 +246,7 @@ public class ToopMessageCreator {
     ConfigParseOptions opt = ConfigParseOptions.defaults();
     opt.setSyntax(ConfigSyntax.CONF);
     if (metadataFile == null)
-      metadataFile = "metadata.conf";
+      metadataFile = "data/response-metadata.conf";
 
     LOGGER.debug("Parse metadata file: " + metadataFile);
 

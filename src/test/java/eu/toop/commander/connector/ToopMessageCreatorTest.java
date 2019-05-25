@@ -25,14 +25,14 @@ public class ToopMessageCreatorTest {
 
   @Test
   void createDCRequest() throws Exception {
-    TDETOOPRequestType dcRequest = ToopMessageCreator.createDCRequest("myid", "mycountry", "metadata.conf");
+    TDETOOPRequestType dcRequest = ToopMessageCreator.createDCRequest("myid", "mycountry", "data/request-metadata.conf");
     byte[] bytes = ToopMessageCreator.serializeRequest(dcRequest);
     System.out.println(new String(bytes));
   }
 
   @Test
   void createDPResponse() throws Exception {
-    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse("myid", "mycountry", "metadata.conf");
+    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse("myid", "mycountry", "data/request-metadata.conf");
     byte[] bytes = ToopMessageCreator.serializeResponse(dpResponse);
     System.out.println(new String(bytes));
   }

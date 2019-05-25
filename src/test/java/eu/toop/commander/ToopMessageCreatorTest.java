@@ -45,7 +45,7 @@ public class ToopMessageCreatorTest {
   @Test
   void createDCRequestTest() {
 
-    final String metadataFile = "metadata.conf";
+    final String metadataFile = "data/request-metadata.conf";
 
     final TDETOOPRequestType aRequest = ToopMessageCreator.createDCRequest (null, null, metadataFile);
 
@@ -99,7 +99,7 @@ public class ToopMessageCreatorTest {
       assertEquals(requestType.getConceptRequest ().getConceptName ().getValue (), conf.getStringList ("ToopMessage.Concepts.conceptList").get (i));
     }
 
-    // Unable to test these properties listed in the metadata.conf
+    // Unable to test these properties listed in the request-metadata.conf
     s_aLogger.warn ("Can't test ToopMessage.NaturalPerson.birthPlace because it doesn't exist in class TDENaturalPersonType");
     s_aLogger.warn ("Can't test ToopMessage.NaturalPerson.nationality because it doesn't exist in class TDENaturalPersonType");
     s_aLogger.warn ("Can't test ToopMessage.LegalPerson.nationality because it doesn't exist in class TDELegalEntityType");
@@ -108,7 +108,7 @@ public class ToopMessageCreatorTest {
   @Test
   void createDCRequestTestOverride() {
 
-    final String metadataFile = "metadata.conf";
+    final String metadataFile = "data/request-metadata.conf";
 
     final String identifier = "XX/YY/123456789";
     final String country = "ZZ";
@@ -131,8 +131,8 @@ public class ToopMessageCreatorTest {
   @Test
   void createDCResponse() {
 
-    final String metadataFile = "metadata.conf";
-    final String responseMetadataFile = "response-metadata.conf";
+    final String metadataFile = "data/request-metadata.conf";
+    final String responseMetadataFile = "data/response-metadata.conf";
 
 
     final TDETOOPRequestType aRequest = ToopMessageCreator.createDCRequest (null, null, metadataFile);

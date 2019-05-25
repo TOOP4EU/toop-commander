@@ -19,16 +19,17 @@ import com.helger.collection.wrapped.WrappedList;
 import com.helger.commons.mime.MimeTypeParser;
 import eu.toop.commons.dataexchange.v140.TDEErrorType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
-import eu.toop.commons.exchange.AsicReadEntry;
 import eu.toop.commons.exchange.AsicWriteEntry;
 import eu.toop.commons.exchange.ToopResponseWithAttachments140;
 import eu.toop.commons.jaxb.ToopWriter;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -175,7 +176,7 @@ public class TestScenarioManager {
 
       //if test scenario contains a response xml reference, use it as a response
 
-      //otherwise create a response from the request and the response metadata.conf
+      //otherwise create a response from the request and the response data/request-metadata.conf
 
       final TDETOOPResponseType aResponse;
 
@@ -189,11 +190,17 @@ public class TestScenarioManager {
         aResponse = ToopMessageCreator.createDPResponse(requestContext.getToopRequestWithAttachments140().getRequest(), "data/response-metadata.conf");
 
       ArrayList<String> tmp = testScenario.getResponseAttachments();
-      if(tmp != null) {
+      if (tmp != null) {
         tmp.forEach(file -> {
           try (FileInputStream stream = new FileInputStream(file)) {
-            AsicWriteEntry asicWriteEntry = new AsicWriteEntry("ship-flyingdutchman.pdf",
-                IOUtils.toByteArray(stream), MimeTypeParser.parseMimeType("application/pdf"));
+            //use the actual file name as the attachment name and extension as type
+            String type = FilenameUtils.getExtension(file);
+            //if no extension, then use binary extension
+            if(type.isEmpty())
+              type = "octet-stream";
+
+            AsicWriteEntry asicWriteEntry = new AsicWriteEntry(FilenameUtils.getName(file),
+                IOUtils.toByteArray(stream), MimeTypeParser.parseMimeType("application/" + type));
             responseAttachments.add(asicWriteEntry);
           } catch (IOException ioe) {
             LOGGER.error(ioe.getMessage(), ioe);
@@ -231,7 +238,7 @@ public class TestScenarioManager {
     if (testStepContext != null && testStepContext instanceof TestStepResponseContext) {
       ToopResponseWithAttachments140 toopResponseWithAttachments140 = ((TestStepResponseContext) testStepContext).getToopResponseWithAttachments140();
 
-      TDETOOPResponseType aResponse  = toopResponseWithAttachments140.getResponse();
+      TDETOOPResponseType aResponse = toopResponseWithAttachments140.getResponse();
       // Check all error codes
       if (aResponse.hasErrorEntries()) {
         for (TDEErrorType error : aResponse.getError()) {
@@ -254,11 +261,15 @@ public class TestScenarioManager {
       LOGGER.info(ToopWriter.response140().getAsString(aResponse));
 
       toopResponseWithAttachments140.attachments().forEach(asicReadEntry -> {
+        //TODO: check the attachment against the config
+        File dir = new File("data/tests/receivedattachments/" + testScenario.getParentConfig().getCategory() + "-" + testScenario.getName());
+        dir.mkdirs();
         LOGGER.info("Attachment name: " + asicReadEntry.getEntryName());
-        LOGGER.info("Attachment length: " + asicReadEntry.payload());
-        try(FileOutputStream fos = new FileOutputStream(asicReadEntry.getEntryName())){
+        LOGGER.info("Attachment length: " + asicReadEntry.payload().length);
+        try (FileOutputStream fos = new FileOutputStream(new File(dir, asicReadEntry.getEntryName()))) {
           fos.write(asicReadEntry.payload());
-        }catch (IOException ex){}
+        } catch (IOException ex) {
+        }
       });
     } else {
       testStepContext = new TestStepErrorContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, "Couldn't receive response");

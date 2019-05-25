@@ -31,3 +31,4 @@ samples/tests/reports/*
 !samples/tests/reports/.gitkeep
 data/tests/reports
 logs
+data/rests/reports

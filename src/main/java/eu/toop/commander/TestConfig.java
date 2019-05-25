@@ -41,6 +41,7 @@ public class TestConfig {
    */
   private static final Logger LOGGER = LoggerFactory.getLogger(TestConfig.class);
   private List<TestScenario> testScenarioList = new ArrayList<>();
+  private String category;
 
   /**
    * Instantiates a new Test config.
@@ -53,6 +54,8 @@ public class TestConfig {
       ConfigParseOptions opt = ConfigParseOptions.defaults();
       opt.setSyntax(ConfigSyntax.CONF);
       Config conf = ConfigFactory.parseFile(new File(configFile)).resolve();
+
+      this.category = conf.getString("TestCategory");
 
       List<? extends ConfigObject> testConfig = conf.getObjectList("TestConfig");
 
@@ -86,7 +89,9 @@ public class TestConfig {
         @SuppressWarnings("unchecked")
         ArrayList<String> expectedErrorCodeList = (ArrayList<String>) errors.get("ExpectedErrorCodes");
         // Create test scenario
-        TestScenario testScenario = new TestScenario(name,
+        TestScenario testScenario = new TestScenario(
+            this,
+            name,
             TestScenario.Role.valueOf(role),
             requestXMLReference,
             responseXMLReference,
@@ -115,5 +120,13 @@ public class TestConfig {
    */
   public List<TestScenario> getTestScenarioList() {
     return testScenarioList;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
   }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2018-2019 toop.eu
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<toop:Request xmlns:toop="urn:eu:toop:ns:dataexchange-1p40">
+  <toop:DocumentUniversalUniqueIdentifier schemeAgencyID="whatsoever">8acda8d6-1a37-11e9-ab14-d663bd873d93
+  </toop:DocumentUniversalUniqueIdentifier>
+  <toop:DocumentIssueDate>2019-01-18</toop:DocumentIssueDate>
+  <toop:DocumentIssueTime>10:11:11</toop:DocumentIssueTime>
+  <toop:CopyIndicator>false</toop:CopyIndicator>
+  <toop:SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request
+  </toop:SpecificationIdentifier>
+  <toop:DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">101-287.56666-1</toop:DataConsumerDocumentIdentifier>
+  <toop:DataConsumerGlobalSessionIdentifier schemeAgencyID="whatsoever">394956-1
+  </toop:DataConsumerGlobalSessionIdentifier>
+  <toop:DataConsumerRequestPurpose languageID="en">Retrieve META data for ship certificates
+  </toop:DataConsumerRequestPurpose>
+  <toop:RoutingInformation>
+    <toop:DocumentTypeIdentifier schemeID="toop-doctypeid-qns">
+      urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.falanfilan.request.mycertificatis::1.40
+    </toop:DocumentTypeIdentifier>
+    <toop:ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.twophasedrequestresponse
+    </toop:ProcessIdentifier>
+    <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">
+      9999:freedonia-dev
+    </toop:DataConsumerElectronicAddressIdentifier>
+    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
+    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+  </toop:RoutingInformation>
+  <toop:DataConsumer>
+    <toop:DCUniqueIdentifier schemeAgencyID="whatsoever">DK3848484848</toop:DCUniqueIdentifier>
+    <toop:DCName>Maritime Authority - Port Control</toop:DCName>
+    <toop:DCLegalAddress>
+      <toop:AddressLine>Fjordvænget 30</toop:AddressLine>
+      <toop:AddressLine>4220 Korsør, Denmark</toop:AddressLine>
+      <toop:StreetName>Fjordvænget</toop:StreetName>
+      <toop:StreetNumber>30</toop:StreetNumber>
+      <toop:City>Korsør</toop:City>
+      <toop:PostCode>4220</toop:PostCode>
+      <toop:Country>Denmark</toop:Country>
+      <toop:CountryCode>DK</toop:CountryCode>
+    </toop:DCLegalAddress>
+  </toop:DataConsumer>
+  <toop:DataRequestSubject>
+    <toop:DataRequestSubjectTypeCode>LE</toop:DataRequestSubjectTypeCode>
+    <toop:LegalPerson>
+      <toop:LegalPersonUniqueIdentifier levelOfAssurance="None">EE/DK/7128332</toop:LegalPersonUniqueIdentifier>
+      <toop:LegalName levelOfAssurance="None">Sea Wind</toop:LegalName>
+      <toop:AlternativeLegalPersonIdentifier schemeID="whatsoever">7128332</toop:AlternativeLegalPersonIdentifier>
+      <toop:LegalPersonLegalAddress>
+        <toop:CountryCode levelOfAssurance="None">EE</toop:CountryCode>
+      </toop:LegalPersonLegalAddress>
+    </toop:LegalPerson>
+  </toop:DataRequestSubject>
+  <toop:DocumentRequest>
+    <toop:DocumentRequestIdentifier schemeAgencyID="whatsoever">10264d7b-9966-4d09-936f-43dd8fe99c42
+    </toop:DocumentRequestIdentifier>
+    <toop:DocumentRequestTypeCode>LIST</toop:DocumentRequestTypeCode>
+  </toop:DocumentRequest>
+</toop:Request>
