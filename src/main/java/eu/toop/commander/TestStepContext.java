@@ -31,6 +31,7 @@ public class TestStepContext {
    * Instantiates a new Test step context.
    *
    * @param testStep        the test step
+   * @param success success or failure?
    */
   public TestStepContext(TestStep testStep, boolean success) {
     this.testStep = testStep;

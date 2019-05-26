@@ -15,7 +15,6 @@
  */
 package eu.toop.commander;
 
-import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.exchange.ToopRequestWithAttachments140;
 
 /**

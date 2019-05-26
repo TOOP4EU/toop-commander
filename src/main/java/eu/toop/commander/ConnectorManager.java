@@ -21,12 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
-import java.util.Iterator;
-import java.util.List;
 
-import eu.toop.commons.exchange.AsicReadEntry;
-import eu.toop.commons.exchange.AsicWriteEntry;
-import eu.toop.commons.exchange.ToopResponseWithAttachments140;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +33,7 @@ import eu.toop.commander.util.Util;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.error.ToopErrorException;
+import eu.toop.commons.exchange.AsicWriteEntry;
 import eu.toop.commons.exchange.ToopMessageBuilder140;
 import eu.toop.commons.jaxb.ToopReader;
 import eu.toop.iface.util.HttpClientInvoker;

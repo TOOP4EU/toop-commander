@@ -23,8 +23,8 @@ import java.security.MessageDigest;
 public class Util {
   /**
    * Returns the SHA 256 hash of the input data
-   * @param data
-   * @return
+   * @param data Data to digets
+   * @return Digest bytes
    */
   public static byte[] sha256(byte[] data) {
     try {
