@@ -24,7 +24,7 @@
     <version>1.1.1</version>
   </parent>
   <artifactId>toop-commander</artifactId>
-  <version>0.10.4-SNAPSHOT</version>
+  <version>0.10.4</version>
   <url>https://github.com/toop4eu/toop-commander</url>
   <inceptionYear>2018</inceptionYear>
 
@@ -40,7 +40,7 @@
     <connection>scm:git:git@github.com:toop4eu/toop-commander.git</connection>
     <developerConnection>scm:git:git@github.com:toop4eu/toop-commander.git</developerConnection>
     <url>http://github.com/toop4eu/toop-commander</url>
-    <tag>HEAD</tag>
+    <tag>toop-commander-0.10.4</tag>
   </scm>
 
   <organization>
