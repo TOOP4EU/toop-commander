@@ -15,42 +15,49 @@
  */
 package eu.toop.commander;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CommandTest {
-  @Test(expected = IllegalArgumentException.class)
-  public void parseEmptyCommandList() throws Exception {
-    Command.parse(new ArrayList<>());
+  @Test
+  public void parseEmptyCommandList () {
+    try {
+      Command.parse (new ArrayList<> ());
+      fail ();
+    } catch (IllegalArgumentException ex) {
+      // Expected
+    }
   }
 
   @Test
-  public void parseOneCommand(){
-    Command singleCommand = Command.parse(Arrays.asList("singleCommand"));
+  public void parseOneCommand () {
+    Command singleCommand = Command.parse (Arrays.asList ("singleCommand"));
 
-    assertEquals("singleCommand", singleCommand.getMainCommand());
-    assertNull(singleCommand.getOptions());
+    assertEquals ("singleCommand", singleCommand.getMainCommand ());
+    assertNull (singleCommand.getOptions ());
   }
 
   @Test
-  public void parseComplexCommand(){
+  public void parseComplexCommand () {
     String s = "sampleCommand optionwithoutdash1 optionwithoutdash2 -f file1 -q -t option1 option2 -c option3";
-    Command singleCommand = Command.parse(Arrays.asList(s.split("\\s")));
+    Command singleCommand = Command.parse (Arrays.asList (s.split ("\\s")));
 
-    assertEquals("sampleCommand", singleCommand.getMainCommand());
-    assertNotNull(singleCommand.getOptions());
+    assertEquals ("sampleCommand", singleCommand.getMainCommand ());
+    assertNotNull (singleCommand.getOptions ());
 
-    assertArrayEquals(new String[]{"optionwithoutdash1", "optionwithoutdash2"}, singleCommand.getEmptyParameters().toArray());
-    assertArrayEquals(new String[]{"file1"}, singleCommand.getArguments("f").toArray());
-    assertArrayEquals(new String[0], singleCommand.getArguments("q").toArray());
-    assertArrayEquals(new String[]{"option1", "option2"}, singleCommand.getArguments("t").toArray());
-    assertArrayEquals(new String[]{"option3"}, singleCommand.getArguments("c").toArray());
+    assertArrayEquals (new String[] { "optionwithoutdash1", "optionwithoutdash2" },
+                       singleCommand.getEmptyParameters ().toArray ());
+    assertArrayEquals (new String[] { "file1" }, singleCommand.getArguments ("f").toArray ());
+    assertArrayEquals (new String[0], singleCommand.getArguments ("q").toArray ());
+    assertArrayEquals (new String[] { "option1", "option2" }, singleCommand.getArguments ("t").toArray ());
+    assertArrayEquals (new String[] { "option3" }, singleCommand.getArguments ("c").toArray ());
   }
 }
