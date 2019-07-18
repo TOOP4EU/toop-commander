@@ -33,11 +33,11 @@ import eu.toop.iface.servlet.ToDPServlet;
 /**
  * @author yerlibilgin
  */
-public class Main {
+public class ToopCommanderMain {
   /**
    * The Logger instance
    */
-  private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ToopCommanderMain.class);
 
   /**
    * Toop commander entry point

@@ -24,7 +24,7 @@
     <version>1.1.1</version>
   </parent>
   <artifactId>toop-commander</artifactId>
-  <version>0.10.5-SNAPSHOT</version>
+  <version>0.10.6-SNAPSHOT</version>
   <url>https://github.com/toop4eu/toop-commander</url>
   <inceptionYear>2018</inceptionYear>
 
@@ -76,7 +76,7 @@
               <resource>.SF</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-              <mainClass>eu.toop.commander.Main</mainClass>
+              <mainClass>eu.toop.commander.ToopCommanderMain</mainClass>
             </transformer>
           </transformers>
         </configuration>
@@ -115,7 +115,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>eu.toop.commander.Main</mainClass>
+              <mainClass>eu.toop.commander.ToopCommanderMainCommanderMain</mainClass>
             </manifest>
           </archive>
         </configuration>

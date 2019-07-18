@@ -143,7 +143,7 @@ public class CommandProcessor {
   public static void printHelpMessage() {
     if (helpMessage == null) {
       //we are single threaded so no worries
-      try (InputStream is = Main.class.getResourceAsStream("/help.txt")) {
+      try (InputStream is = ToopCommanderMain.class.getResourceAsStream("/help.txt")) {
         helpMessage = new String(StreamHelper.getAllBytes(is));
       } catch (Exception ex) {
         helpMessage = "Couldn't load help message";
