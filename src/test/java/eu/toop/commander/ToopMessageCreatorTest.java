@@ -158,7 +158,7 @@ public class ToopMessageCreatorTest {
     assertEquals (aDP.getDPLegalAddress ().getCountryCode ().getValue (), conf.getString("ToopMessage.DataProvider.countryCode"));
   }
 
-  @org.junit.Test
+  @Test
   public void createDPResponse() throws FileNotFoundException, JAXBException {
     TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse(new FileInputStream("data/response/TOOPResponse.xml"));
     System.out.println(dpResponse.getRoutingInformation().getProcessIdentifier());
