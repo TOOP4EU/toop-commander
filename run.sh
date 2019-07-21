@@ -16,4 +16,4 @@
 #
 
 
-java -jar toop-commander-0.10.4-SNAPSHOT.jar
+java -jar toop-commander-0.10.6-SNAPSHOT.jar
