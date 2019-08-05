@@ -192,7 +192,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-      <version>9.3.4</version>
+      <version>9.3.5</version>
     </dependency>
 
     <dependency>
