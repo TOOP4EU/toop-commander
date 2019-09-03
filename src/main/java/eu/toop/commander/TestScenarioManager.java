@@ -319,7 +319,7 @@ public class TestScenarioManager {
     //check for the role, if we are in DC mode and we received a request
     // (i.e. no one waits for a request) then automatically respond
 
-    if (testStepContext.getTestStep() == TEST_STEP_RECEIVE_REQUEST){
+    if (testStepContext.getTestStep() == TEST_STEP_RECEIVE_REQUEST && currentScenario.getRole() == TestScenario.Role.DC){
       //auto response.
       createAndSendResponse(currentScenario, (TestStepRequestContext) testStepContext);
     } else {
