@@ -19,16 +19,13 @@ target
 *.iml
 logs
 *.log
-
 testData
-
 .tchistory
 /.settings/
 *.tar.gz
 *.orig
-
 samples/tests/reports/*
 !samples/tests/reports/.gitkeep
 data/tests/reports
 logs
-data/rests/reports
+data/tests/receivedattachments

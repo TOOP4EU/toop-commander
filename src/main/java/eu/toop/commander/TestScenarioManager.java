@@ -42,6 +42,8 @@ import eu.toop.commons.exchange.ToopResponseWithAttachments140;
 import eu.toop.commons.jaxb.ToopWriter;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType;
 
+import static eu.toop.commander.TestStep.TEST_STEP_RECEIVE_REQUEST;
+
 /**
  * This class is responsible for running a test scenario with respect to
  * its role. It does not finish until the test scenario has finished
@@ -49,6 +51,13 @@ import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.CodeType
  */
 public class TestScenarioManager {
 
+  private static final TestScenarioManager instance = new TestScenarioManager();
+
+  private TestScenarioManager(){
+
+  }
+
+  private TestScenario currentScenario;
   /**
    * The Logger instance
    */
@@ -64,9 +73,13 @@ public class TestScenarioManager {
 
   static {
     testStepWaiterMap.put(TestStep.TEST_STEP_SEND_REQUEST, new TestStepContext[1]);
-    testStepWaiterMap.put(TestStep.TEST_STEP_RECEIVE_REQUEST, new TestStepContext[1]);
+    testStepWaiterMap.put(TEST_STEP_RECEIVE_REQUEST, new TestStepContext[1]);
     testStepWaiterMap.put(TestStep.TEST_STEP_SEND_RESPONSE, new TestStepContext[1]);
     testStepWaiterMap.put(TestStep.TEST_STEP_RECEIVE_RESPONSE, new TestStepContext[1]);
+  }
+
+  public static TestScenarioManager getInstance() {
+    return instance;
   }
 
   /**
@@ -76,8 +89,11 @@ public class TestScenarioManager {
    * @param testScenario the test scenario
    * @return the list
    */
-  public static List<TestStepContext> runTest(TestScenario testScenario) {
+  public List<TestStepContext> runTest(TestScenario testScenario) {
     LOGGER.info("Run test for test scenario " + testScenario.getName() + " with role " + testScenario.getRole());
+
+    //save role for auto reaction on step 2
+    this.currentScenario = testScenario;
 
     switch (testScenario.getRole()) {
       case DC: {
@@ -142,7 +158,7 @@ public class TestScenarioManager {
    * @param testScenario
    * @return
    */
-  private static TestStepContext executeStep1(TestScenario testScenario) {
+  private TestStepContext executeStep1(TestScenario testScenario) {
     TestStepContext testStepContext;
     try {
       ConnectorManager.sendDCRequest(testScenario.getRequestXMLReference());
@@ -163,9 +179,9 @@ public class TestScenarioManager {
    * @param testScenario
    * @return
    */
-  private static TestStepContext executeStep2(TestScenario testScenario) {
+  private TestStepContext executeStep2(TestScenario testScenario) {
     //step 4, wait for a result in receive response.
-    TestStepContext testStepContext = waitForTestStep(TestStep.TEST_STEP_RECEIVE_REQUEST);
+    TestStepContext testStepContext = waitForTestStep(TEST_STEP_RECEIVE_REQUEST);
     testScenario.addTestResult(testStepContext);
     return testStepContext;
   }
@@ -177,7 +193,14 @@ public class TestScenarioManager {
    * @param requestContext the test step and the request that was received in step 2
    * @return
    */
-  private static TestStepContext executeStep3(TestScenario testScenario, TestStepRequestContext requestContext) {
+  private TestStepContext executeStep3(TestScenario testScenario, TestStepRequestContext requestContext) {
+    TestStepContext testStepContext = createAndSendResponse(testScenario, requestContext);
+
+    testScenario.addTestResult(testStepContext);
+    return testStepContext;
+  }
+
+  private TestStepContext createAndSendResponse(TestScenario testScenario, TestStepRequestContext requestContext) {
     TestStepContext testStepContext;
     try {
 
@@ -227,8 +250,6 @@ public class TestScenarioManager {
       LOGGER.error(ex.getMessage(), ex);
       testStepContext = new TestStepErrorContext(TestStep.TEST_STEP_SEND_RESPONSE, ex.getMessage() == null ? "NONE" : ex.getMessage());
     }
-
-    testScenario.addTestResult(testStepContext);
     return testStepContext;
   }
 
@@ -238,7 +259,7 @@ public class TestScenarioManager {
    * @param testScenario
    * @return
    */
-  private static TestStepContext executeStep4(TestScenario testScenario) {
+  private TestStepContext executeStep4(TestScenario testScenario) {
     //step 4, wait for a result in receive response.
     TestStepContext testStepContext = waitForTestStep(TestStep.TEST_STEP_RECEIVE_RESPONSE);
     //check if we have a valid response
@@ -293,20 +314,27 @@ public class TestScenarioManager {
    *
    * @param testStepContext The information related to the fired test step
    */
-  public static void fireTestStepOcurred(TestStepContext testStepContext) {
-    TestStepContext[] testStepContextWaiter = testStepWaiterMap.get(testStepContext.getTestStep());
+  public void fireTestStepOcurred(TestStepContext testStepContext) {
 
-    synchronized (testStepContextWaiter) {
-      testStepContextWaiter[0] = testStepContext;
-      testStepContextWaiter.notifyAll();
+    //check for the role, if we are in DC mode and we received a request
+    // (i.e. no one waits for a request) then automatically respond
+
+    if (testStepContext.getTestStep() == TEST_STEP_RECEIVE_REQUEST){
+      //auto response.
+      createAndSendResponse(currentScenario, (TestStepRequestContext) testStepContext);
+    } else {
+      TestStepContext[] testStepContextWaiter = testStepWaiterMap.get(testStepContext.getTestStep());
+      synchronized (testStepContextWaiter) {
+        testStepContextWaiter[0] = testStepContext;
+        testStepContextWaiter.notifyAll();
+      }
     }
   }
 
   /**
    * Wait on and consume the satellite object for a test step
    */
-  private static @Nonnull
-  TestStepContext waitForTestStep(TestStep testStep) {
+  private @Nonnull TestStepContext waitForTestStep(TestStep testStep) {
     //find the associated test step context carrier to wait on
     TestStepContext[] testStepContextWaiter = testStepWaiterMap.get(testStep);
     synchronized (testStepContextWaiter) {

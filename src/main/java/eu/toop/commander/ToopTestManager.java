@@ -91,7 +91,7 @@ public class ToopTestManager {
       }
 
       //run the test scenario, don't return until its finished!!!! (of course with a timeout)
-      TestScenarioManager.runTest(testScenario);
+      TestScenarioManager.getInstance().runTest(testScenario);
     }
 
     // Log the test summary
@@ -109,13 +109,13 @@ public class ToopTestManager {
     @Override
     public void onToopResponse(@Nonnull ToopResponseWithAttachments140 aResponse) {
       LOGGER.debug("Received a Toop Response");
-      TestScenarioManager.fireTestStepOcurred(new TestStepResponseContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse));
+      TestScenarioManager.getInstance().getInstance().fireTestStepOcurred(new TestStepResponseContext(TestStep.TEST_STEP_RECEIVE_RESPONSE, aResponse));
     }
 
     @Override
     public void onToopRequest(@Nonnull ToopRequestWithAttachments140 aRequest) {
       LOGGER.debug("Received a Toop Request");
-      TestScenarioManager.fireTestStepOcurred(new TestStepRequestContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest));
+      TestScenarioManager.getInstance().fireTestStepOcurred(new TestStepRequestContext(TestStep.TEST_STEP_RECEIVE_REQUEST, aRequest));
     }
 
     @Override
@@ -135,7 +135,7 @@ public class ToopTestManager {
       });
 
       //FIXME provide a better error explanation here
-      TestScenarioManager.fireTestStepOcurred(new TestStepErrorContext(TestStep.TEST_STEP_RECEIVE_REQUEST, errorStringBuilder.toString()));
+      TestScenarioManager.getInstance().fireTestStepOcurred(new TestStepErrorContext(TestStep.TEST_STEP_RECEIVE_REQUEST, errorStringBuilder.toString()));
     }
   }
 }
