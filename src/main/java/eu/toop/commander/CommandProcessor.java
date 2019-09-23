@@ -53,7 +53,6 @@ public class CommandProcessor {
     String mainCommand = command.getMainCommand();
     boolean isDCRequest = mainCommand.equals("send-dc-request");
 
-
     boolean hasFileOption = command.hasOption("f");
     boolean hasNewOption = command.hasOption("new");
 
@@ -78,7 +77,6 @@ public class CommandProcessor {
       String country = countryOption != null ? countryOption.get(0) : null;
       String metadataFile = metadataFileOption != null ? metadataFileOption.get(0) : null;
 
-
       if (isDCRequest) {
         ConnectorManager.sendDCRequest(identifier, country, metadataFile);
       } else {
@@ -87,7 +85,6 @@ public class CommandProcessor {
     } else {
       throw new IllegalStateException(mainCommand + " requires one of '-new' or -f 'option'");
     }
-
   }
 
   /**
@@ -121,19 +118,6 @@ public class CommandProcessor {
     } catch (Exception ex) {
       LOGGER.error(ex.getClass().getSimpleName() + ": " + ex.getMessage());
     }
-  }
-
-  /**
-   * Quit.
-   *
-   * @param server the server
-   * @throws Exception the exception
-   */
-  public static void quit(Server server) throws Exception {
-    LOGGER.info("Stopping the server");
-    server.stop();
-    server.join();
-    System.exit(0);
   }
 
 

@@ -46,25 +46,26 @@ public class ConnectorManager {
    * The Logger instance
    */
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorManager.class);
-
   /**
    * The Signature helper.
    */
-  static final SignatureHelper signatureHelper = new SignatureHelper(EKeyStoreType.PKCS12,
-      CommanderConfig.getKeystore(),
-      CommanderConfig.getKeystorePassword(),
-      CommanderConfig.getKeyAlias(),
-      CommanderConfig.getKeyPassword());
+  private static SignatureHelper signatureHelper;
 
   /**
    * The constant CONNECTOR_FROM_DCURL.
    */
-  public static final String CONNECTOR_FROM_DCURL = CommanderConfig.getConnectorFromDCURL();
+  private static String CONNECTOR_FROM_DCURL;
   /**
    * The constant CONNECTOR_FROM_DPURL.
    */
-  public static final String CONNECTOR_FROM_DPURL = CommanderConfig.getConnectorFromDPURL();
+  private static String CONNECTOR_FROM_DPURL;
 
+
+  public static void init(EKeyStoreType type, String keyStore, String storePassword, String keyALias, String keyPassword, String fromDCUrl, String fromDPUrl){
+    signatureHelper = new SignatureHelper(type, keyStore, storePassword, keyALias, keyPassword);
+    CONNECTOR_FROM_DCURL = fromDCUrl;
+    CONNECTOR_FROM_DPURL = fromDPUrl;
+  }
 
   /**
    * Send dc request.

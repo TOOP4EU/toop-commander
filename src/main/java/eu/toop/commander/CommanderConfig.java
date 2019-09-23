@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@ import java.io.File;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigParseOptions;
-import com.typesafe.config.ConfigSyntax;
 
 /**
  * The utility class for reading the toop-commander.conf file.
@@ -28,18 +26,6 @@ import com.typesafe.config.ConfigSyntax;
  * @author yerlibilgin
  */
 public class CommanderConfig {
-  /**
-   * HTTP Port
-   */
-  private static final int httpPort;
-  /**
-   * TO DC Endpoint
-   */
-  private static final String toDcEndpoint;
-  /**
-   * TO DP Endpoint
-   */
-  private static final String toDpEndpoint;
 
   /**
    * Keystore that contains the key for signing the requests and reponses
@@ -58,13 +44,9 @@ public class CommanderConfig {
    */
   private static final String keyPassword;
   /**
-   * Connector URL
+   * Connector dcConnectorBaseURL
    */
-  private static final String connectorURL;
-  /**
-   * Connector Port
-   */
-  private static final int connectorPort;
+  private static final String dcConnectorBaseURL;
   /**
    * fromDCURL for request submission
    */
@@ -77,41 +59,37 @@ public class CommanderConfig {
    * timeout for waiting for SubmissionResult and RelayResult
    */
   private static final long testStepWaitTimeout;
+  private static boolean cliEnabled;
+  private static boolean dcEnabled;
+  private static boolean dpEnabled;
+  private static int dcPort;
+  private static int dpPort;
 
 
   static {
-    ConfigParseOptions opt = ConfigParseOptions.defaults();
-    opt.setSyntax(ConfigSyntax.CONF);
-    Config conf = ConfigFactory.parseFile(new File("./toop-commander.conf")).resolve();
-
-    httpPort = conf.getInt("toop-commander.http.port");
-    toDcEndpoint = conf.getString("toop-commander.http.toDcEndpoint");
-    toDpEndpoint = conf.getString("toop-commander.http.toDpEndpoint");
+    Config conf = ConfigFactory.parseFile(new File("./toop-commander.conf"))
+        .withFallback(ConfigFactory.systemProperties())
+        .resolve();
+    cliEnabled = conf.getBoolean("toop-commander.cliEnabled");
+    dcEnabled = conf.getBoolean("toop-commander.dcEnabled");
+    dpEnabled = conf.getBoolean("toop-commander.dpEnabled");
+    dcPort = conf.getInt("toop-commander.dcPort");
+    dpPort = conf.getInt("toop-commander.dpPort");
 
     keystore = conf.getString("toop-commander.security.keystore");
     keystorePassword = conf.getString("toop-commander.security.keystorePassword");
     keyAlias = conf.getString("toop-commander.security.keyAlias");
     keyPassword = conf.getString("toop-commander.security.keyPassword");
 
-    connectorURL = conf.getString("toop-commander.connector.connectorURL");
-    connectorPort = conf.getInt("toop-commander.connector.connectorPort");
+    dcConnectorBaseURL = conf.getString("toop-commander.connector.dcConnectorBaseURL");
     fromDCURL = conf.getString("toop-commander.connector.from-dc-url");
     fromDPURL = conf.getString("toop-commander.connector.from-dp-url");
+
 
     if (conf.hasPath("toop-commander.test.testStepWaitTimeout"))
       testStepWaitTimeout = conf.getLong("toop-commander.test.testStepWaitTimeout");
     else
       testStepWaitTimeout = 30000l; //default to 30 seconds
-  }
-
-
-  /**
-   * Gets http port.
-   *
-   * @return the http port
-   */
-  public static int getHttpPort() {
-    return httpPort;
   }
 
   /**
@@ -146,18 +124,8 @@ public class CommanderConfig {
    *
    * @return the connector url
    */
-  public static String getConnectorURL() {
-    return connectorURL;
-  }
-
-  /**
-   * Gets connector port.
-   *
-   * @return the connector port
-   */
-  public static int getConnectorPort() {
-
-    return connectorPort;
+  public static String getDcConnectorBaseURL() {
+    return dcConnectorBaseURL;
   }
 
   /**
@@ -179,24 +147,6 @@ public class CommanderConfig {
   }
 
   /**
-   * Gets to dc endpoint.
-   *
-   * @return the to dc endpoint
-   */
-  public static String getToDcEndpoint() {
-    return toDcEndpoint;
-  }
-
-  /**
-   * Gets to dp endpoint.
-   *
-   * @return the to dp endpoint
-   */
-  public static String getToDpEndpoint() {
-    return toDpEndpoint;
-  }
-
-  /**
    * Gets key password.
    *
    * @return the key password
@@ -213,4 +163,25 @@ public class CommanderConfig {
   public static long getTestStepWaitTimeout() {
     return testStepWaitTimeout;
   }
+
+  public static boolean isCliEnabled() {
+    return cliEnabled;
+  }
+
+  public static boolean isDcEnabled() {
+    return dcEnabled;
+  }
+
+  public static boolean isDpEnabled() {
+    return dpEnabled;
+  }
+
+  public static int getDcPort() {
+    return dcPort;
+  }
+
+  public static int getDPPort() {
+    return dpPort;
+  }
+
 }

@@ -52,7 +52,7 @@ public class IDQueryProcessor {
     if (command.hasOption("t")) {
       LOGGER.info("Service availability check");
 
-      String query = CommanderConfig.getConnectorURL() + "/search-dp/AX";
+      String query = CommanderConfig.getDcConnectorBaseURL() + "/search-dp/AX";
 
       try {
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(query).openConnection();
@@ -84,7 +84,7 @@ public class IDQueryProcessor {
         }
       }
 
-      String query = CommanderConfig.getConnectorURL() + "/search-dp/" + countryStr + docTypeStr;
+      String query = CommanderConfig.getDcConnectorBaseURL() + "/search-dp/" + countryStr + docTypeStr;
 
       LOGGER.info("URL: " + query);
 
