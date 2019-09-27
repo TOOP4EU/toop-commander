@@ -17,6 +17,7 @@ package eu.toop.commander;
 
 import com.helger.security.keystore.EKeyStoreType;
 import eu.toop.commander.cli.ToopCli;
+import eu.toop.commons.util.CliCommand;
 import org.jline.reader.UserInterruptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,7 @@ public class ToopCommanderMain {
         while (toopCli.readLine()) {
           try {
 
-            Command command = Command.parse(toopCli.getWords(), true);
+            CliCommand command = CliCommand.parse(toopCli.getWords(), true);
 
             switch (command.getMainCommand()) {
               case "help":
@@ -124,7 +125,7 @@ public class ToopCommanderMain {
     }
   }
 
-  public static void prepareShortcutForDcRequest(Command command) {
+  public static void prepareShortcutForDcRequest(CliCommand command) {
 
     try {
       Field field = command.getClass().getDeclaredField("options");

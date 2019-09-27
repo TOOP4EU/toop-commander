@@ -15,15 +15,6 @@
  */
 package eu.toop.commander;
 
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.pd.searchapi.PDSearchAPIReader;
@@ -31,6 +22,15 @@ import com.helger.pd.searchapi.v1.EntityType;
 import com.helger.pd.searchapi.v1.IDType;
 import com.helger.pd.searchapi.v1.MatchType;
 import com.helger.pd.searchapi.v1.ResultListType;
+import eu.toop.commons.util.CliCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * This class contains provides means to perform or check the id query via the toop connector proxy service to TOOP Directory
@@ -46,7 +46,7 @@ public class IDQueryProcessor {
    *
    * @param command the command
    */
-  public static void process(Command command) {
+  public static void process(CliCommand command) {
     ValueEnforcer.notNull(command, "Empty command list");
 
     if (command.hasOption("t")) {

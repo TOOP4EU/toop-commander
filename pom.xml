@@ -142,7 +142,7 @@
   </build>
 
   <properties>
-    <toop.version>0.10.5</toop.version>
+    <toop.version>0.10.6-SNAPSHOT</toop.version>
   </properties>
 
   <dependencyManagement>

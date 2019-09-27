@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.eclipse.jetty.server.Server;
+import eu.toop.commons.util.CliCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +48,7 @@ public class CommandProcessor {
    *
    * @param command the input command
    */
-  public static void processDCDPCommand(Command command) {
+  public static void processDCDPCommand(CliCommand command) {
     ValueEnforcer.notNull(command, "Empty command list");
     String mainCommand = command.getMainCommand();
     boolean isDCRequest = mainCommand.equals("send-dc-request");
@@ -92,7 +92,7 @@ public class CommandProcessor {
    *
    * @param command the command
    */
-  public static void runTest(Command command) {
+  public static void runTest(CliCommand command) {
     ValueEnforcer.notNull(command, "Empty command list");
     List<String> file = command.getArguments("f");
     if (file == null || file.size() != 1) {
@@ -144,7 +144,7 @@ public class CommandProcessor {
    *
    * @param command the command to be processed
    */
-  public static void processIdQuery(Command command) {
+  public static void processIdQuery(CliCommand command) {
     IDQueryProcessor.process(command);
   }
 }
