@@ -30,3 +30,4 @@ data/tests/reports
 logs
 data/tests/receivedattachments
 .vscode
+dump
