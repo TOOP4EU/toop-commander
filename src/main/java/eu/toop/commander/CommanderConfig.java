@@ -19,6 +19,7 @@ import java.io.File;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.impl.ConfigImpl;
 
 /**
  * The utility class for reading the toop-commander.conf file.

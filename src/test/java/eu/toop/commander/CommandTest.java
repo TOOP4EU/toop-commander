@@ -30,7 +30,7 @@ public class CommandTest {
   @Test
   public void parseEmptyCommandList () {
     try {
-      Command.parse (new ArrayList<> ());
+      Command.parse (new ArrayList<> (), true);
       fail ();
     } catch (IllegalArgumentException ex) {
       // Expected
@@ -39,7 +39,7 @@ public class CommandTest {
 
   @Test
   public void parseOneCommand () {
-    Command singleCommand = Command.parse (Arrays.asList ("singleCommand"));
+    Command singleCommand = Command.parse (Arrays.asList ("singleCommand"), true);
 
     assertEquals ("singleCommand", singleCommand.getMainCommand ());
     assertNull (singleCommand.getOptions ());
@@ -48,7 +48,7 @@ public class CommandTest {
   @Test
   public void parseComplexCommand () {
     String s = "sampleCommand optionwithoutdash1 optionwithoutdash2 -f file1 -q -t option1 option2 -c option3";
-    Command singleCommand = Command.parse (Arrays.asList (s.split ("\\s")));
+    Command singleCommand = Command.parse (Arrays.asList (s.split ("\\s")), true);
 
     assertEquals ("sampleCommand", singleCommand.getMainCommand ());
     assertNotNull (singleCommand.getOptions ());

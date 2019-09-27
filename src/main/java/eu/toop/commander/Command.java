@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -81,12 +81,19 @@ public class Command {
    * @return A new command
    */
   public static Command parse(List<String> words) {
+    return parse(words, false);
+  }
+
+  public static Command parse(List<String> words, boolean hasMainCommand) {
     ValueEnforcer.notEmpty(words, "The word list cannot be null or empty");
 
     Command command = new Command();
-    command.mainCommand = words.get(0);
+    if (hasMainCommand)
+      command.mainCommand = words.get(0);
 
-    if (words.size() > 1) {
+    int startIndex = hasMainCommand ? 1 : 0;
+
+    if (words.size() > startIndex) {
 
       Map<String, List<String>> options = new LinkedHashMap<>();
 
@@ -94,7 +101,8 @@ public class Command {
       String currentKey = ""; //empty key
       ArrayList<String> currentList = new ArrayList<>();
       options.put(currentKey, currentList);
-      for (int i = 1; i < listSize; ++i) {
+
+      for (int i = startIndex; i < listSize; ++i) {
         String current = words.get(i);
         if (current.startsWith("-")) {
           currentKey = current.substring(1); //skip dash
@@ -128,7 +136,7 @@ public class Command {
    * @return true if the options map contains the given <code>key</code>
    */
   public boolean hasOption(String key) {
-    if(options == null || options.isEmpty())
+    if (options == null || options.isEmpty())
       return false;
 
     return options.containsKey(key);

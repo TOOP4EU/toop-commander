@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,7 +41,7 @@ import org.jline.terminal.TerminalBuilder;
 /**
  * A class that helps autocomplete and suggestions for the command line interface
  */
-public class ToopCommanderCli {
+public class ToopCli {
   /**
    * Read lines from the console, with input editing.
    */
@@ -50,16 +51,26 @@ public class ToopCommanderCli {
    */
   private SimpleDateFormat sdf = new SimpleDateFormat("YYYY-mm-dd HH:MM:ss");
 
+
+  private String prompt;
+
+  public ToopCli(){
+    this("toop-commander> ",
+        ".tchistory",
+        Arrays.asList("help", "id-query", "send-dc-request", "send-dp-response", "run-test", "quit", "cat"));
+  }
   /**
    * Default constructor
    */
-  public ToopCommanderCli() {
+  public ToopCli(String prompt, String historyFile, List<String> stringList) {
+    this.prompt = prompt;
+
     TerminalBuilder builder = TerminalBuilder.builder();
 
     Completer second = new SecondCompleter();
 
     ArgumentCompleter completer = new ArgumentCompleter(
-        new StringsCompleter("help", "id-query", "send-dc-request", "send-dp-response", "run-test", "quit", "cat"),
+        new StringsCompleter(stringList),
         second
     );
 
@@ -85,7 +96,7 @@ public class ToopCommanderCli {
     }));
 
     reader = LineReaderBuilder.builder()
-        .terminal(terminal).variable(LineReader.HISTORY_FILE, new File(".tchistory"))
+        .terminal(terminal).variable(LineReader.HISTORY_FILE, new File(historyFile))
         .completer(completer)
         .parser(parser).history(defaultHistory)
         .build();
@@ -98,7 +109,7 @@ public class ToopCommanderCli {
    * @return boolean
    */
   public boolean readLine() {
-    boolean b = reader.readLine("toop-commander> ", sdf.format(Calendar.getInstance().getTime()), (MaskingCallback) null, null) != null;
+    boolean b = reader.readLine(prompt, sdf.format(Calendar.getInstance().getTime()), (MaskingCallback) null, null) != null;
     return b;
   }
 

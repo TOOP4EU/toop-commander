@@ -16,7 +16,7 @@
 package eu.toop.commander;
 
 import com.helger.security.keystore.EKeyStoreType;
-import eu.toop.commander.cli.ToopCommanderCli;
+import eu.toop.commander.cli.ToopCli;
 import org.jline.reader.UserInterruptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,11 +58,11 @@ public class ToopCommanderMain {
     if(CommanderConfig.isCliEnabled()) {
       LOGGER.info("Entering CLI mode");
       try {
-        ToopCommanderCli toopCommanderCli = new ToopCommanderCli();
-        while (toopCommanderCli.readLine()) {
+        ToopCli toopCli = new ToopCli();
+        while (toopCli.readLine()) {
           try {
 
-            Command command = Command.parse(toopCommanderCli.getWords());
+            Command command = Command.parse(toopCli.getWords(), true);
 
             switch (command.getMainCommand()) {
               case "help":
