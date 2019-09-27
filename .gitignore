@@ -29,3 +29,4 @@ samples/tests/reports/*
 data/tests/reports
 logs
 data/tests/receivedattachments
+.vscode
