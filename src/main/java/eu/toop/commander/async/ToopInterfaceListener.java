@@ -29,34 +29,55 @@ import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.iface.IToopInterfaceDC;
 import eu.toop.iface.IToopInterfaceDP;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * The listener that processes the toop request, responses and errors
  */
 public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP {
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopInterfaceListener.class);
+  private ExecutorService executors = Executors.newCachedThreadPool();
 
   @Override
-  public void onToopResponse(@Nonnull ToopResponseWithAttachments140 aResponseWA) {
-    LOGGER.debug("Received a Toop Response");
+  public void onToopResponse(@Nonnull final ToopResponseWithAttachments140 aResponseWA) {
+    executors.submit(() -> {
+      LOGGER.debug("Received a Toop Response");
 
-    // Log the response xml
-    LOGGER.info(ToopWriter.response140().getAsString(aResponseWA.getResponse ()));
+      // Log the response xml
+      LOGGER.info(ToopWriter.response140().getAsString(aResponseWA.getResponse()));
+    });
   }
 
   @Override
-  public void onToopRequest(@Nonnull ToopRequestWithAttachments140 aRequestWA) {
-    LOGGER.debug("Received a Toop Request");
+  public void onToopRequest(@Nonnull final ToopRequestWithAttachments140 aRequestWA) {
+    executors.submit(() -> {
+      LOGGER.debug("Received a Toop Request");
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      LOGGER.info("Press k to continue");
+      try {
+        br.readLine();
+      } catch (IOException e) {
 
-    final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse(aRequestWA.getRequest (), "data/response-metadata.conf");
+      }
 
-    ConnectorManager.sendDPResponse(aResponse);
+      final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse(aRequestWA.getRequest (), "data/response-metadata.conf");
+
+      ConnectorManager.sendDPResponse(aResponse);
+    });
   }
 
   @Override
-  public void onToopErrorResponse(@Nonnull ToopResponseWithAttachments140 aResponseWA) {
+  public void onToopErrorResponse(@Nonnull final ToopResponseWithAttachments140 aResponseWA) {
+    executors.submit(() -> {
     LOGGER.debug("Received a Toop Error Response");
 
     // Log the response xml
     LOGGER.info(ToopWriter.response140().getAsString(aResponseWA.getResponse ()));
+    });
   }
 }
