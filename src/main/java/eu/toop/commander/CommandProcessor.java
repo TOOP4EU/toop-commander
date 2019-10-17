@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import eu.toop.commander.cli.ToopCommanderCli;
 import eu.toop.commons.util.CliCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,13 +139,25 @@ public class CommandProcessor {
 
   /**
    * Process and extract the command parameters <code>country</code> and <code>doctype</code> from the command <br>
-   * <code>id-query -c &lt;country code&gt; -d &lt;doctype&gt; </code>
-   * and perform the query on the toop commander. Then displays the result as
-   * both raw and interpreted format
+   * <code>{@value eu.toop.commander.cli.ToopCommanderCli#CMD_SEARCH_DP_BY_COUNTRY} -c &lt;country code&gt; -d &lt;doctype&gt; </code>
+   * and perform the {@value eu.toop.commander.cli.ToopCommanderCli#CMD_SEARCH_DP_BY_COUNTRY} query on the toop connector.
+   * Then displays the result as both raw and interpreted format
    *
    * @param command the command to be processed
    */
-  public static void processIdQuery(CliCommand command) {
-    IDQueryProcessor.process(command);
+  public static void processDpByCountryQuery(CliCommand command) {
+    DPQueryProcessor.processDpSearch(ToopCommanderCli.CMD_SEARCH_DP_BY_COUNTRY, command);
+  }
+
+  /**
+   * Process and extract the command parameter <code>dpType</code> from the command <br>
+   * <code>{@value eu.toop.commander.cli.ToopCommanderCli#CMD_SEARCH_DP_BY_DPTYPE} -d &lt;dpType&gt; </code>
+   * and perform the {@value eu.toop.commander.cli.ToopCommanderCli#CMD_SEARCH_DP_BY_DPTYPE}
+   * query on the toop connector. Then display the result as both raw and interpreted format
+   *
+   * @param command the command to be processed
+   */
+  public static void processDpByDPTypeQuery(CliCommand command) {
+    DPQueryProcessor.processDpSearch(ToopCommanderCli.CMD_SEARCH_DP_BY_DPTYPE, command);
   }
 }

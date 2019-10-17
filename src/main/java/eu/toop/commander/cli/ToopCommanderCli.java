@@ -41,7 +41,15 @@ import org.jline.terminal.TerminalBuilder;
 /**
  * A class that helps autocomplete and suggestions for the command line interface
  */
-public class ToopCli {
+public class ToopCommanderCli {
+  public static final String CMD_HELP = "help";
+  public static final String CMD_SEARCH_DP_BY_COUNTRY = "search-dp-by-country";
+  public static final String CMD_SEARCH_DP_BY_DPTYPE = "search-dp-by-dptype";
+  public static final String CMD_SEND_DC_REQUEST = "send-dc-request";
+  public static final String CMD_SEND_DP_RESPONSE = "send-dp-response";
+  public static final String CMD_RUN_TEST = "run-test";
+  public static final String CMD_QUIT = "quit";
+  public static final String CMD_CAT = "cat";
   /**
    * Read lines from the console, with input editing.
    */
@@ -54,15 +62,16 @@ public class ToopCli {
 
   private String prompt;
 
-  public ToopCli(){
+  public ToopCommanderCli(){
     this("toop-commander> ",
         ".tchistory",
-        Arrays.asList("help", "id-query", "send-dc-request", "send-dp-response", "run-test", "quit", "cat"));
+        Arrays.asList(CMD_HELP, CMD_SEARCH_DP_BY_COUNTRY, CMD_SEARCH_DP_BY_DPTYPE,
+            CMD_SEND_DC_REQUEST, CMD_SEND_DP_RESPONSE, CMD_RUN_TEST, CMD_QUIT, CMD_CAT));
   }
   /**
    * Default constructor
    */
-  public ToopCli(String prompt, String historyFile, List<String> stringList) {
+  public ToopCommanderCli(String prompt, String historyFile, List<String> stringList) {
     this.prompt = prompt;
 
     TerminalBuilder builder = TerminalBuilder.builder();
@@ -135,30 +144,42 @@ public class ToopCli {
      * The File name completer.
      */
     Completers.FileNameCompleter fileNameCompleter = new Completers.FileNameCompleter();
+
     /**
-     * The Id query completer.
+     * The search-dp-by-country query completer.
      */
-    IdQueryCompleter idQueryCompleter = new IdQueryCompleter();
+    DPQueryByCountryCompleter dPQueryByCountryCompleter = new DPQueryByCountryCompleter();
+
+
+    /**
+     * The search-dp-by-dptype query completer.
+     */
+    DPQueryByDPTypeCompleter dpTypeCompleter = new DPQueryByDPTypeCompleter();
+
 
     @Override
     public void complete(LineReader reader, ParsedLine line, List<Candidate> candidates) {
       //check the command
       String command = line.words().get(0);
       switch (command) {
-        case "cat":
+        case CMD_CAT:
           fileNameCompleter.complete(reader, line, candidates);
           break;
 
-        case "id-query":
-          idQueryCompleter.complete(reader, line, candidates);
+        case CMD_SEARCH_DP_BY_COUNTRY:
+          dPQueryByCountryCompleter.complete(reader, line, candidates);
           break;
 
-        case "help":
-        case "quit":
+        case CMD_SEARCH_DP_BY_DPTYPE:
+          dpTypeCompleter.complete(reader, line, candidates);
           break;
 
-        case "send-dc-request":
-        case "send-dp-response":
+        case CMD_HELP:
+        case CMD_QUIT:
+          break;
+
+        case CMD_SEND_DC_REQUEST:
+        case CMD_SEND_DP_RESPONSE:
           sendCompleter.complete(reader, line, candidates);
           break;
       }
@@ -166,9 +187,9 @@ public class ToopCli {
   }
 
   /**
-   * A command line completer for ID Query
+   * Command line completer for ID Query
    */
-  private static class IdQueryCompleter implements Completer {
+  private static class DPQueryByCountryCompleter implements Completer {
     private final Candidate display_raw_result;
     private final Candidate connectivity_test;
     private final Candidate country_code;
@@ -181,7 +202,7 @@ public class ToopCli {
     /**
      * Default constructor
      */
-    IdQueryCompleter() {
+    DPQueryByCountryCompleter() {
       mainOptions = new ArrayList<>();
       display_raw_result = new Candidate("-raw", "-raw", "", "Display Raw Result", null, null, false);
       connectivity_test = new Candidate("-t", "-t", "", "Connectivity test", null, null, false);
@@ -234,6 +255,25 @@ public class ToopCli {
 
     }
 
+
+  }
+
+
+  /**
+   * Command line completer for ID Query
+   */
+  private static class DPQueryByDPTypeCompleter implements Completer {
+
+    @Override
+    public void complete(LineReader reader, ParsedLine line, List<Candidate> candidates) {
+      if (line.wordIndex() == 0) {
+        return;
+      }
+
+      if (line.wordIndex() == 1) {
+        candidates.add(new Candidate("-d"));
+      }
+    }
 
   }
 

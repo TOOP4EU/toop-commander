@@ -22,12 +22,14 @@ import com.helger.pd.searchapi.v1.EntityType;
 import com.helger.pd.searchapi.v1.IDType;
 import com.helger.pd.searchapi.v1.MatchType;
 import com.helger.pd.searchapi.v1.ResultListType;
+import eu.toop.commander.cli.ToopCommanderCli;
 import eu.toop.commons.util.CliCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
@@ -35,25 +37,32 @@ import java.util.List;
 /**
  * This class contains provides means to perform or check the id query via the toop connector proxy service to TOOP Directory
  */
-public class IDQueryProcessor {
+public class DPQueryProcessor {
   /**
    * The Logger instance
    */
-  private static final Logger LOGGER = LoggerFactory.getLogger(IDQueryProcessor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DPQueryProcessor.class);
+
 
   /**
    * Process the id query command.
    *
+   * @param mainCommand either {@value eu.toop.commander.cli.ToopCommanderCli#CMD_SEARCH_DP_BY_COUNTRY} or
+   *                    {@value eu.toop.commander.cli.ToopCommanderCli#CMD_SEARCH_DP_BY_DPTYPE}
    * @param command the command
    */
-  public static void process(CliCommand command) {
+  public static void processDpSearch(String mainCommand, CliCommand command) {
+    ValueEnforcer.notNull(mainCommand, "Main command should be valid");
     ValueEnforcer.notNull(command, "Empty command list");
 
+
+    String query = CommanderConfig.getDcConnectorBaseURL() + "/" + mainCommand;
     if (command.hasOption("t")) {
       LOGGER.info("Service availability check");
 
-      String query = CommanderConfig.getDcConnectorBaseURL() + "/search-dp/AX";
+      query += "/test";
 
+      LOGGER.info("URL: " + query);
       try {
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(query).openConnection();
         if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -61,30 +70,52 @@ public class IDQueryProcessor {
         }
 
         LOGGER.info("Service available");
+      } catch (MalformedURLException ex){
+        LOGGER.error("Invalid URL");
+        LOGGER.error(ex.getMessage(), ex);
       } catch (Exception ex) {
         LOGGER.error("Service not available");
         LOGGER.error(ex.getMessage(), ex);
       }
     } else {
+      if(mainCommand.equals(ToopCommanderCli.CMD_SEARCH_DP_BY_COUNTRY)) {
+        List<String> countryParam = command.getArguments("c");
+        if (countryParam == null || countryParam.size() != 1)
+          throw new IllegalArgumentException("-c is required with exactly one parameter");
 
-      List<String> countryParam = command.getArguments("c");
-      if (countryParam == null || countryParam.size() != 1)
-        throw new IllegalArgumentException("-c is required with exactly one parameter");
+        String countryStr = countryParam.get(0);
 
-      String countryStr = countryParam.get(0);
+        String docTypeStr = "";
+        List<String> docTypeParam = command.getArguments("d");
+        if (docTypeParam != null) {
+          ValueEnforcer.isEqual(docTypeParam.size(), 1, "-d is optional but it requires exactly one parameter");
 
-      String docTypeStr = "";
-      List<String> docTypeParam = command.getArguments("d");
-      if (docTypeParam != null) {
-        ValueEnforcer.isEqual(docTypeParam.size(), 1, "-d is optional but it requires exactly one parameter");
-
-        try {
-          docTypeStr = "/" + URLEncoder.encode(docTypeParam.get(0), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+          try {
+            docTypeStr = "/" + URLEncoder.encode(docTypeParam.get(0), "UTF-8");
+          } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException("Couldn't prepare URL for the query " + command.toString(), e);
+          }
         }
-      }
 
-      String query = CommanderConfig.getDcConnectorBaseURL() + "/search-dp/" + countryStr + docTypeStr;
+        query += countryStr + docTypeStr;
+      } else if (mainCommand.equals(ToopCommanderCli.CMD_SEARCH_DP_BY_DPTYPE)){
+        List<String> dpTypeParam = command.getArguments("d");
+
+        String dpTypeStr = "";
+        if (dpTypeParam != null) {
+          ValueEnforcer.isEqual(dpTypeParam.size(), 1, "-d is requires the `dyType` value");
+          try {
+            dpTypeStr = "/" + URLEncoder.encode(dpTypeParam.get(0), "UTF-8");
+          } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException("Couldn't prepare URL for the query " + command.toString(), e);
+          }
+
+          query += dpTypeStr;
+        } else {
+          throw new IllegalArgumentException("You have to provide `dpType` parameter for the command " + mainCommand);
+        }
+
+      }
 
       LOGGER.info("URL: " + query);
 

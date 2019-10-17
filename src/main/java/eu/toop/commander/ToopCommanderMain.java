@@ -16,7 +16,7 @@
 package eu.toop.commander;
 
 import com.helger.security.keystore.EKeyStoreType;
-import eu.toop.commander.cli.ToopCli;
+import eu.toop.commander.cli.ToopCommanderCli;
 import eu.toop.commons.util.CliCommand;
 import org.jline.reader.UserInterruptException;
 import org.slf4j.Logger;
@@ -59,14 +59,14 @@ public class ToopCommanderMain {
     if(CommanderConfig.isCliEnabled()) {
       LOGGER.info("Entering CLI mode");
       try {
-        ToopCli toopCli = new ToopCli();
-        while (toopCli.readLine()) {
+        ToopCommanderCli toopCommanderCli = new ToopCommanderCli();
+        while (toopCommanderCli.readLine()) {
           try {
 
-            CliCommand command = CliCommand.parse(toopCli.getWords(), true);
+            CliCommand command = CliCommand.parse(toopCommanderCli.getWords(), true);
 
             switch (command.getMainCommand()) {
-              case "help":
+              case ToopCommanderCli.CMD_HELP:
                 CommandProcessor.printHelpMessage();
                 break;
 
@@ -75,7 +75,7 @@ public class ToopCommanderMain {
                 CommandProcessor.processDCDPCommand(command);
                 break;
 
-              case "cat": {
+              case ToopCommanderCli.CMD_CAT: {
                 List<String> fileNames = command.getEmptyParameters();
                 fileNames.forEach(fileName -> {
                   String trimmedName = fileName.trim();
@@ -88,20 +88,24 @@ public class ToopCommanderMain {
 
               break;
 
-              case "id-query":
-                CommandProcessor.processIdQuery(command);
+              case ToopCommanderCli.CMD_SEARCH_DP_BY_COUNTRY:
+                CommandProcessor.processDpByCountryQuery(command);
                 break;
 
-              case "send-dc-request":
-              case "send-dp-response":
+              case ToopCommanderCli.CMD_SEARCH_DP_BY_DPTYPE:
+                CommandProcessor.processDpByDPTypeQuery(command);
+                break;
+
+              case ToopCommanderCli.CMD_SEND_DC_REQUEST:
+              case ToopCommanderCli.CMD_SEND_DP_RESPONSE:
                 CommandProcessor.processDCDPCommand(command);
                 break;
 
-              case "run-test":
+              case ToopCommanderCli.CMD_RUN_TEST:
                 CommandProcessor.runTest(command);
                 break;
 
-              case "quit":
+              case ToopCommanderCli.CMD_QUIT:
                 DCDPServerManager.quit();
                 System.exit(0);
                 break;

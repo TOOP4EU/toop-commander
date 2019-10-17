@@ -32,9 +32,18 @@ Commands:
 
   cat file1 file2 file3 ...    print contents of the provided files
 
-  id-query -c <COUNTRY_CODE> -d <docType>
-                               Send an id-query to the toop directory via the configured toop-connector
+ 
+  search-dp-by-country -t      Check the availability of the "/search-dp-by-country" endpoint of the configured connector.
+                               
+  search-dp-by-country -c <COUNTRY_CODE> -d <docType> [-raw]
+                               Send an id-query to the toop directory via the configured toop-connector. The option "-raw"
+                               causes the raw query result to be displayed
+                               
 
+  search-dp-by-dptype -d dpType [-raw]
+                               Send a query for the list of Data Providers with the provided `dpType`. The option "-raw"
+                               causes the raw query result to be displayed
+  
   run-test -f <TEST_CONFIG_FILE> [-t <TEST_CASE_NAMES>]
                                Run an automated test with respect to its HOCON definition given in <TEST_CONFIG_FILE>. 
                                The optional -t parameter specifies the test case names (separated by space) that are specifically
