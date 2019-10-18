@@ -31,7 +31,7 @@ import com.helger.security.keystore.EKeyStoreType;
 public class AsicsCreator {
   static AsicWriterFactory factory = AsicWriterFactory.newFactory(ESignatureMethod.XAdES);
   static SignatureHelper signatureHelper = new SignatureHelper(EKeyStoreType.PKCS12,
-      "./toop-commander.pfx",
+      "/toop-commander.pfx",
       "123456",
       "toop-commander",
       "123456");

@@ -16,39 +16,22 @@
 package eu.toop.commander.util;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.security.MessageDigest;
+import java.io.*;
 
 /**
  * A class that contains utility functions
  */
-public class Util {
+public class CommanderUtil {
   /**
    * Logger instance
    */
-  private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
-  /**
-   * Returns the SHA 256 hash of the input data
-   * @param data Data to digets
-   * @return Digest bytes
-   */
-  public static byte[] sha256(byte[] data) {
-    try {
-      return MessageDigest.getInstance("SHA-256").digest(data);
-    } catch (Exception e) {
-      throw new IllegalStateException(e.getMessage(), e);
-    }
-
-
-  }
+  private static final Logger LOGGER = LoggerFactory.getLogger(CommanderUtil.class);
 
   /**
    * Check if the first bytes of <code>src</code> match <code>probe</code>
@@ -117,7 +100,7 @@ public class Util {
         resourcePath = path;
 
       //never mind the classpath, just try on the current class
-      InputStream inputStream = Util.class.getResourceAsStream(resourcePath);
+      InputStream inputStream = CommanderUtil.class.getResourceAsStream(resourcePath);
 
       if(inputStream == null){
         //panic, not found
@@ -130,4 +113,41 @@ public class Util {
       return inputStream;
     }
   }
+
+  /**
+   * Transfer the classpath resource to the current directory if it doesn't exist
+   *
+   * @param path the resource to be copied
+   */
+  public static void transferResourceToCurrentDirectory(String path) {
+    ValueEnforcer.notEmpty(path, "The resource path");
+
+    if (!path.startsWith("/")) {
+      throw new IllegalStateException("Please provide a resource with an absolute path.");
+    }
+
+    String localPath = path.substring(1); //strip off the /
+    File file = new File(localPath);
+
+    if (!file.exists()) {
+
+      //make sure that we have the directory path.
+      File parentFolder = new File(file.getAbsolutePath()).getParentFile();
+
+      if(!parentFolder.exists()){
+        parentFolder.mkdirs();
+      }
+
+      try (FileOutputStream fileOutputStream = new FileOutputStream(file);
+           InputStream inputStream = CommanderUtil.class.getResourceAsStream(path)) {
+
+        //copy the stream
+        StreamHelper.copyInputStreamToOutputStream(inputStream, fileOutputStream);
+
+      } catch (Exception ex) {
+        LOGGER.error("Failed to copy resource " + path + " to the local directroy.", ex);
+      }
+    }
+  }
+
 }

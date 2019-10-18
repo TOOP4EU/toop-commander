@@ -57,13 +57,6 @@ public class ToopInterfaceListener implements IToopInterfaceDC, IToopInterfaceDP
   public void onToopRequest(@Nonnull final ToopRequestWithAttachments140 aRequestWA) {
     executors.submit(() -> {
       LOGGER.debug("Received a Toop Request");
-      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      LOGGER.info("Press k to continue");
-      try {
-        br.readLine();
-      } catch (IOException e) {
-
-      }
 
       final TDETOOPResponseType aResponse = ToopMessageCreator.createDPResponse(aRequestWA.getRequest (), "data/response-metadata.conf");
 

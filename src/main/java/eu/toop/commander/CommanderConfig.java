@@ -17,7 +17,7 @@ package eu.toop.commander;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import eu.toop.commander.util.Util;
+import eu.toop.commander.util.CommanderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,10 +73,9 @@ public class CommanderConfig {
   static {
     //check if the file toop-commander.conf exists, and load it,
     //otherwise go for classpath resource
-    //TODO: This
     String pathName = "toop-commander.conf";
 
-    Config conf = Util.resolveConfiguration(pathName)
+    Config conf = CommanderUtil.resolveConfiguration(pathName)
         .withFallback(ConfigFactory.systemProperties())
         .resolve();
     cliEnabled = conf.getBoolean("toop-commander.cliEnabled");

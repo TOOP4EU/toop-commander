@@ -15,8 +15,6 @@
  */
 package eu.toop.commander;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -35,31 +33,19 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import eu.toop.commander.util.Util;
+import eu.toop.commander.util.CommanderUtil;
+import eu.toop.commons.dataexchange.v140.*;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IndicatorType;
+import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.TextType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigSyntax;
 
 import eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier;
 import eu.toop.commons.codelist.EPredefinedProcessIdentifier;
-import eu.toop.commons.dataexchange.v140.ObjectFactory;
-import eu.toop.commons.dataexchange.v140.TDEAddressType;
-import eu.toop.commons.dataexchange.v140.TDEAddressWithLOAType;
-import eu.toop.commons.dataexchange.v140.TDEConceptRequestType;
-import eu.toop.commons.dataexchange.v140.TDEDataConsumerType;
-import eu.toop.commons.dataexchange.v140.TDEDataElementRequestType;
-import eu.toop.commons.dataexchange.v140.TDEDataProviderType;
-import eu.toop.commons.dataexchange.v140.TDEDataRequestAuthorizationType;
-import eu.toop.commons.dataexchange.v140.TDEDataRequestSubjectType;
-import eu.toop.commons.dataexchange.v140.TDELegalPersonType;
-import eu.toop.commons.dataexchange.v140.TDENaturalPersonType;
-import eu.toop.commons.dataexchange.v140.TDERoutingInformationType;
-import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
-import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.exchange.ToopMessageBuilder140;
 import eu.toop.commons.jaxb.ToopWriter;
 import eu.toop.commons.jaxb.ToopXSDHelper140;
@@ -175,7 +161,7 @@ public class ToopMessageCreator {
   public static TDETOOPResponseType createDPResponse(String identifier, String country, String metadataFile) {
     Config conf = parseMetadataFile(metadataFile);
     //use the sample response as a basis
-    try (InputStream fis = Util.loadFileOrResourceStream("data/response/TOOPResponse.asice")) {
+    try (InputStream fis = CommanderUtil.loadFileOrResourceStream("data/response/TOOPResponse.asice")) {
       TDETOOPResponseType response = ToopMessageBuilder140.parseResponseMessage(fis, null);
       fillNaturalPersonProperties(response.getDataRequestSubject(), identifier, conf);
       //fillLegalPersonProperties(conf, response.getDataRequestSubject());
@@ -212,6 +198,11 @@ public class ToopMessageCreator {
     final TDETOOPResponseType aResponse = new TDETOOPResponseType();
     tdeToopRequestType.cloneTo(aResponse);
 
+    //fill the response values
+    aResponse.getDataElementRequest().forEach(tdeDataElementRequestType -> {
+      recursiveFillValue(tdeDataElementRequestType.getConceptRequest());
+    });
+
     final TDEDataProviderType dataProviderType = new TDEDataProviderType();
     fillDataProviderProperties(conf, aResponse.getRoutingInformation(), dataProviderType);
     aResponse.getRoutingInformation().setDocumentTypeIdentifier(ToopXSDHelper140.createIdentifier(
@@ -228,6 +219,26 @@ public class ToopMessageCreator {
     aResponse.setDataRequestIdentifier(uuid);
     aResponse.getSpecificationIdentifier().setValue("urn:eu:toop:ns:dataexchange-1p40::Response");
     return aResponse;
+  }
+
+  /**
+   * Traverse recursively to the deepest conceptRequest (the leaf), and add a data element response
+   * @param tdeConceptRequestType the concept request to be traversed on
+   */
+  private static void recursiveFillValue(TDEConceptRequestType tdeConceptRequestType) {
+    if(tdeConceptRequestType.getConceptRequest().size() == 0){
+      //base case
+
+      TDEDataElementResponseValueType responseValue = new TDEDataElementResponseValueType();
+      responseValue.setErrorIndicator(new IndicatorType(false));
+      responseValue.setAlternativeResponseIndicator(new IndicatorType(false));
+      responseValue.setResponseDescription(new TextType(tdeConceptRequestType.getConceptName().getValue() + " dp response"));
+      tdeConceptRequestType.addDataElementResponseValue(responseValue);
+    }
+
+    tdeConceptRequestType.getConceptRequest().forEach(tdeConceptRequestType1 -> {
+      recursiveFillValue(tdeConceptRequestType1);
+    });
   }
 
   public static TDETOOPResponseType createDPResponse(InputStream responseStream) throws JAXBException {
@@ -251,7 +262,7 @@ public class ToopMessageCreator {
 
     LOGGER.debug("Parse metadata file: " + metadataFile);
 
-    return Util.resolveConfiguration(metadataFile);
+    return CommanderUtil.resolveConfiguration(metadataFile);
   }
 
   /**

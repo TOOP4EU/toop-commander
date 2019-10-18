@@ -18,13 +18,12 @@ package eu.toop.commander;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 
 import javax.xml.bind.JAXBException;
 
-import eu.toop.commander.util.Util;
+import eu.toop.commander.util.CommanderUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -161,7 +160,7 @@ public class ToopMessageCreatorTest {
 
   @Test
   public void createDPResponse() throws FileNotFoundException, JAXBException {
-    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse(Util.loadFileOrResourceStream("data/response/TOOPResponse.xml"));
+    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse(CommanderUtil.loadFileOrResourceStream("data/response/TOOPResponse.xml"));
     System.out.println(dpResponse.getRoutingInformation().getProcessIdentifier());
   }
 

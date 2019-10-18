@@ -17,11 +17,13 @@ package eu.toop.commander;
 
 import com.helger.security.keystore.EKeyStoreType;
 import eu.toop.commander.cli.ToopCommanderCli;
+import eu.toop.commander.util.CommanderUtil;
 import eu.toop.commons.util.CliCommand;
 import org.jline.reader.UserInterruptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,12 +40,23 @@ public class ToopCommanderMain {
   private static final Logger LOGGER = LoggerFactory.getLogger(ToopCommanderMain.class);
 
   /**
-   * Toop commander entry point
+   * Toop commander entry point. Transfer toop-commander.conf to the local directory and then startCommander
    * @param args Commandline arguments
    * @throws Exception in case of error
    */
   public static void main(String[] args) throws Exception {
 
+    //transfer the toop-simulator.conf to local directory so that the user can play with it.
+    CommanderUtil.transferResourceToCurrentDirectory("/toop-commander.conf");
+
+    startCommander();
+  }
+
+  /**
+   * Start the commander
+   * @throws Exception
+   */
+  public static void startCommander() throws Exception {
     ConnectorManager.init(EKeyStoreType.PKCS12,
         CommanderConfig.getKeystore(),
         CommanderConfig.getKeystorePassword(),
@@ -55,6 +68,9 @@ public class ToopCommanderMain {
 
     //initialize the DC and DP endpoints
     DCDPServerManager.init();
+
+    //check if the logs directory exists, otherwise create it (used for saving the last_response.xml
+    new File("logs").mkdirs();
 
     if(CommanderConfig.isCliEnabled()) {
       LOGGER.info("Entering CLI mode");
