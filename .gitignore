@@ -31,3 +31,4 @@ logs
 data/tests/receivedattachments
 .vscode
 dump
+.factorypath
