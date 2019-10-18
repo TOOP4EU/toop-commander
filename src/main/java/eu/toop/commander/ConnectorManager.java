@@ -15,11 +15,7 @@
  */
 package eu.toop.commander;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.file.Files;
 
 import org.slf4j.Logger;
@@ -179,9 +175,9 @@ public class ConnectorManager {
      * @param url  the url
      */
     public void sendMessage(String file, String url) {
-      LOGGER.info("Send file " + file + " to the endpoint " + url);
+      LOGGER.info("Send file/cp resource" + file + " to the endpoint " + url);
 
-      try (FileInputStream inputStream = new FileInputStream(file)) {
+      try (InputStream inputStream = Util.loadFileOrResourceStream(file)) {
 
         byte[] allBytes = StreamHelper.getAllBytes(inputStream);
 

@@ -35,6 +35,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import eu.toop.commander.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -174,8 +175,8 @@ public class ToopMessageCreator {
   public static TDETOOPResponseType createDPResponse(String identifier, String country, String metadataFile) {
     Config conf = parseMetadataFile(metadataFile);
     //use the sample response as a basis
-    try (FileInputStream fis = new FileInputStream("data/response/TOOPResponse.asice")) {
-      TDETOOPResponseType response = ToopMessageBuilder140.parseResponseMessage(fis);
+    try (InputStream fis = Util.loadFileOrResourceStream("data/response/TOOPResponse.asice")) {
+      TDETOOPResponseType response = ToopMessageBuilder140.parseResponseMessage(fis, null);
       fillNaturalPersonProperties(response.getDataRequestSubject(), identifier, conf);
       //fillLegalPersonProperties(conf, response.getDataRequestSubject());
 
@@ -237,7 +238,7 @@ public class ToopMessageCreator {
   }
 
   /**
-   * Parse metadata file config.
+   * Parse metadata file or classpath resource config.
    *
    * @param metadataFile the metadata file
    * @return the config
@@ -250,11 +251,7 @@ public class ToopMessageCreator {
 
     LOGGER.debug("Parse metadata file: " + metadataFile);
 
-    File file = new File(metadataFile);
-    if (!file.exists())
-      throw new IllegalArgumentException("file " + metadataFile + " not found");
-
-    return ConfigFactory.parseFile(file).resolve();
+    return Util.resolveConfiguration(metadataFile);
   }
 
   /**

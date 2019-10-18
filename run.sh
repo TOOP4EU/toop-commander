@@ -14,6 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
 java -jar toop-commander-0.10.6-SNAPSHOT.jar

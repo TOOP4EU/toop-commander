@@ -15,11 +15,11 @@
  */
 package eu.toop.commander;
 
-import java.io.File;
-
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.impl.ConfigImpl;
+import eu.toop.commander.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The utility class for reading the toop-commander.conf file.
@@ -27,6 +27,10 @@ import com.typesafe.config.impl.ConfigImpl;
  * @author yerlibilgin
  */
 public class CommanderConfig {
+  /**
+   * Logger instance
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(CommanderConfig.class);
 
   /**
    * Keystore that contains the key for signing the requests and reponses
@@ -66,9 +70,13 @@ public class CommanderConfig {
   private static int dcPort;
   private static int dpPort;
 
-
   static {
-    Config conf = ConfigFactory.parseFile(new File("./toop-commander.conf"))
+    //check if the file toop-commander.conf exists, and load it,
+    //otherwise go for classpath resource
+    //TODO: This
+    String pathName = "toop-commander";
+
+    Config conf = Util.resolveConfiguration(pathName)
         .withFallback(ConfigFactory.systemProperties())
         .resolve();
     cliEnabled = conf.getBoolean("toop-commander.cliEnabled");

@@ -130,7 +130,6 @@ public class ToopCommanderMain {
   }
 
   public static void prepareShortcutForDcRequest(CliCommand command) {
-
     try {
       Field field = command.getClass().getDeclaredField("options");
       field.setAccessible(true);
