@@ -79,9 +79,20 @@ Commands:
 
 All the commands can be auto completed with `tab`. Also the commands `cat`, `send-d..` support file name completion with `tab`. Pressing `tab` multiple times will allow traversal between options.
 
+
+#### A note on files/classpath resources
+
+The files that are used by toop-commander are first tried in the current directory, if they don't exist, 
+then they are looked up from the classpath. 
+For example the command `send-dc-request -f data/request/TOOPRequest.xml` will first check if the file 
+`data/request/TOOPRequest.xml` exists and load it. If it doesn't exist then it will try the classpath
+resource `/data/request/TOOPRequest.xml`.
+
+
+
 ## Sending an existing dc request to the toop-connector
 
-In the command line interface type `send-dc-request FILE_NAME` , where `FILE_NAME` points to an absolute or relative toop request xml or ASiC file.
+In the command line interface type `send-dc-request FILE_NAME` , where `FILE_NAME` points to TOOPRequest.xml or ASiC file .
 
 example:
 ```
@@ -141,3 +152,5 @@ When you run toop-commander, you need to provide a key store and `toop-commander
 
 The configuration keys in the `toop-commander.conf` are all commented and you shouldn't have a problem understanding it.
 
+
+ 

@@ -85,12 +85,12 @@ public class Util {
    */
   public static Config resolveConfiguration(String pathname) {
     Config config;
-    File file = new File(pathname + ".conf");
+    File file = new File(pathname);
     if (file.exists()) {
       LOGGER.info("Loading config from the file \"" + file.getName() + "\"");
       config = ConfigFactory.parseFile(file).resolve();
     } else {
-      LOGGER.info("Loading config from the resource \"" + pathname + ".conf\"");
+      LOGGER.info("Loading config from the resource \"" + pathname);
       config = ConfigFactory.load(pathname).resolve();
     }
     return config;

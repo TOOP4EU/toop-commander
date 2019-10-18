@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 
 import javax.xml.bind.JAXBException;
 
+import eu.toop.commander.util.Util;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,7 +161,16 @@ public class ToopMessageCreatorTest {
 
   @Test
   public void createDPResponse() throws FileNotFoundException, JAXBException {
-    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse(new FileInputStream("data/response/TOOPResponse.xml"));
+    TDETOOPResponseType dpResponse = ToopMessageCreator.createDPResponse(Util.loadFileOrResourceStream("data/response/TOOPResponse.xml"));
     System.out.println(dpResponse.getRoutingInformation().getProcessIdentifier());
   }
+
+
+  @Test
+  void createDCRequest() throws Exception {
+    TDETOOPRequestType dcRequest = ToopMessageCreator.createDCRequest("myid", "mycountry", "data/request-metadata.conf");
+    byte[] bytes = ToopMessageCreator.serializeRequest(dcRequest);
+    System.out.println(new String(bytes));
+  }
+
 }

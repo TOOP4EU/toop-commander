@@ -74,7 +74,7 @@ public class CommanderConfig {
     //check if the file toop-commander.conf exists, and load it,
     //otherwise go for classpath resource
     //TODO: This
-    String pathName = "toop-commander";
+    String pathName = "toop-commander.conf";
 
     Config conf = Util.resolveConfiguration(pathName)
         .withFallback(ConfigFactory.systemProperties())
