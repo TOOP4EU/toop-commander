@@ -83,7 +83,7 @@ public class DPQueryProcessor {
         if (countryParam == null || countryParam.size() != 1)
           throw new IllegalArgumentException("-c is required with exactly one parameter");
 
-        String countryStr = countryParam.get(0);
+        String countryStr = "/" + countryParam.get(0);
 
         String docTypeStr = "";
         List<String> docTypeParam = command.getArguments("d");
