@@ -61,22 +61,26 @@ public class CommanderUtil {
    * then throw an Exception
    * </p>
    *
-   * TODO: This exact same method exists in the simulator ConfigUtil.java as well, find a way to reuse on or another
-   *
    * @param pathname the name of the config file to be parsed
+   * @param includeSys a flag to indicate whether to include the System.properties or not.
    * @return the parsed Config object
    */
-  public static Config resolveConfiguration(String pathname) {
+  public static Config resolveConfiguration(String pathname, boolean includeSys) {
     Config config;
     File file = new File(pathname);
     if (file.exists()) {
       LOGGER.info("Loading config from the file \"" + file.getName() + "\"");
-      config = ConfigFactory.parseFile(file).resolve();
+      config = ConfigFactory.parseFile(file);
     } else {
       LOGGER.info("Loading config from the resource \"" + pathname);
-      config = ConfigFactory.load(pathname).resolve();
+      config = ConfigFactory.load(pathname);
     }
-    return config;
+
+    if(includeSys){
+      config = config.withFallback(ConfigFactory.systemProperties());
+    }
+
+    return config.resolve();
   }
 
   /**

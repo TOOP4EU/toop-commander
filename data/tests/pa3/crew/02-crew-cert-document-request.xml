@@ -29,8 +29,8 @@
     <toop:DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.crewcertificate::1.40</toop:DocumentTypeIdentifier>
     <toop:ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.twophasedrequestresponse </toop:ProcessIdentifier>
     <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:freedonia-dev</toop:DataConsumerElectronicAddressIdentifier>
-    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
-    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+    <toop:DataConsumerCountryCode>PF</toop:DataConsumerCountryCode>
+    <toop:DataProviderCountryCode>GQ</toop:DataProviderCountryCode>
   </toop:RoutingInformation>
   <toop:DataConsumer>
     <toop:DCUniqueIdentifier schemeAgencyID="whatsoever">GF3848484848</toop:DCUniqueIdentifier>
@@ -53,7 +53,7 @@
       <toop:LegalName levelOfAssurance="None">Maccus the First Mate</toop:LegalName>
       <toop:AlternativeLegalPersonIdentifier schemeID="whatsoever">3848484849</toop:AlternativeLegalPersonIdentifier>
       <toop:LegalPersonLegalAddress>
-        <toop:CountryCode levelOfAssurance="None">GF</toop:CountryCode>
+        <toop:CountryCode levelOfAssurance="None">GQ</toop:CountryCode>
       </toop:LegalPersonLegalAddress>
     </toop:LegalPerson>
   </toop:DataRequestSubject>

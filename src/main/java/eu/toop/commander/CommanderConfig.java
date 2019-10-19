@@ -75,7 +75,7 @@ public class CommanderConfig {
     //otherwise go for classpath resource
     String pathName = "toop-commander.conf";
 
-    Config conf = CommanderUtil.resolveConfiguration(pathName)
+    Config conf = CommanderUtil.resolveConfiguration(pathName, true)
         .withFallback(ConfigFactory.systemProperties())
         .resolve();
     cliEnabled = conf.getBoolean("toop-commander.cliEnabled");

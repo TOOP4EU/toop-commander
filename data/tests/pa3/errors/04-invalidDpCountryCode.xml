@@ -38,7 +38,7 @@
     <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">
       9999:freedonia-dev
     </toop:DataConsumerElectronicAddressIdentifier>
-    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
+    <toop:DataConsumerCountryCode>PF</toop:DataConsumerCountryCode>
     <toop:DataProviderCountryCode>YX</toop:DataProviderCountryCode>
   </toop:RoutingInformation>
   <toop:DataConsumer>

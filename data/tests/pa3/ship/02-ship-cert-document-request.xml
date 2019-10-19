@@ -62,9 +62,9 @@
     <!--Rule: An electronic address identifier MUST have a scheme identifier attribute. An electronic address identifier scheme MUST be from the list of Toop Party Identifiers described in the "Toop Policy for using Identifiers"-->
     <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:freedonia-dev</toop:DataConsumerElectronicAddressIdentifier>
     <!--The country of the data consumer MUST always be specified using the code list CountryCodeIdentifier (ISO 3166-1 2A:2006)-->
-    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
+    <toop:DataConsumerCountryCode>PF</toop:DataConsumerCountryCode>
     <!--The country of the data provider MUST always be specified using the code list CountryCodeIdentifier (ISO 3166-1 2A:2006)-->
-    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+    <toop:DataProviderCountryCode>GQ</toop:DataProviderCountryCode>
   </toop:RoutingInformation>
   <toop:DataConsumer>
     <!--Rule: The preferred identifier is the national VAT number.  Compulsory use of the attribute schemeAgencyID.-->

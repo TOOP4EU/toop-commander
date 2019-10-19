@@ -26,12 +26,12 @@
   <toop:DataConsumerGlobalSessionIdentifier schemeAgencyID="whatsoever">394956-1</toop:DataConsumerGlobalSessionIdentifier>
   <toop:DataConsumerRequestPurpose languageID="en">Retrieve META data for ship certificates</toop:DataConsumerRequestPurpose>
   <toop:RoutingInformation>
-    <toop:DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Response##urn:eu.toop.response.crewcertificate-list::1.40</toop:DocumentTypeIdentifier>
+    <toop:DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.shipcertificate-list::1.40</toop:DocumentTypeIdentifier>
     <toop:ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.twophasedrequestresponse</toop:ProcessIdentifier>
     <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:freedonia-dev</toop:DataConsumerElectronicAddressIdentifier>
-    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
-    <toop:DataProviderElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:elonia-dev</toop:DataProviderElectronicAddressIdentifier>
-    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode></toop:RoutingInformation>
+    <toop:DataConsumerCountryCode>PF</toop:DataConsumerCountryCode>
+    <toop:DataProviderElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">seklcks</toop:DataProviderElectronicAddressIdentifier>
+    <toop:DataProviderCountryCode>GQ</toop:DataProviderCountryCode></toop:RoutingInformation>
   <toop:DataConsumer>
     <toop:DCUniqueIdentifier schemeAgencyID="whatsoever">GF3848484848</toop:DCUniqueIdentifier>
     <toop:DCName>Maritime Authority - Port Control</toop:DCName>
@@ -53,7 +53,7 @@
       <toop:LegalName levelOfAssurance="None">Deniz Kusu</toop:LegalName>
       <toop:AlternativeLegalPersonIdentifier schemeID="whatsoever">3848484849</toop:AlternativeLegalPersonIdentifier>
       <toop:LegalPersonLegalAddress>
-        <toop:CountryCode levelOfAssurance="None">GF</toop:CountryCode>
+        <toop:CountryCode levelOfAssurance="None">GQ</toop:CountryCode>
       </toop:LegalPersonLegalAddress>
     </toop:LegalPerson>
   </toop:DataRequestSubject>

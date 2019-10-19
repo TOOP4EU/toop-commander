@@ -32,3 +32,5 @@ data/tests/receivedattachments
 .vscode
 dump
 .factorypath
+data/request
+data/response

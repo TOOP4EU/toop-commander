@@ -73,6 +73,9 @@ public class ToopMessageCreator {
   public static TDETOOPRequestType createDCRequest(String identifier, String country, String metadataFile) {
     LOGGER.debug("Create a DC request from  identifier " + identifier + " country : " + country);
 
+    if(metadataFile == null || metadataFile.isEmpty())
+      metadataFile = "data/request-metadata.conf";
+
     Config conf = parseMetadataFile(metadataFile);
 
 
@@ -113,11 +116,17 @@ public class ToopMessageCreator {
     routingInformation.setProcessIdentifier(ToopXSDHelper140.createIdentifier("toop-procid-agreement", EPredefinedProcessIdentifier.DATAREQUESTRESPONSE.getID()));
     routingInformation.setDataConsumerElectronicAddressIdentifier(createParticipantId(conf));
     String dataConsumerCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataConsumerCountryCode", "GF");
-    String dataProviderCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataProviderCountryCode", "SV");
     routingInformation.setDataConsumerCountryCode(ToopXSDHelper140.createCode(dataConsumerCountryCode));
+
+    String dataProviderCountryCode;
+    if(country != null){
+      dataProviderCountryCode = country;
+    } else {
+      dataProviderCountryCode = getOrDefault(conf, "ToopMessage.RoutingInformation.DataProviderCountryCode", "SV");
+    }
+
     routingInformation.setDataProviderCountryCode(ToopXSDHelper140.createCode(dataProviderCountryCode));
     tdetoopRequestType.setRoutingInformation(routingInformation);
-
     final TDEDataRequestSubjectType dataRequestSubjectType = new TDEDataRequestSubjectType();
 
     TDEDataConsumerType dataConsumerType = v140Factory.createTDEDataConsumerType();
@@ -130,7 +139,6 @@ public class ToopMessageCreator {
     tdetoopRequestType.setDataConsumer(dataConsumerType);
 
     fillNaturalPersonProperties(dataRequestSubjectType, identifier, conf);
-    //fillLegalPersonProperties(conf, dataRequestSubjectType);
     tdetoopRequestType.setDataRequestSubject(dataRequestSubjectType);
 
     TDEDataRequestAuthorizationType authorization = v140Factory.createTDEDataRequestAuthorizationType();
@@ -262,7 +270,7 @@ public class ToopMessageCreator {
 
     LOGGER.debug("Parse metadata file: " + metadataFile);
 
-    return CommanderUtil.resolveConfiguration(metadataFile);
+    return CommanderUtil.resolveConfiguration(metadataFile, false);
   }
 
   /**
@@ -276,7 +284,7 @@ public class ToopMessageCreator {
   private static String getOrDefault(Config conf, String key, String defaultValue) {
     String value = conf.getString(key);
 
-    if (value != null) {
+    if (value == null) {
       LOGGER.debug("Override default " + key + " value with " + defaultValue);
       value = defaultValue;
     }

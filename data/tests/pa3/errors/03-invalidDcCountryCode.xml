@@ -39,7 +39,7 @@
       9999:freedonia-dev
     </toop:DataConsumerElectronicAddressIdentifier>
     <toop:DataConsumerCountryCode>XY</toop:DataConsumerCountryCode>
-    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+    <toop:DataProviderCountryCode>GQ</toop:DataProviderCountryCode>
   </toop:RoutingInformation>
   <toop:DataConsumer>
     <toop:DCUniqueIdentifier schemeAgencyID="whatsoever">DK3848484848</toop:DCUniqueIdentifier>

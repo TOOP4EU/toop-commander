@@ -64,11 +64,11 @@
     <!--Rule: An electronic address identifier MUST have a scheme identifier attribute. An electronic address identifier scheme MUST be from the list of Toop Party Identifiers described in the ""Toop Policy for using Identifiers"""-->
     <toop:DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:freedonia-dev</toop:DataConsumerElectronicAddressIdentifier>
     <!--keep the routing data from the Request-->
-    <toop:DataConsumerCountryCode>GF</toop:DataConsumerCountryCode>
+    <toop:DataConsumerCountryCode>PF</toop:DataConsumerCountryCode>
     <!--DP ACTION: you can add the DP identifier here-->
     <toop:DataProviderElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0007">9999:elonia-dev</toop:DataProviderElectronicAddressIdentifier>
     <!--keep the routing data from the Request-->
-    <toop:DataProviderCountryCode>SV</toop:DataProviderCountryCode>
+    <toop:DataProviderCountryCode>GQ</toop:DataProviderCountryCode>
   </toop:RoutingInformation>
   <toop:DataConsumer>
     <!--keep the data from the Request-->

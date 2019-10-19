@@ -46,8 +46,14 @@ public class ToopCommanderMain {
    */
   public static void main(String[] args) throws Exception {
 
-    //transfer the toop-simulator.conf to local directory so that the user can play with it.
+    //transfer the toop-simulator.conf to ./conf folder in the current directory so that the user can play with it.
     CommanderUtil.transferResourceToCurrentDirectory("/toop-commander.conf");
+
+    //transfer the sample toop-request and toop-response to the data directory.
+    CommanderUtil.transferResourceToCurrentDirectory("/data/request/TOOPRequest.xml");
+    CommanderUtil.transferResourceToCurrentDirectory("/data/request/TOOPRequest.asice");
+    CommanderUtil.transferResourceToCurrentDirectory("/data/response/TOOPResponse.xml");
+    CommanderUtil.transferResourceToCurrentDirectory("/data/response/TOOPResponse.asice");
 
     startCommander();
   }
