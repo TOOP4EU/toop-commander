@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2018-2019 toop.eu
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,19 +19,22 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * A class that contains utility functions
  */
-public class CommanderUtil {
+public class Util {
   /**
    * Logger instance
    */
-  private static final Logger LOGGER = LoggerFactory.getLogger(CommanderUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
   /**
    * Check if the first bytes of <code>src</code> match <code>probe</code>
@@ -53,30 +56,20 @@ public class CommanderUtil {
   }
 
   /**
-   * Try to read the given path name (possibly adding the extension <code>.conf</code> as a file or a resource.
-   * <br><br>
-   * <p>
-   * First try a file with name <code>pathname + ".conf"</code> and then
-   * if it doesn't exist, try the resource <code>pathname + ".conf"</code>. If the resource also does not exist,
-   * then throw an Exception
-   * </p>
+   * <p>Try to parse and resolve the given URL as a HOCON resource. If <code>includeSys == true</code> then
+   * a System Properties are also added as fallback</p>
    *
-   * @param pathname the name of the config file to be parsed
+   * @param url the url of the config to be parsed
    * @param includeSys a flag to indicate whether to include the System.properties or not.
    * @return the parsed Config object
    */
-  public static Config resolveConfiguration(String pathname, boolean includeSys) {
+  public static Config resolveConfiguration(URL url, boolean includeSys) {
     Config config;
-    File file = new File(pathname);
-    if (file.exists()) {
-      LOGGER.info("Loading config from the file \"" + file.getName() + "\"");
-      config = ConfigFactory.parseFile(file);
-    } else {
-      LOGGER.info("Loading config from the resource \"" + pathname);
-      config = ConfigFactory.load(pathname);
-    }
 
-    if(includeSys){
+    LOGGER.info("Loading config from the URL \"" + url);
+    config = ConfigFactory.parseURL(url);
+
+    if (includeSys) {
       config = config.withFallback(ConfigFactory.systemProperties());
     }
 
@@ -91,27 +84,27 @@ public class CommanderUtil {
    */
   public static InputStream loadFileOrResourceStream(String path) throws FileNotFoundException {
     ValueEnforcer.notEmpty(path, "file or resource path cannot be null");
-    if(new File(path).exists())
+    if (new File(path).exists())
       return new FileInputStream(path);
-    else{
-      if(LOGGER.isTraceEnabled()){
+    else {
+      if (LOGGER.isTraceEnabled()) {
         LOGGER.trace("file " + path + " missing. Try classpath resource");
       }
       String resourcePath;
-      if(!path.startsWith("/"))
+      if (!path.startsWith("/"))
         resourcePath = "/" + path;
       else
         resourcePath = path;
 
       //never mind the classpath, just try on the current class
-      InputStream inputStream = CommanderUtil.class.getResourceAsStream(resourcePath);
+      InputStream inputStream = Util.class.getResourceAsStream(resourcePath);
 
-      if(inputStream == null){
+      if (inputStream == null) {
         //panic, not found
         throw new FileNotFoundException("A file [" + path + "] or classpath resource [" + resourcePath + "] was not found");
       }
 
-      if(LOGGER.isTraceEnabled()){
+      if (LOGGER.isTraceEnabled()) {
         LOGGER.trace(resourcePath + " hit");
       }
       return inputStream;
@@ -119,31 +112,36 @@ public class CommanderUtil {
   }
 
   /**
-   * Transfer the classpath resource to the current directory if it doesn't exist
+   * Transfer the classpath resource to the provided directory if it doesn't already exist there
    *
    * @param path the resource to be copied
    */
-  public static void transferResourceToCurrentDirectory(String path) {
+  public static void transferResourceToDirectory(String path, String targetDirName) {
     ValueEnforcer.notEmpty(path, "The resource path");
+    ValueEnforcer.notEmpty(targetDirName, "The target directory");
 
-    if (!path.startsWith("/")) {
-      throw new IllegalStateException("Please provide a resource with an absolute path.");
-    }
+    //the resource is already an absolute path. So remove a "/" if it exists
+    if (path.startsWith("/"))
+      path = path.substring(1);
 
-    String localPath = path.substring(1); //strip off the /
-    File file = new File(localPath);
+    URL resource = Util.class.getClassLoader().getResource(path);
 
-    if (!file.exists()) {
+    if (resource == null)
+      throw new IllegalArgumentException("Couldn't find the resource " + path);
 
-      //make sure that we have the directory path.
-      File parentFolder = new File(file.getAbsolutePath()).getParentFile();
+    String resourceName = FilenameUtils.getName(path);
 
-      if(!parentFolder.exists()){
-        parentFolder.mkdirs();
-      }
+    File targetDir = new File(targetDirName);
 
-      try (FileOutputStream fileOutputStream = new FileOutputStream(file);
-           InputStream inputStream = CommanderUtil.class.getResourceAsStream(path)) {
+    File targetFile = new File(targetDir, resourceName);
+
+    //if a file with the same name doesn't exist in the target dir, then create one and transfer the resource
+    if (!targetFile.exists()) {
+      //try to create the path
+      targetDir.mkdirs();
+
+      try (FileOutputStream fileOutputStream = new FileOutputStream(targetFile);
+           InputStream inputStream = resource.openStream()) {
 
         //copy the stream
         StreamHelper.copyInputStreamToOutputStream(inputStream, fileOutputStream);
@@ -154,4 +152,25 @@ public class CommanderUtil {
     }
   }
 
+  /**
+   * <p>If the file with name <code>pathName</code> exists then its path is returned as an URL<br><br>otherwise,
+   * it tries to find the resource with name <code>pathName</code> on the classpath and load its URL and return</p>
+   * @param pathName the file or classpath resource for which an URL is be resolved.
+   * @return the resolved URL
+   */
+  public static URL getFileOrResourceAsURL(String pathName) {
+    URL url;
+
+    File file = new File(pathName);
+    if (file.exists()) {
+      try {
+        url = file.toURI().toURL();
+      } catch (MalformedURLException e) {
+        throw new IllegalArgumentException("Invalid URL \"" + pathName + "\" [MalformedURLException " + e.getMessage() + "]");
+      }
+    } else {
+      url = Util.class.getClassLoader().getResource(pathName);
+    }
+    return url;
+  }
 }

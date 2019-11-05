@@ -17,7 +17,7 @@ package eu.toop.commander;
 
 import com.helger.security.keystore.EKeyStoreType;
 import eu.toop.commander.cli.ToopCommanderCli;
-import eu.toop.commander.util.CommanderUtil;
+import eu.toop.commander.util.Util;
 import eu.toop.commons.util.CliCommand;
 import org.jline.reader.UserInterruptException;
 import org.slf4j.Logger;
@@ -47,13 +47,13 @@ public class ToopCommanderMain {
   public static void main(String[] args) throws Exception {
 
     //transfer the toop-simulator.conf to ./conf folder in the current directory so that the user can play with it.
-    CommanderUtil.transferResourceToCurrentDirectory("/toop-commander.conf");
+    Util.transferResourceToDirectory("/toop-commander.conf", ".");
 
     //transfer the sample toop-request and toop-response to the data directory.
-    CommanderUtil.transferResourceToCurrentDirectory("/data/request/TOOPRequest.xml");
-    CommanderUtil.transferResourceToCurrentDirectory("/data/request/TOOPRequest.asice");
-    CommanderUtil.transferResourceToCurrentDirectory("/data/response/TOOPResponse.xml");
-    CommanderUtil.transferResourceToCurrentDirectory("/data/response/TOOPResponse.asice");
+    Util.transferResourceToDirectory("/data/request/TOOPRequest.xml", "./data/request");
+    Util.transferResourceToDirectory("/data/request/TOOPRequest.asice", "./data/request");
+    Util.transferResourceToDirectory("/data/response/TOOPResponse.xml", "./data/response");
+    Util.transferResourceToDirectory("/data/response/TOOPResponse.asice", "./data/response");
 
     startCommander();
   }

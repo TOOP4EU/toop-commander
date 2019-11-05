@@ -16,10 +16,11 @@
 package eu.toop.commander;
 
 import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import eu.toop.commander.util.CommanderUtil;
+import eu.toop.commander.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.URL;
 
 /**
  * The utility class for reading the toop-commander.conf file.
@@ -74,10 +75,9 @@ public class CommanderConfig {
     //check if the file toop-commander.conf exists, and load it,
     //otherwise go for classpath resource
     String pathName = "toop-commander.conf";
+    URL url = Util.getFileOrResourceAsURL(pathName);
 
-    Config conf = CommanderUtil.resolveConfiguration(pathName, true)
-        .withFallback(ConfigFactory.systemProperties())
-        .resolve();
+    Config conf = Util.resolveConfiguration(url, true);
     cliEnabled = conf.getBoolean("toop-commander.cliEnabled");
     dcEnabled = conf.getBoolean("toop-commander.dcEnabled");
     dpEnabled = conf.getBoolean("toop-commander.dpEnabled");

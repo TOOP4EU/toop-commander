@@ -25,7 +25,7 @@ import com.helger.asic.SignatureHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.keystore.EKeyStoreType;
 
-import eu.toop.commander.util.CommanderUtil;
+import eu.toop.commander.util.Util;
 import eu.toop.commons.dataexchange.v140.TDETOOPRequestType;
 import eu.toop.commons.dataexchange.v140.TDETOOPResponseType;
 import eu.toop.commons.error.ToopErrorException;
@@ -178,13 +178,13 @@ public class ConnectorManager {
     public void sendMessage(String file, String url) {
       LOGGER.info("Send file/cp resource" + file + " to the endpoint " + url);
 
-      try (InputStream inputStream = CommanderUtil.loadFileOrResourceStream(file)) {
+      try (InputStream inputStream = Util.loadFileOrResourceStream(file)) {
 
         byte[] allBytes = StreamHelper.getAllBytes(inputStream);
 
         //check the first bytes to decide if its an xml file or an asic
 
-        boolean isAsic = CommanderUtil.matchHeader(allBytes, new byte[]{0x50, 0x4b, 0x03, 0x04});
+        boolean isAsic = Util.matchHeader(allBytes, new byte[]{0x50, 0x4b, 0x03, 0x04});
 
         if (isAsic) {
           LOGGER.debug("The file is an asic. Send it directly to " + url);

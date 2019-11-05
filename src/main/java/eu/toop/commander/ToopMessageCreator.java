@@ -33,7 +33,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import eu.toop.commander.util.CommanderUtil;
+import eu.toop.commander.util.Util;
 import eu.toop.commons.dataexchange.v140.*;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.IndicatorType;
 import oasis.names.specification.ubl.schema.xsd.unqualifieddatatypes_21.TextType;
@@ -169,7 +169,7 @@ public class ToopMessageCreator {
   public static TDETOOPResponseType createDPResponse(String identifier, String country, String metadataFile) {
     Config conf = parseMetadataFile(metadataFile);
     //use the sample response as a basis
-    try (InputStream fis = CommanderUtil.loadFileOrResourceStream("data/response/TOOPResponse.asice")) {
+    try (InputStream fis = Util.loadFileOrResourceStream("data/response/TOOPResponse.asice")) {
       TDETOOPResponseType response = ToopMessageBuilder140.parseResponseMessage(fis, null);
       fillNaturalPersonProperties(response.getDataRequestSubject(), identifier, conf);
       //fillLegalPersonProperties(conf, response.getDataRequestSubject());
@@ -270,7 +270,7 @@ public class ToopMessageCreator {
 
     LOGGER.debug("Parse metadata file: " + metadataFile);
 
-    return CommanderUtil.resolveConfiguration(metadataFile, false);
+    return Util.resolveConfiguration(Util.getFileOrResourceAsURL(metadataFile), false);
   }
 
   /**
