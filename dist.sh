@@ -16,7 +16,7 @@
 #
 
 
-COMMANDER_VERSION=0.10.6-SNAPSHOT
+COMMANDER_VERSION=0.10.9-SNAPSHOT
 
 mvn -Dmaven.test.skip=true clean verify
 
