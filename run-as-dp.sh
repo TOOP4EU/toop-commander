@@ -15,11 +15,21 @@
 # limitations under the License.
 #
 
-version="0.10.6-SNAPSHOT"
+
+version=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+JAR="target/toop-commander-${version}-bundle.jar"
+
+if [[ ! -r $JAR ]]
+then
+  mvn verify
+else
+  echo "$JAR exists"
+fi
+
 java -DDC_ENABLED=false \
     -DDP_PORT=8080 \
     -DCLI_ENABLED=false \
-    -DFROM_DP_URL="tc-freedonia.dev.exchange.toop.eu" \  #the connector host
-    -DFROM_DP_PORT=80 \                                  #the connector port
-    -jar toop-commander-${version}.jar
+    -DFROM_DP_URL="tc-freedonia.dev.exchange.toop.eu" \
+    -DFROM_DP_PORT=80 \
+    -jar $JAR
 
