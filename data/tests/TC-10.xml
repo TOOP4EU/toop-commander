@@ -17,48 +17,53 @@
 
 -->
 <Request xmlns="urn:eu:toop:ns:dataexchange-1p40">
-    <DocumentUniversalUniqueIdentifier schemeID="toop-doctypeid-qns" schemeAgencyID="demo-agency">a45dda71-f838-4fa3-b53e-dcc764ecdabe</DocumentUniversalUniqueIdentifier>
-    <DocumentIssueDate>2019-03-11</DocumentIssueDate>
-    <DocumentIssueTime>15:04:35.488</DocumentIssueTime>
-    <CopyIndicator>false</CopyIndicator>
-    <SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request</SpecificationIdentifier>
-    <DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">DC-ID-17</DataConsumerDocumentIdentifier>
-    <RoutingInformation>
-        <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.registeredorganization::1.40</DocumentTypeIdentifier>
+  <DocumentUniversalUniqueIdentifier schemeID="toop-doctypeid-qns" schemeAgencyID="demo-agency">a45dda71-f838-4fa3-b53e-dcc764ecdabe
+  </DocumentUniversalUniqueIdentifier>
+  <DocumentIssueDate>2019-03-11</DocumentIssueDate>
+  <DocumentIssueTime>15:04:35.488</DocumentIssueTime>
+  <CopyIndicator>false</CopyIndicator>
+  <SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request</SpecificationIdentifier>
+  <DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">DC-ID-17</DataConsumerDocumentIdentifier>
+  <RoutingInformation>
+    <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">
+      urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.registeredorganization::1.40
+    </DocumentTypeIdentifier>
     <ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.datarequestresponse</ProcessIdentifier>
-        <DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0002">9999:freedonia-dev</DataConsumerElectronicAddressIdentifier>
-        <DataConsumerCountryCode>PF</DataConsumerCountryCode>
-        <DataProviderCountryCode>GQ</DataProviderCountryCode>
-    </RoutingInformation>
-    <DataConsumer>
-        <DCUniqueIdentifier schemeID="9914" schemeAgencyID="whatsoever">ATU12345678</DCUniqueIdentifier>
-        <DCName>Helger Enterprises</DCName>
-        <DCLegalAddress>
-            <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType"
-                         levelOfAssurance="None">PF</CountryCode>
-        </DCLegalAddress>
-    </DataConsumer>
-    <DataRequestSubject>
-        <DataRequestSubjectTypeCode>LE</DataRequestSubjectTypeCode>
-        <LegalPerson>
-            <LegalPersonUniqueIdentifier levelOfAssurance="None">GQ/PF/67890</LegalPersonUniqueIdentifier>
-            <LegalName levelOfAssurance="None">sampleLegalPersonName</LegalName>
-            <LegalPersonLegalAddress>
-                <CountryCode levelOfAssurance="None">GQ</CountryCode>
-            </LegalPersonLegalAddress>
-        </LegalPerson>
-    </DataRequestSubject>
-    <DataRequestAuthorization>
-        <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
-    </DataRequestAuthorization>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaCompanyName</ConceptName>
-            <ConceptDefinition>Definition of FreedoniaCompanyName</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
+    <DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0002">9999:freedonia-dev
+    </DataConsumerElectronicAddressIdentifier>
+    <DataConsumerCountryCode>PF</DataConsumerCountryCode>
+    <DataProviderCountryCode>GQ</DataProviderCountryCode>
+  </RoutingInformation>
+  <DataConsumer>
+    <DCUniqueIdentifier schemeID="9914" schemeAgencyID="whatsoever">ATU12345678</DCUniqueIdentifier>
+    <DCName>Helger Enterprises</DCName>
+    <DCLegalAddress>
+      <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType"
+                   levelOfAssurance="None">PF
+      </CountryCode>
+    </DCLegalAddress>
+  </DataConsumer>
+  <DataRequestSubject>
+    <DataRequestSubjectTypeCode>LE</DataRequestSubjectTypeCode>
+    <LegalPerson>
+      <LegalPersonUniqueIdentifier levelOfAssurance="None">GQ/PF/67890</LegalPersonUniqueIdentifier>
+      <LegalName levelOfAssurance="None">sampleLegalPersonName</LegalName>
+      <LegalPersonLegalAddress>
+        <CountryCode levelOfAssurance="None">GQ</CountryCode>
+      </LegalPersonLegalAddress>
+    </LegalPerson>
+  </DataRequestSubject>
+  <DataRequestAuthorization>
+    <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
+  </DataRequestAuthorization>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaCompanyName</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaCompanyName</ConceptDefinition>
+    </ConceptRequest>
+  </DataElementRequest>
 </Request>

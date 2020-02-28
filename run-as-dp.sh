@@ -26,10 +26,15 @@ else
   echo "$JAR exists"
 fi
 
-java -DDC_ENABLED=false \
-    -DDP_PORT=8080 \
-    -DCLI_ENABLED=false \
-    -DFROM_DP_URL="tc-freedonia.dev.exchange.toop.eu" \
-    -DFROM_DP_PORT=80 \
-    -jar $JAR
+export DC_ENABLED=false
+export DP_PORT=8082
+export CLI_ENABLED=false
+export FROM_DP_URL="localhost"
+export FROM_DP_PORT="8081"
 
+#  To connect to the playground freedonia tc
+#  export FROM_DP_URL="tc-elonia.dev.exchange.toop.eu"
+#  export FROM_DP_PORT=80
+
+
+java -jar $JAR

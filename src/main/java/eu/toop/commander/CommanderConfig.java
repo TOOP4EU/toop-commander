@@ -98,6 +98,21 @@ public class CommanderConfig {
       testStepWaitTimeout = conf.getLong("toop-commander.test.testStepWaitTimeout");
     else
       testStepWaitTimeout = 30000l; //default to 30 seconds
+
+
+    LOGGER.debug("cliEnabled: " + cliEnabled);
+    LOGGER.debug("dcEnabled: " + dcEnabled);
+    LOGGER.debug("dpEnabled: " + dpEnabled);
+    LOGGER.debug("dcPort: " + dcPort);
+    LOGGER.debug("dpPort: " + dpPort);
+    LOGGER.debug("keystore: " + keystore);
+    LOGGER.debug("keystorePassword: " + keystorePassword);
+    LOGGER.debug("keyAlias: " + keyAlias);
+    LOGGER.debug("keyPassword: " + keyPassword);
+    LOGGER.debug("dcConnectorBaseURL: " + dcConnectorBaseURL);
+    LOGGER.debug("fromDCURL: " + fromDCURL);
+    LOGGER.debug("fromDPURL: " + fromDPURL);
+    LOGGER.debug("testStepWaitTimeout: " + testStepWaitTimeout);
   }
 
   /**

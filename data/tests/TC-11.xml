@@ -17,61 +17,65 @@
 
 -->
 <Request xmlns="urn:eu:toop:ns:dataexchange-1p40">
-    <DocumentUniversalUniqueIdentifier schemeID="toop-doctypeid-qns" schemeAgencyID="demo-agency">a45dda71-f838-4fa3-b53e-dcc764ecdabe</DocumentUniversalUniqueIdentifier>
-    <DocumentIssueDate>2019-03-11</DocumentIssueDate>
-    <DocumentIssueTime>15:04:35.488</DocumentIssueTime>
-    <CopyIndicator>false</CopyIndicator>
+  <DocumentUniversalUniqueIdentifier schemeID="toop-doctypeid-qns" schemeAgencyID="demo-agency">a45dda71-f838-4fa3-b53e-dcc764ecdabe
+  </DocumentUniversalUniqueIdentifier>
+  <DocumentIssueDate>2019-03-11</DocumentIssueDate>
+  <DocumentIssueTime>15:04:35.488</DocumentIssueTime>
+  <CopyIndicator>false</CopyIndicator>
   <SpecificationIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request</SpecificationIdentifier>
   <DataConsumerDocumentIdentifier schemeAgencyID="whatsoever">DC-ID-17</DataConsumerDocumentIdentifier>
   <RoutingInformation>
-    <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.registeredorganization::1.40</DocumentTypeIdentifier>
+    <DocumentTypeIdentifier schemeID="toop-doctypeid-qns">
+      urn:eu:toop:ns:dataexchange-1p40::Request##urn:eu.toop.request.registeredorganization::1.40
+    </DocumentTypeIdentifier>
     <ProcessIdentifier schemeID="toop-procid-agreement">urn:eu.toop.process.datarequestresponse</ProcessIdentifier>
-    <DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0002">9999:freedonia-dev</DataConsumerElectronicAddressIdentifier>
+    <DataConsumerElectronicAddressIdentifier schemeID="iso6523-actorid-upis" schemeAgencyID="0002">9999:freedonia-dev
+    </DataConsumerElectronicAddressIdentifier>
     <DataConsumerCountryCode>PF</DataConsumerCountryCode>
     <DataProviderCountryCode>GQ</DataProviderCountryCode>
   </RoutingInformation>
-    <DataConsumer>
+  <DataConsumer>
     <DCUniqueIdentifier schemeID="9914" schemeAgencyID="whatsoever">ATU12345678</DCUniqueIdentifier>
-        <DCName>Helger Enterprises</DCName>
-        <DCLegalAddress>
-        <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType" levelOfAssurance="None">SE</CountryCode>
-        </DCLegalAddress>
-    </DataConsumer>
-    <DataRequestSubject>
-        <DataRequestSubjectTypeCode>NP</DataRequestSubjectTypeCode>
-        <NaturalPerson>
-            <PersonIdentifier levelOfAssurance="None">GQ/PF/12345</PersonIdentifier>
-            <FamilyName levelOfAssurance="None">Stern</FamilyName>
-            <FirstName levelOfAssurance="None">Maximillian</FirstName>
-            <BirthDate levelOfAssurance="None">2018-10-08</BirthDate>
-            <NaturalPersonLegalAddress>
-                <CountryCode levelOfAssurance="None">GQ</CountryCode>
-            </NaturalPersonLegalAddress>
-        </NaturalPerson>
-    </DataRequestSubject>
-    <DataRequestAuthorization>
-        <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
-    </DataRequestAuthorization>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaStreetAddress</ConceptName>
-            <ConceptDefinition>Definition of FreedoniaStreetAddress</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaSSNumber</ConceptName>
+    <DCName>Helger Enterprises</DCName>
+    <DCLegalAddress>
+      <CountryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CodeWithLOAType" levelOfAssurance="None">SE</CountryCode>
+    </DCLegalAddress>
+  </DataConsumer>
+  <DataRequestSubject>
+    <DataRequestSubjectTypeCode>NP</DataRequestSubjectTypeCode>
+    <NaturalPerson>
+      <PersonIdentifier levelOfAssurance="None">GQ/PF/12345</PersonIdentifier>
+      <FamilyName levelOfAssurance="None">Stern</FamilyName>
+      <FirstName levelOfAssurance="None">Maximillian</FirstName>
+      <BirthDate levelOfAssurance="None">2018-10-08</BirthDate>
+      <NaturalPersonLegalAddress>
+        <CountryCode levelOfAssurance="None">GQ</CountryCode>
+      </NaturalPersonLegalAddress>
+    </NaturalPerson>
+  </DataRequestSubject>
+  <DataRequestAuthorization>
+    <DataRequestConsentToken mimeCode="application/octet-stream">MTExMDEwMTAxMDEwMTAwMDExMTAxMDE=</DataRequestConsentToken>
+  </DataRequestAuthorization>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaStreetAddress</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaStreetAddress</ConceptDefinition>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaSSNumber</ConceptName>
       <ConceptDefinition>Definition of FreedoniaSSNumber</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
+    </ConceptRequest>
+  </DataElementRequest>
   <!--
     <DataElementRequest>
         <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
@@ -83,68 +87,68 @@
       <ConceptDefinition>Definition of FreedoniaBusinessCode</ConceptDefinition>
         </ConceptRequest>
   </DataElementRequest>-->
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaVATNumber</ConceptName>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaVATNumber</ConceptName>
       <ConceptDefinition>Definition of FreedoniaVATNumber</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaCompanyType</ConceptName>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaCompanyType</ConceptName>
       <ConceptDefinition>Definition of FreedoniaCompanyType</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaRegistrationDate</ConceptName>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaRegistrationDate</ConceptName>
       <ConceptDefinition>Definition of FreedoniaRegistrationDate</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaRegistrationNumber</ConceptName>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaRegistrationNumber</ConceptName>
       <ConceptDefinition>Definition of FreedoniaRegistrationNumber</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaCompanyName</ConceptName>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaCompanyName</ConceptName>
       <ConceptDefinition>Definition of FreedoniaCompanyName</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <!-- Missing mapping for this concept in SMS (hamster.tno.nl)
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaCompanyNaceCode</ConceptName>
-            <ConceptDefinition>Definition of FreedoniaCompanyNaceCode</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    -->
+    </ConceptRequest>
+  </DataElementRequest>
+  <!-- Missing mapping for this concept in SMS (hamster.tno.nl)
+  <DataElementRequest>
+      <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+      <ConceptRequest>
+          <ConceptTypeCode>DC</ConceptTypeCode>
+          <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+          <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+          <ConceptName>FreedoniaCompanyNaceCode</ConceptName>
+          <ConceptDefinition>Definition of FreedoniaCompanyNaceCode</ConceptDefinition>
+      </ConceptRequest>
+  </DataElementRequest>
+  -->
   <!--<DataElementRequest>
     <DataElementRequestIdentifier>bla</DataElementRequestIdentifier>
         <ConceptRequest>
@@ -155,34 +159,34 @@
             <ConceptDefinition>Definition of FreedoniaActivityDeclaration</ConceptDefinition>
         </ConceptRequest>
   </DataElementRequest>-->
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaRegistrationAuthority</ConceptName>
-            <ConceptDefinition>Definition of FreedoniaRegistrationAuthority</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaLegalStatus</ConceptName>
-            <ConceptDefinition>Definition of FreedoniaLegalStatus</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
-    <DataElementRequest>
-        <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
-        <ConceptRequest>
-            <ConceptTypeCode>DC</ConceptTypeCode>
-            <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
-            <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
-            <ConceptName>FreedoniaLegalStatusEffectiveDate</ConceptName>
-            <ConceptDefinition>Definition of FreedoniaLegalStatusEffectiveDate</ConceptDefinition>
-        </ConceptRequest>
-    </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaRegistrationAuthority</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaRegistrationAuthority</ConceptDefinition>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaLegalStatus</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaLegalStatus</ConceptDefinition>
+    </ConceptRequest>
+  </DataElementRequest>
+  <DataElementRequest>
+    <DataElementRequestIdentifier>1a19b7b6-ce34-4657-a6bd-fb08a47e0798</DataElementRequestIdentifier>
+    <ConceptRequest>
+      <ConceptTypeCode>DC</ConceptTypeCode>
+      <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
+      <ConceptNamespace>http://toop.fre/freedonia-business-register</ConceptNamespace>
+      <ConceptName>FreedoniaLegalStatusEffectiveDate</ConceptName>
+      <ConceptDefinition>Definition of FreedoniaLegalStatusEffectiveDate</ConceptDefinition>
+    </ConceptRequest>
+  </DataElementRequest>
 </Request>

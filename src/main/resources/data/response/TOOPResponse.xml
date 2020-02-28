@@ -66,7 +66,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>streetAddress</ConceptName>
+              <ConceptName>StreetAddress</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -174,7 +174,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>companyType</ConceptName>
+              <ConceptName>CompanyType</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -201,7 +201,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>registrationDate</ConceptName>
+              <ConceptName>RegistrationDate</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -255,7 +255,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>companyName</ConceptName>
+              <ConceptName>CompanyName</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -282,7 +282,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>naceCode</ConceptName>
+              <ConceptName>NaceCode</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -309,7 +309,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>activityDescription</ConceptName>
+              <ConceptName>ActivityDescription</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -363,7 +363,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>legalStatus</ConceptName>
+              <ConceptName>LegalStatus</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>
@@ -390,7 +390,7 @@
         <ConceptTypeCode>TC</ConceptTypeCode>
               <SemanticMappingExecutionIndicator>true</SemanticMappingExecutionIndicator>
               <ConceptNamespace>http://toop.eu/registered-organization</ConceptNamespace>
-              <ConceptName>legalStatusEffectiveDate</ConceptName>
+              <ConceptName>LegalStatusEffectiveDate</ConceptName>
               <ConceptRequest>
           <ConceptTypeCode>DP</ConceptTypeCode>
                   <SemanticMappingExecutionIndicator>false</SemanticMappingExecutionIndicator>

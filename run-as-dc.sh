@@ -15,19 +15,27 @@
 # limitations under the License.
 #
 
-version=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+version=$(mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[')
 JAR="target/toop-commander-${version}-bundle.jar"
 
-if [[ ! -r $JAR ]]
-then
+if [[ ! -r $JAR ]]; then
   mvn verify
 else
   echo "$JAR exists"
 fi
 
-java -DDP_ENABLED=false \
-     -DDC_PORT=8081 \
-     -DCLI_ENABLED=true \
-     -DFROM_DC_URL="tc-freedonia.dev.exchange.toop.eu" \
-     -DFROM_DC_PORT=80 \
-     -jar $JAR
+
+
+export DP_ENABLED=false
+export DC_PORT=8080
+export CLI_ENABLED=true
+export FROM_DC_URL="localhost"
+export FROM_DC_PORT="8081"
+
+#  To connect to the playground freedonia tc
+#  export FROM_DC_URL="tc-freedonia.dev.exchange.toop.eu"
+#  export FROM_DC_PORT=80
+
+
+java -jar $JAR
+
