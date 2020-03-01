@@ -8,7 +8,7 @@ A simple java command line app (with auto complete) that creates a dp and dc end
 
 To compile the entire project, run "mvn verify".
 
-To run the application, go to `./target` dir run `java -jar toop-commander-0.10.6-bundle.jar` and open `http://localhost:10101` to verify that it is working.
+To run the application, go to `./target` dir run `java -jar toop-commander-{VERSION}-bundle.jar` and open `http://localhost:10101` to verify that it is working.
 
 After deploying the `/to-dc` and `/to-dp` endpoints, it will enter command line mode for sending messages to the configured connector.
 
@@ -154,5 +154,4 @@ When you run toop-commander, you need to provide a key store and `toop-commander
 
 The configuration keys in the `toop-commander.conf` are all commented and you shouldn't have a problem understanding it.
 
-
- 
+For a detailed user guide please visit [here](http://wiki.ds.unipi.gr/display/TOOP/Toop+Commander+Users+Guide).
